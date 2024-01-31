@@ -1,0 +1,113 @@
+import React from "react";
+import { Form, Input, Button, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import api from "../config/axios";
+import { toast } from "react-toastify";
+
+const Login = () => {
+  const onFinish = async (values) => {
+    console.log("Received values:", values);
+    try {
+      const response = await api.post("/authentication/login", values);
+      localStorage.setItem("token", response.data.token);
+    } catch (e) {
+      console.log(e);
+      toast.error(e.response.data);
+    }
+  };
+
+  return (
+    <section className="container ">
+      <div className="container-fluid h-custom">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-md-9 col-lg-6 col-xl-5">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              className="img-fluid "
+              alt="Sample image"
+            />
+          </div>
+          <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-2">
+            <Form
+              name="loginForm"
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
+            >
+              <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                <p className="lead fw-normal mb-0 me-3">Sign in with</p>
+                <Button type="primary" className="btn-floating mx-1">
+                  <i className="fab fa-facebook-f" />
+                </Button>
+                <Button type="primary" className="btn-floating mx-1">
+                  <i className="fab fa-twitter" />
+                </Button>
+                <Button type="primary" className="btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </Button>
+              </div>
+              <div className="divider d-flex align-items-center my-4">
+                <p className="text-center fw-bold mx-3 mb-0">Or</p>
+              </div>
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your username!",
+                  },
+                ]}
+              >
+                <Input
+                  type="text"
+                  placeholder="Enter a valid username"
+                  size="large"
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your password!",
+                  },
+                ]}
+              >
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  size="large"
+                />
+              </Form.Item>
+              <div className="d-flex justify-content-between align-items-center">
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+                <a href="#!" className="text-body">
+                  Forgot password?
+                </a>
+              </div>
+              <div className="text-center text-lg-start mt-4 pt-2">
+                <Button
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
+                >
+                  Login
+                </Button>
+                <p className="small fw-bold mt-2 pt-1 mb-0">
+                  Don't have an account?{" "}
+                  <a href="#!" className="link-danger">
+                    Register
+                  </a>
+                </p>
+              </div>
+            </Form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Login;
