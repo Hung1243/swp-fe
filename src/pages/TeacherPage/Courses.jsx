@@ -1,5 +1,6 @@
-import React from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useState } from "react";
+import { Button, Modal, Space, Table, Tag } from "antd";
+import AddNewCourse from "./AddNewCourse";
 const columns = [
   {
     title: "STT",
@@ -135,13 +136,35 @@ const data = [
     tags: ["cool", "teacher"],
   },
 ];
-const Courses = () => (
-  <Table
-    pagination={{
-      pageSize: 8,
-    }}
-    columns={columns}
-    dataSource={data}
-  />
-);
+const Courses = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        + Thêm
+      </Button>
+      <Table
+        pagination={{
+          pageSize: 8,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+      <Modal
+        title="Modal 1000px width"
+        centered
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width={1000}
+      >
+        <AddNewCourse />
+      </Modal>
+    </>
+  );
+};
 export default Courses;

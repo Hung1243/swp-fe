@@ -3,19 +3,60 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../reudux/feature/accountSlice";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { provider } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     console.log("Received values:", values);
     try {
       const response = await api.post("/authentication/login", values);
       localStorage.setItem("token", response.data.token);
+      console.log(response.data);
+      if (response.data.role == "TEACHER") {
+        navigate("/dashboard/teacher");
+      } else {
+        navigate("/dashboard/admin");
+      }
+      dispatch(login(response.data));
     } catch (e) {
       console.log(e);
       toast.error(e.response.data);
     }
   };
-
+  const handleLoginGoogle = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        console.log(result.user.accessToken);
+        const response = await api.post("/authentication/loginGoogle", {
+          token: result.user.accessToken,
+        });
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data);
+        if (response.data.role == "TEACHER") {
+          navigate("/dashboard/teacher");
+        } else {
+          navigate("/dashboard/admin");
+        }
+        dispatch(login(response.data));
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   return (
     <section className="container ">
       <div className="container-fluid h-custom">
@@ -41,7 +82,11 @@ const Login = () => {
                 <Button type="primary" className="btn-floating mx-1">
                   <i className="fab fa-twitter" />
                 </Button>
-                <Button type="primary" className="btn-floating mx-1">
+                <Button
+                  type="primary"
+                  className="btn-floating mx-1"
+                  onClick={handleLoginGoogle}
+                >
                   <i class="fab fa-google"></i>
                 </Button>
               </div>
