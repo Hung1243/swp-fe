@@ -8,7 +8,6 @@ const PrivateRoute = ({ role }) => {
   if (account.role === role) return <Outlet />;
   return (
     <Result
-      style={{ width: "100vw" }}
       status="403"
       title="403"
       subTitle="Sorry, you are not authorized to access this page."

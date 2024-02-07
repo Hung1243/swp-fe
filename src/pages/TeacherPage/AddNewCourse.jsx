@@ -110,7 +110,7 @@ const CourseChapterForm = () => {
                     },
                   ]}
                 >
-                  <Input placeholder="First Name" />
+                  <Input placeholder="Mã chương" />
                 </Form.Item>
                 <Form.Item
                   {...restField}
@@ -122,7 +122,7 @@ const CourseChapterForm = () => {
                     },
                   ]}
                 >
-                  <Input placeholder="Last Name" />
+                  <Input placeholder="Tên chương" />
                 </Form.Item>
                 <MinusCircleOutlined onClick={() => remove(name)} />
               </Space>
@@ -141,6 +141,76 @@ const CourseChapterForm = () => {
         </>
       )}
     </Form.List>
+  );
+};
+
+const CourseLessonForm = () => {
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
+  const filterOption = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  return (
+    <>
+      <Row gutter={12}>
+        <Col span={12}>
+          <Form.Item name="categoryId" label="Chương">
+            <Select
+              showSearch
+              placeholder="Select a person"
+              optionFilterProp="children"
+              onChange={onChange}
+              onSearch={onSearch}
+              filterOption={filterOption}
+              options={[
+                {
+                  value: "jack",
+                  label: "Jack",
+                },
+                {
+                  value: "lucy",
+                  label: "Lucy",
+                },
+                {
+                  value: "tom",
+                  label: "Tom",
+                },
+              ]}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item wrapperCol={12} name="lessonName" label="Tên bài giảng">
+            <Input></Input>
+          </Form.Item>{" "}
+        </Col>
+        <Col span={12}>
+          <Form.Item wrapperCol={12} name="videoLink" label="Thêm video">
+            <Input
+              type="file"
+              onChange={async (e) => {
+                const url = await uploadFile(e.target.files[0]);
+                console.log(url);
+              }}
+            ></Input>
+          </Form.Item>{" "}
+        </Col>
+        <Col span={12}>
+          <Form.Item name="quizLink" label="Thêm bài tập">
+            <Input
+              type="file"
+              onChange={async (e) => {
+                const url = await uploadFile(e.target.files[0]);
+                console.log(url);
+              }}
+            ></Input>
+          </Form.Item>
+        </Col>
+      </Row>
+    </>
   );
 };
 
@@ -175,7 +245,7 @@ const AddNewCourse = ({ onSubmit }) => {
     },
     {
       title: "Thêm bài học / Bài kiểm tra",
-      content: "Last-content",
+      content: <CourseLessonForm />,
     },
   ];
   const items = steps.map((item) => ({

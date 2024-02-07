@@ -58,9 +58,9 @@ const Login = () => {
       });
   };
   return (
-    <section className="container ">
-      <div className="container-fluid h-custom">
-        <div className="row d-flex justify-content-center align-items-center h-100">
+    <section>
+      <div className="container">
+        <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
@@ -142,7 +142,7 @@ const Login = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Don't have an account?{" "}
-                  <a href="#!" className="link-danger">
+                  <a href="./register" className="link-danger">
                     Register
                   </a>
                 </p>
