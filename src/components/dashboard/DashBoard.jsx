@@ -27,7 +27,11 @@ const DashBoard = ({ role }) => {
         {
           key: "1",
           icon: <UserOutlined />,
-          label: "Các khóa học",
+          label: (
+            <Link to="courses" className="text-decoration-none">
+              Các khóa học
+            </Link>
+          ),
         },
         {
           key: "2",
