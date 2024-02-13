@@ -6,6 +6,8 @@ import DashBoard from "./components/dashboard/DashBoard";
 import Courses from "./pages/TeacherPage/Courses";
 import AddNewCourse from "./pages/TeacherPage/AddNewCourse";
 import PrivateRoute from "./components/private-route";
+import HomeTemplate from "./homeTemplate/HomeTemplate";
+import HomePage from "./pages/homePage/HomePage";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
             </Route>
           </Route>
           {/* <Route path="admin" element={<DashBoard role={"ADMIN"} />}></Route> */}
+        </Route>
+        <Route path="" element={<HomeTemplate />}>
+          <Route index element={<HomePage />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
