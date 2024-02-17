@@ -8,6 +8,10 @@ import AddNewCourse from "./pages/TeacherPage/AddNewCourse";
 import PrivateRoute from "./components/private-route";
 import HomeTemplate from "./homeTemplate/HomeTemplate";
 import HomePage from "./pages/homePage/HomePage";
+import ViewCourses from "./pages/homePage/ViewCourses";
+import ViewCourseDetail from "./pages/homePage/ViewCourseDetail";
+import Payment from "./pages/homePage/Payment";
+import CourseDetail from "./pages/homePage/CourseDetail";
 
 function App() {
   return (
@@ -32,6 +36,9 @@ function App() {
         </Route>
         <Route path="" element={<HomeTemplate />}>
           <Route index element={<HomePage />}></Route>
+          <Route path="" element={<ViewCourses />}></Route>
+          <Route path="" element={<Payment />}></Route>
+          <Route path="" element={<CourseDetail />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
