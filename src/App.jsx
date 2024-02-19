@@ -9,9 +9,11 @@ import PrivateRoute from "./components/private-route";
 import HomeTemplate from "./homeTemplate/HomeTemplate";
 import HomePage from "./pages/homePage/HomePage";
 import ViewCourses from "./pages/homePage/ViewCourses";
-import ViewCourseDetail from "./pages/homePage/ViewCourseDetail";
+// import ViewCourseDetail from "./pages/homePage/ViewCourseDetail";
 import Payment from "./pages/homePage/Payment";
 import CourseDetail from "./pages/homePage/CourseDetail";
+import MyCourse from "./pages/homePage/MyCourse";
+import MyCourseDetail from "./pages/homePage/MyCourseDetail";
 
 function App() {
   return (
@@ -27,18 +29,20 @@ function App() {
             </Route>
           </Route>
           <Route path="admin" element={<PrivateRoute role={"ADMIN"} />}>
-            <Route path="" element={<DashBoard role={"ADMIN"} />}>
-              {/* <Route path="courses" element={<Courses />}></Route>
-              <Route path="add-new" element={<AddNewCourse />}></Route> */}
-            </Route>
+            <Route path="" element={<DashBoard role={"ADMIN"} />}></Route>
           </Route>
-          {/* <Route path="admin" element={<DashBoard role={"ADMIN"} />}></Route> */}
+          <Route path="admin" element={<DashBoard role={"ADMIN"} />}></Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="" element={<ViewCourses />}></Route>
-          <Route path="" element={<Payment />}></Route>
-          <Route path="" element={<CourseDetail />}></Route>
+          <Route path="course">
+            <Route path="" element={<ViewCourses />}></Route>
+            <Route path=":id" element={<CourseDetail />}></Route>
+          </Route>
+          <Route path="enrolled">
+            <Route path="" element={<MyCourse />}></Route>
+            <Route path=":id" element={<MyCourseDetail />}></Route>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
