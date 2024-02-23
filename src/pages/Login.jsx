@@ -3,64 +3,23 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { login } from "../reudux/feature/accountSlice";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { provider } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const onFinish = async (values) => {
     console.log("Received values:", values);
     try {
       const response = await api.post("/authentication/login", values);
       localStorage.setItem("token", response.data.token);
-      console.log(response.data);
-      if (response.data.role == "TEACHER") {
-        navigate("/dashboard/teacher");
-      } else {
-        navigate("/dashboard/admin");
-      }
-      dispatch(login(response.data));
     } catch (e) {
       console.log(e);
       toast.error(e.response.data);
     }
   };
-  const handleLoginGoogle = () => {
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        console.log(result.user.accessToken);
-        const response = await api.post("/authentication/loginGoogle", {
-          token: result.user.accessToken,
-        });
-        localStorage.setItem("token", response.data.token);
-        console.log(response.data);
-        if (response.data.role == "TEACHER") {
-          navigate("/dashboard/teacher");
-        } else {
-          navigate("/dashboard/admin");
-        }
-        dispatch(login(response.data));
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
+
   return (
-    <section>
-      <div className="container">
-        <div className="row d-flex justify-content-center align-items-center">
+    <section className="container ">
+      <div className="container-fluid h-custom">
+        <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
@@ -82,11 +41,7 @@ const Login = () => {
                 <Button type="primary" className="btn-floating mx-1">
                   <i className="fab fa-twitter" />
                 </Button>
-                <Button
-                  type="primary"
-                  className="btn-floating mx-1"
-                  onClick={handleLoginGoogle}
-                >
+                <Button type="primary" className="btn-floating mx-1">
                   <i class="fab fa-google"></i>
                 </Button>
               </div>
@@ -142,7 +97,7 @@ const Login = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Don't have an account?{" "}
-                  <a href="./register" className="link-danger">
+                  <a href="#!" className="link-danger">
                     Register
                   </a>
                 </p>

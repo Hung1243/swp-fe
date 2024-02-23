@@ -1,54 +1,16 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Segmented, Avatar } from "antd";
+import React from "react";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { provider } from "../config/firebase";
-import { useForm } from "antd/es/form/Form";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const Register = () => {
-  const [form] = useForm();
-  const navigate = useNavigate();
-  const [avatar, setAvatar] = useState("");
-  const onFinish = async (values) => {
+  const onFinish = (values) => {
     console.log("Received values:", values);
     try {
-      const response = await api.post("/authentication/register", {
-        ...values,
-        role: role.toUpperCase(),
-      });
-      toast.success("Đã đăng ký thành công");
-      navigate("/login");
+      api.post("/authentication/register", values);
     } catch (e) {
       alert(e.message);
     }
-  };
-
-  const [role, setRole] = useState("Student");
-
-  const handleRegisterWithGoogle = () => {
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        console.log(result.user);
-        form.setFieldValue("fullName", result.user.displayName);
-        form.setFieldValue("email", result.user.email);
-        form.setFieldValue("avatar", result.user.photoURL);
-        setAvatar(result.user.photoURL);
-        form.setFieldValue("username", result.user.email.split("@")[0]);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
   };
 
   return (
@@ -64,7 +26,6 @@ const Register = () => {
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-2">
             <Form
-              form={form}
               name="registerForm"
               initialValues={{ remember: true }}
               onFinish={onFinish}
@@ -77,30 +38,13 @@ const Register = () => {
                 <Button type="primary" className="btn-floating mx-1">
                   <i className="fab fa-twitter" />
                 </Button>
-                <Button
-                  type="primary"
-                  className="btn-floating mx-1"
-                  onClick={handleRegisterWithGoogle}
-                >
+                <Button type="primary" className="btn-floating mx-1">
                   <i className="fab fa-google"></i>
                 </Button>
               </div>
               <div className="divider d-flex align-items-center my-4">
                 <p className="text-center fw-bold mx-3 mb-0">Or</p>
               </div>
-              <Segmented
-                options={["Student", "Teacher"]}
-                default={"Student"}
-                className="mb-4"
-                onChange={(value) => {
-                  setRole(value);
-                }}
-              />{" "}
-              {avatar && (
-                <Form.Item name="avatar">
-                  <Avatar src={avatar} size={100} />
-                </Form.Item>
-              )}
               <Form.Item
                 name="username"
                 rules={[
@@ -151,7 +95,7 @@ const Register = () => {
                 />
               </Form.Item>
               <Form.Item
-                name="fullName"
+                name="fullname"
                 rules={[
                   {
                     required: true,
@@ -193,7 +137,7 @@ const Register = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Already have an account?{" "}
-                  <a href="./login" className="link-danger">
+                  <a href="#!" className="link-danger">
                     Login
                   </a>
                 </p>
