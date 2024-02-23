@@ -25,7 +25,7 @@ function App() {
           <Route path="teacher" element={<PrivateRoute role={"TEACHER"} />}>
             <Route path="" element={<DashBoard role={"TEACHER"} />}>
               <Route path="courses" element={<Courses />}></Route>
-              <Route path="add-new" element={<AddNewCourse />}></Route>
+              {/* <Route path="add-new" element={<AddNewCourse />}></Route> */}
             </Route>
           </Route>
           <Route path="admin" element={<PrivateRoute role={"ADMIN"} />}>

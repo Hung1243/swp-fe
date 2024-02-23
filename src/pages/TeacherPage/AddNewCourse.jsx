@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -9,14 +9,28 @@ import {
   Select,
   Space,
   Steps,
+  Table,
+  Tag,
   theme,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+
 import { useForm } from "antd/es/form/Form";
 import { uploadFile } from "../../utils/upload";
+import api from "../../config/axios";
 
-const CourseInfoForm = () => {
+const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
+  const [categories, setCategories] = useState([]);
+  const fetchCategory = async (values) => {
+    console.log("Received values:", values);
+    try {
+      const response = await api.get("/category");
+      setCategories(response.data);
+    } catch (e) {}
+  };
+  useEffect(() => {
+    fetchCategory();
+  }, []);
   const onChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -27,124 +41,221 @@ const CourseInfoForm = () => {
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   return (
     <>
-      <Row gutter={12}>
-        <Col span={12}>
-          <Form.Item wrapperCol={12} name="courseID" label="Mã môn">
-            <Input></Input>
-          </Form.Item>{" "}
-        </Col>
-        <Col span={12}>
-          <Form.Item wrapperCol={12} name="name" label="Tên môn">
-            <Input></Input>
-          </Form.Item>{" "}
-        </Col>
-        <Col span={12}>
-          <Form.Item name="pictureLink" label="Hình ảnh">
-            <Input
-              type="file"
-              onChange={async (e) => {
-                const url = await uploadFile(e.target.files[0]);
-                console.log(url);
-              }}
-            ></Input>
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="categoryId" label="Danh mục">
-            <Select
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={onChange}
-              onSearch={onSearch}
-              filterOption={filterOption}
-              options={[
+      <Form
+        form={form1}
+        onFinish={onSubmitForm1}
+        labelCol={{
+          span: 24,
+        }}
+      >
+        <Row gutter={12}>
+          <Col span={12}>
+            <Form.Item
+              wrapperCol={12}
+              name="courseID"
+              label="Mã môn"
+              rules={[
                 {
-                  value: "jack",
-                  label: "Jack",
-                },
-                {
-                  value: "lucy",
-                  label: "Lucy",
-                },
-                {
-                  value: "tom",
-                  label: "Tom",
+                  required: true,
+                  message: "Không được để trống ",
                 },
               ]}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item name="name" label="Name">
-            <TextArea />
-          </Form.Item>
-        </Col>
-      </Row>
+            >
+              <Input></Input>
+            </Form.Item>{" "}
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              wrapperCol={12}
+              name="name"
+              label="Tên môn"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống ",
+                },
+              ]}
+            >
+              <Input></Input>
+            </Form.Item>{" "}
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="pictureLink"
+              label="Hình ảnh"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống ",
+                },
+              ]}
+            >
+              <Input
+                type="file"
+                onChange={async (e) => {
+                  const url = await uploadFile(e.target.files[0]);
+                  console.log(url);
+                }}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống ",
+                  },
+                ]}
+              ></Input>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="categoryId"
+              label="Danh mục"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống ",
+                },
+              ]}
+            >
+              <Select
+                showSearch
+                placeholder="Chọn danh mục"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                filterOption={filterOption}
+                options={categories.map((item) => {
+                  return {
+                    label: item.name,
+                    value: item.id,
+                  };
+                })}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              name="description"
+              label="Mô tả"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống ",
+                },
+              ]}
+            >
+              <TextArea />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              wrapperCol={12}
+              name="price"
+              label="Giá tiền"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống ",
+                },
+              ]}
+            >
+              <Input></Input>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
     </>
   );
 };
-const CourseChapterForm = () => {
-  return (
-    <Form.List name="users">
-      {(fields, { add, remove }) => (
-        <>
-          {fields.map(({ key, name, ...restField }) => {
-            console.log(fields);
-            return (
-              <Space
-                key={key}
-                style={{
-                  display: "flex",
-                  marginBottom: 8,
-                }}
-                align="baseline"
-              >
-                <Form.Item
-                  {...restField}
-                  name={[name, "first"]}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Missing first name",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Mã chương" />
-                </Form.Item>
-                <Form.Item
-                  {...restField}
-                  name={[name, "last"]}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Missing last name",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Tên chương" />
-                </Form.Item>
-                <MinusCircleOutlined onClick={() => remove(name)} />
-              </Space>
-            );
-          })}
-          <Form.Item>
+const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
+  const [inputValue, setInputValue] = useState();
+  const handleDone = (index) => {
+    data[index].status = "done";
+    data[index].name = inputValue;
+    setData([...data]);
+    setInputValue();
+  };
+  const [data, setData] = useState([
+    {
+      key: "1",
+      name: "John Brown",
+      status: "done",
+    },
+  ]);
+  const columns = [
+    {
+      title: "STT",
+      dataIndex: "id",
+      key: "number",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Tên chương",
+      dataIndex: "name",
+      key: "name",
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (abc, record, index) => (
+        <Space size="middle">
+          <Button danger type="primary">
+            Delete
+          </Button>
+          {record.status === "edit" ? (
             <Button
-              type="dashed"
-              onClick={() => add()}
-              block
-              icon={<PlusOutlined />}
+              type="primary"
+              onClick={() => {
+                handleDone(index);
+                // console.log(index);
+              }}
             >
-              Add field
+              Done
             </Button>
-          </Form.Item>
-        </>
-      )}
-    </Form.List>
+          ) : (
+            <Button type="primary">Update</Button>
+          )}
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <Button
+        className="m-2"
+        onClick={() => {
+          setData([
+            ...data,
+            {
+              name: (
+                <input
+                  value={inputValue}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setInputValue(e.target.value);
+                  }}
+                />
+              ),
+              status: "edit",
+            },
+          ]);
+        }}
+      >
+        + Thêm
+      </Button>
+      <Table columns={columns} dataSource={data} />
+    </>
   );
 };
 
 const CourseLessonForm = () => {
+  const onFinish = async (values) => {
+    console.log("Received values:", values);
+    try {
+      const response = await api.post("/lesson", values);
+    } catch (e) {}
+  };
   const onChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -214,30 +325,14 @@ const CourseLessonForm = () => {
   );
 };
 
-const AddNewCourse = ({ onSubmit }) => {
+const AddNewCourse = ({ current, onSubmitForm1, form1 }) => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
   const [form] = useForm();
-  const next = () => {
-    setCurrent(current + 1);
-  };
-  const prev = () => {
-    setCurrent(current - 1);
-  };
 
-  const contentStyle = {
-    lineHeight: "260px",
-    textAlign: "center",
-    color: token.colorTextTertiary,
-    backgroundColor: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: `1px dashed ${token.colorBorder}`,
-    marginTop: 16,
-  };
   const steps = [
     {
       title: "Tạo khóa học",
-      content: <CourseInfoForm />,
+      content: <CourseInfoForm form1={form1} onSubmitForm1={onSubmitForm1} />,
     },
     {
       title: "Thêm chương",
@@ -277,35 +372,9 @@ const AddNewCourse = ({ onSubmit }) => {
         style={{
           marginTop: 24,
         }}
-      >
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => {
-              console.log(123);
-              form.submit();
-            }}
-          >
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button
-            style={{
-              margin: "0 8px",
-            }}
-            onClick={() => prev()}
-          >
-            Previous
-          </Button>
-        )}
-      </div>
+      ></div>
     </>
   );
 };
+
 export default AddNewCourse;
