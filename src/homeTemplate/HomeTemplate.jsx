@@ -6,9 +6,9 @@ import Nav from "../components/Header";
 
 const HomeTemplate = () => {
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
+    <div style={{ width: "100vw" }}>
       <Nav />
-      <div className="content" style={{ minHeight: "80vh" }}>
+      <div className="container content" style={{ minHeight: "90vh" }}>
         <Outlet />
       </div>
       <footer className="p-3 text-center bg-black">

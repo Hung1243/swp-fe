@@ -36,7 +36,11 @@ const DashBoard = ({ role }) => {
         {
           key: "2",
           icon: <VideoCameraOutlined />,
-          label: "Chấm điểm",
+          label: (
+            <Link to="grade" className="text-decoration-none">
+              Chấm điểm
+            </Link>
+          ),
         },
         {
           key: "3",
@@ -49,12 +53,21 @@ const DashBoard = ({ role }) => {
         {
           key: "1",
           icon: <UserOutlined />,
-          label: "Quản lí người dùng",
+
+          label: (
+            <Link to="manage-user" className="text-decoration-none">
+              Quản lí người dùng
+            </Link>
+          ),
         },
         {
           key: "2",
           icon: <VideoCameraOutlined />,
-          label: "Quản lí khóa học",
+          label: (
+            <Link to="manage-course" className="text-decoration-none">
+              Quản lí khóa học
+            </Link>
+          ),
         },
       ];
     }
