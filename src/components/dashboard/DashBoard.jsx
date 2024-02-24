@@ -11,7 +11,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 import { DownOutlined } from "@ant-design/icons";
-import { logout } from "../../reudux/feature/accountSlice";
+import { logout } from "../../redux/feature/accountSlice";
 const DashBoard = ({ role }) => {
   const account = useSelector((store) => store.account);
   console.log(account);

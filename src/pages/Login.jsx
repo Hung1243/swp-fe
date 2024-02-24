@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { login } from "../reudux/feature/accountSlice";
+import { login } from "../redux/feature/accountSlice";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { provider } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
