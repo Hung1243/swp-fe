@@ -14,6 +14,12 @@ import Payment from "./pages/homePage/Payment";
 import CourseDetail from "./pages/homePage/CourseDetail";
 import MyCourse from "./pages/homePage/MyCourse";
 import MyCourseDetail from "./pages/homePage/MyCourseDetail";
+import Cart from "./pages/homePage/Cart";
+import Checkout from "./pages/homePage/Checkout";
+import MyProfile from "./pages/homePage/MyProfile";
+import Grade from "./pages/TeacherPage/Grade";
+import UserManagement from "./pages/adminPage/UserManagement";
+import CourseManagement from "./pages/adminPage/CourseManagement";
 
 function App() {
   return (
@@ -25,13 +31,17 @@ function App() {
           <Route path="teacher" element={<PrivateRoute role={"TEACHER"} />}>
             <Route path="" element={<DashBoard role={"TEACHER"} />}>
               <Route path="courses" element={<Courses />}></Route>
-              {/* <Route path="add-new" element={<AddNewCourse />}></Route> */}
+              <Route path="add-new" element={<AddNewCourse />}></Route>
+              <Route path="grade" element={<Grade />}></Route>
             </Route>
           </Route>
           <Route path="admin" element={<PrivateRoute role={"ADMIN"} />}>
             <Route path="" element={<DashBoard role={"ADMIN"} />}></Route>
           </Route>
-          <Route path="admin" element={<DashBoard role={"ADMIN"} />}></Route>
+          <Route path="admin" element={<DashBoard role={"ADMIN"} />}>
+            <Route path="manage-user" element={<UserManagement />}></Route>
+            <Route path="manage-course" element={<CourseManagement />}></Route>
+          </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>
           <Route index element={<HomePage />}></Route>
@@ -42,6 +52,11 @@ function App() {
           <Route path="enrolled">
             <Route path="" element={<MyCourse />}></Route>
             <Route path=":id" element={<MyCourseDetail />}></Route>
+          </Route>
+          <Route path="cart" element={<Cart />}></Route>
+          <Route path="check-out" element={<Checkout />}></Route>
+          <Route path="my-profile">
+            <Route path=":id" element={<MyProfile />}></Route>
           </Route>
         </Route>
       </Routes>
