@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import { AudioOutlined } from "@ant-design/icons";
+import {
+  AudioOutlined,
+  UserDeleteOutlined,
+  SignalFilled,
+  CopyFilled,
+} from "@ant-design/icons";
 import { Button, Checkbox, Table } from "antd";
 import { Input, Space } from "antd";
 const { Search } = Input;
@@ -67,49 +72,42 @@ const ViewCourses = () => {
           </div>
           {data.map((item) => {
             return (
-              <div className="member border mt-3 ">
+              <div className="member border mt-3  ">
                 <div className="row">
                   {" "}
                   <div className="pic col-4">
-                    <img
-                      src={item.pictureLink}
-                      className="img-fluid"
-                      alt
-                    />
+                    <img src={item.pictureLink} className="img-fluid" alt />
                   </div>
                   <div className="member-info col-8 pt-5 ">
-                    <p>by {item.fullName}</p>
-                    <h3>{item.name}</h3>
+                    <p>
+                      by <strong>{item.fullName}</strong>
+                    </p>
+                    <h3 className="mb-4">{item.name}</h3>
 
-                    <div className="number d-flex">
-                      <div className="time m-2">
-                        <ClockCircleOutlined />
-                        2weeks
-                      </div>
-                      <div className="student m-2">
-                        <ClockCircleOutlined />
-                        10000 student
-                      </div>
-                      <div className="allLevel m-2">
-                        <ClockCircleOutlined />
-                        all levels
-                      </div>
-                      <div className="lesson m-2">
-                        <ClockCircleOutlined />
-                        20 lessons
-                      </div>
-                    </div>
+                    <Space>
+                      <ClockCircleOutlined style={{ color: "#B75757" }}/> 
+                      2weeks
+                      <UserDeleteOutlined style={{ color: "#B75757" }}/>
+                      10000 student
+                      <SignalFilled style={{ color: "#B75757" }}/>
+                      all levels
+                      <CopyFilled style={{ color: "#B75757" }}/>
+                      20 lessons
+                    </Space>
+                    <br/>
+                    <br/>
+                    
                     <hr />
                     <div className="footer d-flex justify-content-between align-items-end">
-                      <p>{item.price}$</p>
-                      <a href="">view more</a>
+                      <p className="fs-4 text-dark" >{item.price}$</p>
+                     <a className="text-decoration-none text-dark" href="">View more</a>
                     </div>
                   </div>
                 </div>
               </div>
             );
           })}
-          
+
         </div>
         <div className="sort col-3">
           <h3>Danh muc khoa hoc </h3>
