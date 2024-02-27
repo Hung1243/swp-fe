@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light ">
-        <div className="container">
+        <div className="container d-flex justify-content-between">
           <a className="navbar-brand" href="#">
             Skill Forge
           </a>
@@ -42,8 +42,7 @@ const Nav = () => {
               </li>
               <li className="nav-item">
                 <Link to="cart">
-                  <ShoppingCartOutlined
-                  />
+                  <ShoppingCartOutlined />
                 </Link>
               </li>
             </ul>
