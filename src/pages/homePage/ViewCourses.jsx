@@ -5,9 +5,13 @@ import {
   UserDeleteOutlined,
   SignalFilled,
   CopyFilled,
+  ArrowRightOutlined,
+  CaretRightOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { Button, Checkbox, Table } from "antd";
 import { Input, Space } from "antd";
+import { Link } from "react-router-dom";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -85,29 +89,34 @@ const ViewCourses = () => {
                     <h3 className="mb-4">{item.name}</h3>
 
                     <Space>
-                      <ClockCircleOutlined style={{ color: "#B75757" }}/> 
-                      2weeks
-                      <UserDeleteOutlined style={{ color: "#B75757" }}/>
-                      10000 student
-                      <SignalFilled style={{ color: "#B75757" }}/>
-                      all levels
-                      <CopyFilled style={{ color: "#B75757" }}/>
+                      <ClockCircleOutlined style={{ color: "#B75757" }} />
+                      2 weeks
+                      <TeamOutlined style={{ color: "#B75757" }} />
+                      10000 students
+                      <SignalFilled style={{ color: "#B75757" }} />
+                      All levels
+                      <CopyFilled style={{ color: "#B75757" }} />
                       20 lessons
                     </Space>
-                    <br/>
-                    <br/>
-                    
+                    <br />
+                    <br />
+
                     <hr />
-                    <div className="footer d-flex justify-content-between align-items-end">
-                      <p className="fs-4 text-dark" >{item.price}$</p>
-                     <a className="text-decoration-none text-dark" href="">View more</a>
+
+                    <div className="footer d-flex justify-content-between align-items-center">
+                      <p className="fs-4 text-dark">{item.price}$</p>
+                      <Link
+                        className="text-decoration-none text-dark"
+                        to={item.id}
+                      >
+                        View more <CaretRightOutlined />
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
             );
           })}
-
         </div>
         <div className="sort col-3">
           <h3>Danh muc khoa hoc </h3>

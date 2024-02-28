@@ -5,8 +5,9 @@ import {
   GoldOutlined,
   ReadOutlined,
   TeamOutlined,
+  SignalFilled,
 } from "@ant-design/icons";
-import { Space, Tabs } from "antd";
+import { Row, Space, Tabs } from "antd";
 import { TabComponent } from "../../components/tab-component";
 import { LessonTab } from "../../components/tab-component/lesson";
 import { OverviewTab } from "../../components/tab-component/overview";
@@ -75,7 +76,7 @@ const CourseDetail = () => {
                   <p className="m-0 p-1">2 Weeks</p>
                   <TeamOutlined style={{ color: "#B75757" }} />
                   <p className="m-0 p-1">100 Students</p>
-                  <GoldOutlined style={{ color: "#B75757" }} />
+                  <SignalFilled style={{ color: "#B75757" }} />
                   <p className="m-0 p-1">All levels</p>
                   <ReadOutlined style={{ color: "#B75757" }} />
                   <p className="m-0 p-1">20 Lesson</p>
@@ -86,13 +87,17 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
+
         <div className="container course-info">
-          <Tabs
-            className="w-75"
-            onChange={onChange}
-            type="card"
-            items={items}
-          />
+          <Row gutter={24}>
+            <Tabs
+              className="w-75"
+              onChange={onChange}
+              type="card"
+              items={items}
+          
+             />
+          </Row>
         </div>
       </section>
     </>
