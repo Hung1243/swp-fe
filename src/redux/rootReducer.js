@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import counterSlice from "./feature/counterSlice";
 import accountSlice from "./feature/accountSlice";
+import courseSlice from "./feature/courseSlice";
 
 const rootReducer = combineReducers({
-  counter: counterSlice,
   account: accountSlice,
+  course: courseSlice,
 });
 
 export default rootReducer;

@@ -3,6 +3,13 @@ import { Button, Modal, Space, Table, Tag } from "antd";
 import AddNewCourse from "./AddNewCourse";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addChapter,
+  addInfo,
+  removeCourse,
+  updateID,
+} from "../../redux/feature/courseSlice";
 
 const columns = [
   {
@@ -36,26 +43,6 @@ const columns = [
     dataIndex: "address",
     key: "address",
   },
-  // {
-  //   title: "Tags",
-  //   key: "tags",
-  //   dataIndex: "tags",
-  //   render: (_, { tags }) => (
-  //     <>
-  //       {tags.map((tag) => {
-  //         let color = tag.length > 5 ? "geekblue" : "green";
-  //         if (tag === "loser") {
-  //           color = "volcano";
-  //         }
-  //         return (
-  //           <Tag color={color} key={tag}>
-  //             {tag.toUpperCase()}
-  //           </Tag>
-  //         );
-  //       })}
-  //     </>
-  //   ),
-  // },
   {
     title: "Action",
     key: "action",
@@ -75,74 +62,32 @@ const data = [
     address: "New York No. 1 Lake Park",
     tags: ["nice", "developer"],
   },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
 ];
 const Courses = () => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [form1] = useForm();
-  const [form2] = useForm();
-
+  const [form3] = useForm();
+  const dispatch = useDispatch();
+  const chapter = useSelector((store) => store.course.chapter);
+  const lesson = useSelector((store) => store.course.lesson);
+  const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
+  const [listChapter, setListChapter] = useState();
 
   const onSubmitForm1 = async (values) => {
     console.log("Received values:", values);
     try {
       if (course == null) {
         const response = await api.post("/course", values);
-
+        dispatch(addInfo(response.data));
+        dispatch(updateID(response.data.id));
         setCourse(response.data);
         setCurrent(current + 1);
       } else {
         const response = await api.put(`/course/${course.id}`, values);
+        dispatch(addInfo(response.data));
+        dispatch(updateID(response.data.id));
         setCourse(response.data);
         setCurrent(current + 1);
       }
@@ -154,14 +99,55 @@ const Courses = () => {
   };
   const onSubmitForm2 = async (values) => {
     try {
-      if (course == null) {
-        const response = await api.post("/chapter", values);
-
-        // setCourse(response.data);
+      if (chapter == null) {
+        const response = await api.post(
+          "/chapters",
+          chapter.map((item) => {
+            return {
+              name: item.name,
+              course_id: courseRedux.id,
+            };
+          })
+        );
+        setListChapter(response.data);
+        dispatch(addChapter(response.data));
         setCurrent(current + 1);
       } else {
-        const response = await api.put(`/chapter/${chapter.id}`, values);
-        // setCourse(response.data);
+        const response = await api.put(
+          `/chapters?id=${course.id}`,
+          chapter.map((item) => {
+            return {
+              name: item.name,
+              course_id: courseRedux.id,
+            };
+          })
+        );
+        dispatch(addChapter(response.data));
+
+        setCurrent(current + 1);
+      }
+      setCurrent(current + 1);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const onSubmitForm3 = async (values) => {
+    try {
+      if (course == null) {
+        const response = await api.post("/lesson",lesson.map(()=>{
+          return{
+            
+          }
+        }))
+        dispatch(addInfo(response.data));
+        dispatch(updateID(response.data.id));
+        setCourse(response.data);
+        setCurrent(current + 1);
+      } else {
+        const response = await api.put(`/course/${course.id}`, values);
+        dispatch(addInfo(response.data));
+        dispatch(updateID(response.data.id));
+        setCourse(response.data);
         setCurrent(current + 1);
       }
       console.log(current);
@@ -176,7 +162,7 @@ const Courses = () => {
     if (current == 0) {
       form1.submit();
     } else if (current == 1) {
-      form2.submit();
+      onSubmitForm2();
     }
   };
   const prev = () => {
@@ -203,7 +189,10 @@ const Courses = () => {
         centered
         open={open}
         onOk={() => next()}
-        onCancel={() => setOpen(false)}
+        onCancel={() => {
+          setOpen(false);
+          dispatch(removeCourse());
+        }}
         width={1000}
         okText={current < 2 ? "Next" : "Done"}
         cancelText={""}
@@ -243,7 +232,6 @@ const Courses = () => {
           onSubmitForm1={onSubmitForm1}
           form1={form1}
           onSubmitForm2={onSubmitForm2}
-          form2={form2}
         />
       </Modal>
     </>

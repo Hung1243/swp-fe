@@ -18,6 +18,8 @@ import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
 import { uploadFile } from "../../utils/upload";
 import api from "../../config/axios";
+import { useDispatch } from "react-redux";
+import { addChapter } from "../../redux/feature/courseSlice";
 
 const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   const [categories, setCategories] = useState([]);
@@ -168,19 +170,14 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
 };
 const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
   const [inputValue, setInputValue] = useState();
+  const dispatch = useDispatch();
   const handleDone = (index) => {
     data[index].status = "done";
     data[index].name = inputValue;
     setData([...data]);
     setInputValue();
   };
-  const [data, setData] = useState([
-    {
-      key: "1",
-      name: "John Brown",
-      status: "done",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const columns = [
     {
       title: "STT",
@@ -207,6 +204,7 @@ const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
               type="primary"
               onClick={() => {
                 handleDone(index);
+                dispatch(addChapter(data));
                 // console.log(index);
               }}
             >
@@ -229,7 +227,7 @@ const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
             ...data,
             {
               name: (
-                <input
+                <Input
                   value={inputValue}
                   onChange={(e) => {
                     console.log(e.target.value);
@@ -250,12 +248,6 @@ const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
 };
 
 const CourseLessonForm = () => {
-  const onFinish = async (values) => {
-    console.log("Received values:", values);
-    try {
-      const response = await api.post("/lesson", values);
-    } catch (e) {}
-  };
   const onChange = (value) => {
     console.log(`selected ${value}`);
   };
