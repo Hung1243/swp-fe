@@ -8,7 +8,7 @@ const HomeTemplate = () => {
   return (
     <div style={{ width: "100vw" }}>
       <Nav />
-      <div className="container content" style={{ minHeight: "90vh" }}>
+      <div className="content" style={{ minHeight: "90vh" }}>
         <Outlet />
       </div>
       <footer className="p-3 text-center bg-black">
