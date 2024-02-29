@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
+  Dropdown,
   Form,
   Input,
   message,
@@ -18,8 +19,8 @@ import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
 import { uploadFile } from "../../utils/upload";
 import api from "../../config/axios";
-import { useDispatch } from "react-redux";
-import { addChapter } from "../../redux/feature/courseSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addChapter, addLesson } from "../../redux/feature/courseSlice";
 
 const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   const [categories, setCategories] = useState([]);
@@ -168,7 +169,7 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
     </>
   );
 };
-const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
+const CourseChapterForm = () => {
   const [inputValue, setInputValue] = useState();
   const dispatch = useDispatch();
   const handleDone = (index) => {
@@ -247,72 +248,165 @@ const CourseChapterForm = ({ form2, onSubmitForm2 }) => {
   );
 };
 
-const CourseLessonForm = () => {
-  const onChange = (value) => {
+const CourseLessonForm = ({ onSubmitForm3 }) => {
+  const [inputValue, setInputValue] = useState();
+  const dispatch = useDispatch();
+  const chapter = useSelector((store) => store.course.chapter);
+  console.log(chapter);
+  const handleDone = (index) => {
+    data[index].status = "done";
+    data[index].name = inputValue;
+    setData([...data]);
+    setInputValue();
+  };
+  const [data, setData] = useState([]);
+  const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
-  const filterOption = (input, option) =>
-    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  const columns = [
+    {
+      title: "STT",
+      dataIndex: "id",
+      key: "number",
+      render: (id) => <a>{id}</a>,
+    },
+    {
+      title: "Chương",
+      dataIndex: "chapter_id",
+      key: "chapter_id",
+      render: () => (
+        <>
+          <Select
+            style={{
+              width: 120,
+            }}
+            onChange={handleChange}
+            options={chapter?.map((item) => {
+              return { label: item.name, value: item.id };
+            })}
+          />
+        </>
+      ),
+    },
+
+    {
+      title: "Tên bài giảng",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Video Link",
+      dataIndex: "videoLink",
+      key: "videoLink",
+      render: () => (
+        <Input
+          type="file"
+          onChange={async (e) => {
+            const url = await uploadFile(e.target.files[0]);
+            console.log(url);
+          }}
+        ></Input>
+      ),
+    },
+    {
+      title: "Quiz",
+      dataIndex: "quiz",
+      key: "quiz",
+      render: () => (
+        <Input
+          type="file"
+          onChange={async (e) => {
+            const url = await uploadFile(e.target.files[0]);
+            console.log(url);
+          }}
+        ></Input>
+      ),
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (abc, record, index) => (
+        <Space size="middle">
+          <Button danger type="primary">
+            Delete
+          </Button>
+          {record.status === "edit" ? (
+            <Button
+              type="primary"
+              onClick={() => {
+                handleDone(index);
+                dispatch(addLesson(data));
+                // console.log(index);
+              }}
+            >
+              Done
+            </Button>
+          ) : (
+            <Button type="primary">Update</Button>
+          )}
+        </Space>
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    console.log(inputValue);
+  }, [inputValue]);
+
   return (
     <>
-      <Row gutter={12}>
-        <Col span={12}>
-          <Form.Item name="categoryId" label="Chương">
-            <Select
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={onChange}
-              onSearch={onSearch}
-              filterOption={filterOption}
-              options={[
-                {
-                  value: "jack",
-                  label: "Jack",
-                },
-                {
-                  value: "lucy",
-                  label: "Lucy",
-                },
-                {
-                  value: "tom",
-                  label: "Tom",
-                },
-              ]}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item wrapperCol={12} name="lessonName" label="Tên bài giảng">
-            <Input></Input>
-          </Form.Item>{" "}
-        </Col>
-        <Col span={12}>
-          <Form.Item wrapperCol={12} name="videoLink" label="Thêm video">
-            <Input
-              type="file"
-              onChange={async (e) => {
-                const url = await uploadFile(e.target.files[0]);
-                console.log(url);
-              }}
-            ></Input>
-          </Form.Item>{" "}
-        </Col>
-        <Col span={12}>
-          <Form.Item name="quizLink" label="Thêm bài tập">
-            <Input
-              type="file"
-              onChange={async (e) => {
-                const url = await uploadFile(e.target.files[0]);
-                console.log(url);
-              }}
-            ></Input>
-          </Form.Item>
-        </Col>
-      </Row>
+      <Button
+        className="m-2"
+        onClick={() => {
+          setData([
+            ...data,
+            {
+              chapter_id: (
+                <Input
+                  value={inputValue}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setInputValue(e.target.value);
+                  }}
+                />
+              ),
+              name: (
+                <Input
+                  value={inputValue}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setInputValue(e.target.value);
+                  }}
+                />
+              ),
+              videoLink: (
+                <Input
+                  value={inputValue}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setInputValue(e.target.value);
+                  }}
+                />
+              ),
+              quiz: (
+                <Input
+                  value={inputValue}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setInputValue(e.target.value);
+                  }}
+                />
+              ),
+              status: "edit",
+            },
+          ]);
+        }}
+      >
+        + Thêm
+      </Button>
+      <Button className="m-2">Lấy mẫu bài tập</Button>
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };

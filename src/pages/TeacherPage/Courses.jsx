@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Space, Table, Tag } from "antd";
 import AddNewCourse from "./AddNewCourse";
 import { useForm } from "antd/es/form/Form";
@@ -7,62 +7,60 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addChapter,
   addInfo,
+  addLesson,
   removeCourse,
   updateID,
+  updateStep,
 } from "../../redux/feature/courseSlice";
+import axios from "axios";
 
 const columns = [
   {
     title: "STT",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    dataIndex: "id",
+    key: "id",
   },
   {
     title: "Danh mục",
-    dataIndex: "age",
-    key: "age",
+    dataIndex: "category",
+    key: "category",
   },
   {
     title: "Mã khóa học",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "id",
+    key: "id",
   },
   {
     title: "Tên khóa học",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "Mô tả",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "description",
+    key: "description",
   },
   {
     title: "Hình ảnh",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "pictureLink",
+    key: "pictureLink",
+  },
+  {
+    title: "Người tạo",
+    dataIndex: "fullName",
+    key: "fullName",
   },
   {
     title: "Action",
     key: "action",
-    render: (_, record) => (
+    render: () => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Button type="primary">Edit</Button>
       </Space>
     ),
   },
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-];
+
 const Courses = () => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -70,11 +68,38 @@ const Courses = () => {
   const [form3] = useForm();
   const dispatch = useDispatch();
   const chapter = useSelector((store) => store.course.chapter);
+  const step = useSelector((store) => store.course.step);
   const lesson = useSelector((store) => store.course.lesson);
   const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
   const [listChapter, setListChapter] = useState();
+  const [listLesson, setListLesson] = useState();
+  const [listCourse, setListCourse] = useState([]);
 
+  const getCourse = async () => {
+    try {
+      const res = await api.get("/course");
+      console.log(res.data);
+      setListCourse(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getCourse();
+  }, []);
+  const data = listCourse.map((item) => {
+    return {
+      key: "1",
+      category: item.category.name,
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      pictureLink: item.pictureLink,
+      fullName: item.createBy.fullName,
+    };
+  });
+  // const data = [];
   const onSubmitForm1 = async (values) => {
     console.log("Received values:", values);
     try {
@@ -84,6 +109,7 @@ const Courses = () => {
         dispatch(updateID(response.data.id));
         setCourse(response.data);
         setCurrent(current + 1);
+        dispatch(updateStep(1));
       } else {
         const response = await api.put(`/course/${course.id}`, values);
         dispatch(addInfo(response.data));
@@ -99,7 +125,7 @@ const Courses = () => {
   };
   const onSubmitForm2 = async (values) => {
     try {
-      if (chapter == null) {
+      if (step == 1) {
         const response = await api.post(
           "/chapters",
           chapter.map((item) => {
@@ -109,6 +135,7 @@ const Courses = () => {
             };
           })
         );
+        dispatch(updateStep(2));
         setListChapter(response.data);
         dispatch(addChapter(response.data));
         setCurrent(current + 1);
@@ -122,8 +149,8 @@ const Courses = () => {
             };
           })
         );
+        setListChapter(response.data);
         dispatch(addChapter(response.data));
-
         setCurrent(current + 1);
       }
       setCurrent(current + 1);
@@ -133,25 +160,31 @@ const Courses = () => {
   };
   const onSubmitForm3 = async (values) => {
     try {
-      if (course == null) {
-        const response = await api.post("/lesson",lesson.map(()=>{
-          return{
-            
-          }
-        }))
-        dispatch(addInfo(response.data));
+      if (step == 2) {
+        const response = await api.post(
+          "/lesson",
+          lesson.map((item) => {
+            return {
+              name: item.name,
+              description: item.description,
+              videoLink: item.videoLink,
+              chapter_id: item.chapter_id,
+            };
+          })
+        );
+        dispatch(updateStep(3));
+        dispatch(addLesson(response.data));
         dispatch(updateID(response.data.id));
-        setCourse(response.data);
-        setCurrent(current + 1);
+        setListLesson(response.data);
       } else {
-        const response = await api.put(`/course/${course.id}`, values);
-        dispatch(addInfo(response.data));
+        const response = await api.put(`/lesson/${course.id}`, values);
+        dispatch(addLesson(response.data));
         dispatch(updateID(response.data.id));
-        setCourse(response.data);
+        setListLesson(response.data);
         setCurrent(current + 1);
       }
       console.log(current);
-      setCurrent(current + 1);
+      // setCurrent(current + 1);
     } catch (e) {
       console.log(e);
     }
@@ -172,6 +205,7 @@ const Courses = () => {
     <>
       <Button
         onClick={() => {
+          dispatch(removeCourse());
           setOpen(true);
         }}
       >
@@ -179,7 +213,7 @@ const Courses = () => {
       </Button>
       <Table
         pagination={{
-          pageSize: 8,
+          pageSize: 6,
         }}
         columns={columns}
         dataSource={data}
@@ -193,7 +227,7 @@ const Courses = () => {
           setOpen(false);
           dispatch(removeCourse());
         }}
-        width={1000}
+        width={1500}
         okText={current < 2 ? "Next" : "Done"}
         cancelText={""}
         footer={
@@ -218,7 +252,7 @@ const Courses = () => {
                 type="primary"
                 onClick={() => {
                   console.log(123);
-                  form.submit();
+                  onSubmitForm3();
                 }}
               >
                 Done
@@ -232,6 +266,7 @@ const Courses = () => {
           onSubmitForm1={onSubmitForm1}
           form1={form1}
           onSubmitForm2={onSubmitForm2}
+          onSubmitForm3={onSubmitForm3}
         />
       </Modal>
     </>

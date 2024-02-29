@@ -5,12 +5,16 @@ const initialState = {
   info: null,
   chapter: null,
   lesson: null,
+  step: 0,
 };
 
 const courseSlice = createSlice({
   name: "course",
   initialState,
   reducers: {
+    updateStep: (state, action) => {
+      state.step = action.payload;
+    },
     updateID: (state, action) => {
       state.id = action.payload;
     },
@@ -32,7 +36,13 @@ const courseSlice = createSlice({
   },
 });
 
-export const { addInfo, addChapter, addLesson, updateID, removeCourse } =
-  courseSlice.actions;
+export const {
+  addInfo,
+  addChapter,
+  addLesson,
+  updateID,
+  removeCourse,
+  updateStep,
+} = courseSlice.actions;
 
 export default courseSlice.reducer;
