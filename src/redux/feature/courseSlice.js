@@ -2,47 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   id: null,
-  info: null,
-  chapter: null,
-  lesson: null,
-  step: 0,
+  chapters: [
+    {
+      name: null,
+      lessons: [
+        {
+          name: "",
+          link: "",
+          // quiz: [],
+        },
+      ],
+    },
+  ],
 };
 
 const courseSlice = createSlice({
   name: "course",
   initialState,
   reducers: {
-    updateStep: (state, action) => {
-      state.step = action.payload;
-    },
-    updateID: (state, action) => {
-      state.id = action.payload;
-    },
-
-    addInfo: (state, action) => {
-      state.info = action.payload;
-    },
-
-    addChapter: (state, action) => {
-      state.chapter = action.payload;
-    },
-
-    addLesson: (state, action) => {
-      state.lesson = action.payload;
-    },
-    removeCourse: () => {
-      return initialState;
-    },
+    // addNewChapter: (state, action) => {
+    //   state.chapters.push(action.payload);
+    // },
   },
 });
 
-export const {
-  addInfo,
-  addChapter,
-  addLesson,
-  updateID,
-  removeCourse,
-  updateStep,
-} = courseSlice.actions;
+export const {} = courseSlice.actions;
 
 export default courseSlice.reducer;
