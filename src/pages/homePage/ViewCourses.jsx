@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import {
   AudioOutlined,
@@ -12,6 +12,7 @@ import {
 import { Button, Checkbox, Table } from "antd";
 import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
+import api from "../../config/axios";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -57,6 +58,19 @@ const data = [
   },
 ];
 const ViewCourses = () => {
+  const [listCourses, setListCourses] = useState([]);
+  const getCourses = async () => {
+    try {
+      const res = await api.get("/course");
+      setListCourses(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getCourses();
+  }, []);
   return (
     <div className="container">
       <div className="row">
@@ -74,7 +88,7 @@ const ViewCourses = () => {
               />
             </Space>
           </div>
-          {data.map((item) => {
+          {listCourses.map((item) => {
             return (
               <div className="member border mt-3  ">
                 <div className="row">
@@ -82,9 +96,9 @@ const ViewCourses = () => {
                   <div className="pic col-4">
                     <img src={item.pictureLink} className="img-fluid" alt />
                   </div>
-                  <div className="member-info col-8 pt-5 ">
+                  <div className="member-info col-8 pt-2 ">
                     <p>
-                      by <strong>{item.fullName}</strong>
+                      by <strong>{item.createBy.username}</strong>
                     </p>
                     <h3 className="mb-4">{item.name}</h3>
 
@@ -98,16 +112,14 @@ const ViewCourses = () => {
                       <CopyFilled style={{ color: "#B75757" }} />
                       20 lessons
                     </Space>
-                    <br />
-                    <br />
 
                     <hr />
 
                     <div className="footer d-flex justify-content-between align-items-center">
-                      <p className="fs-4 text-dark">{item.price}$</p>
+                      <p className="fs-4 fw-bold text-dark">{item.price}$</p>
                       <Link
                         className="text-decoration-none text-dark"
-                        to={item.id}
+                        to={`/course/${item.id}`}
                       >
                         View more <CaretRightOutlined />
                       </Link>
