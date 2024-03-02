@@ -117,6 +117,7 @@ const Courses = () => {
         setCurrent(current + 1);
         dispatch(updateStep(1));
       } else {
+        
         const response = await api.put(`/course/${course.id}`, values);
         dispatch(addInfo(response.data));
         dispatch(updateID(response.data.id));
@@ -124,7 +125,7 @@ const Courses = () => {
         setCurrent(current + 1);
       }
       console.log(current);
-      // setCurrent(current + 1);
+      setCurrent(current + 1);
     } catch (e) {
       console.log(e);
     }
