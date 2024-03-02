@@ -13,6 +13,7 @@ import {
   updateStep,
 } from "../../redux/feature/courseSlice";
 import axios from "axios";
+import { uploadFile } from "../../utils/upload";
 
 const columns = [
   {
@@ -104,6 +105,11 @@ const Courses = () => {
     console.log("Received values:", values);
     try {
       if (course == null) {
+        if (values.pictureLink) {
+          const url = await uploadFile(values.pictureLink.file.originFileObj);
+          values.pictureLink = url;
+        }
+        console.log(values);
         const response = await api.post("/course", values);
         dispatch(addInfo(response.data));
         dispatch(updateID(response.data.id));
@@ -118,7 +124,7 @@ const Courses = () => {
         setCurrent(current + 1);
       }
       console.log(current);
-      setCurrent(current + 1);
+      // setCurrent(current + 1);
     } catch (e) {
       console.log(e);
     }

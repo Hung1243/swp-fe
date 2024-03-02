@@ -6,6 +6,7 @@ import {
   Form,
   Input,
   message,
+  Modal,
   Row,
   Select,
   Space,
@@ -13,6 +14,7 @@ import {
   Table,
   Tag,
   theme,
+  Upload,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
@@ -21,7 +23,7 @@ import { uploadFile } from "../../utils/upload";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addChapter, addLesson } from "../../redux/feature/courseSlice";
-
+import { PlusOutlined } from "@ant-design/icons";
 const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   const [categories, setCategories] = useState([]);
   const fetchCategory = async (values) => {
@@ -42,6 +44,47 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   };
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
   return (
     <>
       <Form
@@ -83,29 +126,17 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
             </Form.Item>{" "}
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="pictureLink"
-              label="Hình ảnh"
-              rules={[
-                {
-                  required: true,
-                  message: "Không được để trống ",
-                },
-              ]}
-            >
-              <Input
-                type="file"
-                onChange={async (e) => {
-                  const url = await uploadFile(e.target.files[0]);
-                  console.log(url);
-                }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được để trống ",
-                  },
-                ]}
-              ></Input>
+            <Form.Item name="pictureLink" label="Hình ảnh">
+              <Upload
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                listType="picture-card"
+                fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
+                maxCount={1}
+              >
+                {fileList.length >= 8 ? null : uploadButton}
+              </Upload>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -166,6 +197,14 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
           </Col>
         </Row>
       </Form>
+      <Modal
+        open={previewOpen}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
     </>
   );
 };
