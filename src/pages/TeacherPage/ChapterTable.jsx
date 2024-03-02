@@ -2,7 +2,8 @@ import { Button, Input, Space, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import "./chapter-table.css";
 import api from "../../config/axios";
-export const ChapterTable = () => {
+
+export const ChapterTable = ({ id }) => {
   const [listChapter, setListChapter] = useState([]);
   const columns = [
     {
@@ -26,7 +27,7 @@ export const ChapterTable = () => {
   ];
 
   const getListChapter = async () => {
-    const res = await api.get(`/chapter`);
+    const res = await api.get(`/chapters/courseId?id=${id}`);
     setListChapter(res.data);
     console.log(res.data);
   };
@@ -34,27 +35,13 @@ export const ChapterTable = () => {
     getListChapter();
   }, []);
 
-  listChapter.map((items) => {
+  const data = listChapter.map((items) => {
     return {
       key: items.index,
       name: items.name,
+      id: items.id,
     };
   });
-
-  // const data = [
-  //   {
-  //     key: "1",
-  //     name: "Chapter 1",
-  //   },
-  //   {
-  //     key: "2",
-  //     name: "Chapter 2",
-  //   },
-  //   {
-  //     key: "3",
-  //     name: "Chapter 3",
-  //   },
-  // ];
 
   return (
     <div
@@ -69,26 +56,30 @@ export const ChapterTable = () => {
         }}
         columns={columns}
         expandable={{
-          expandedRowRender: Lesson,
+          expandedRowRender: (record) => <Lesson chapterId={record.id} />,
         }}
-        dataSource={listChapter}
+        dataSource={data}
       />
     </div>
   );
 };
 
-const Lesson = () => {
+const Lesson = ({ chapterId }) => {
+  const [listLesson, setListLesson] = useState([]);
+  const getLesson = async () => {
+    const res = await api.get(`/lesson/courseId?id=${chapterId}`);
+    setListLesson(res.data);
+    console.log(res.data);
+  };
+
+  useEffect(() => {
+    getLesson();
+  }, []);
   const columns = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text, record) => {
-        // if (record.status === "edit") {
-        //   return <Input />;
-        // }
-        // return { text };
-      },
     },
     {
       title: "Video Link",
@@ -118,15 +109,16 @@ const Lesson = () => {
       },
     },
   ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      videoLink: "",
-      quizLink: "",
-      // status: "done",
-    },
-  ];
+
+  const data = listLesson.map((lesson) => {
+    return {
+      key: lesson.id,
+      name: lesson.name,
+      videoLink: lesson.videoLink,
+      quizLink: lesson.quizLink,
+    };
+  });
+
   return (
     <div
       className="lesson"

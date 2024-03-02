@@ -62,8 +62,8 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="test" element={<ChapterTable />}>
-          <Route path=":id" element={<ChapterTable />}></Route>
+        <Route path="test">
+          <Route path=":id" element={<ChapterTable id={1} />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
