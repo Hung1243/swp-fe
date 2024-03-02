@@ -20,7 +20,7 @@ import { useForm } from "antd/es/form/Form";
 import { uploadFile } from "../../utils/upload";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addChapter, addLesson } from "../../redux/feature/courseSlice";
+// import { addChapter, addLesson } from "../../redux/feature/courseSlice";
 
 const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   const [categories, setCategories] = useState([]);

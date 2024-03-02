@@ -4,14 +4,14 @@ import AddNewCourse from "./AddNewCourse";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addChapter,
-  addInfo,
-  addLesson,
-  removeCourse,
-  updateID,
-  updateStep,
-} from "../../redux/feature/courseSlice";
+// import {
+//   addChapter,
+//   addInfo,
+//   addLesson,
+//   removeCourse,
+//   updateID,
+//   updateStep,
+// } from "../../redux/feature/courseSlice";
 import axios from "axios";
 
 const columns = [

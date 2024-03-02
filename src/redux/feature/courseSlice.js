@@ -26,6 +26,6 @@ const courseSlice = createSlice({
   },
 });
 
-export const {} = courseSlice.actions;
+export const { addNewChapter } = courseSlice.actions;
 
 export default courseSlice.reducer;
