@@ -27,36 +27,6 @@ const onChange = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 
-const data = [
-  {
-    id: "1",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "tao ne",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "2",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "tao ne",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "3",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "tao ne",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "4",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "tao ne",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-];
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
   const getCourses = async () => {
@@ -94,9 +64,14 @@ const ViewCourses = () => {
                 <div className="row">
                   {" "}
                   <div className="pic col-4">
-                    <img src={item.pictureLink} className="img-fluid" alt />
+                    <img
+                      style={{ width: "300px", height: "200px" }}
+                      src={item.pictureLink}
+                      className="img-fluid"
+                      alt={item.name}
+                    />
                   </div>
-                  <div className="member-info col-8 pt-2 ">
+                  <div className="member-info col-8 pt-1 ">
                     <p>
                       by <strong>{item.createBy.username}</strong>
                     </p>
@@ -112,9 +87,7 @@ const ViewCourses = () => {
                       <CopyFilled style={{ color: "#B75757" }} />
                       20 lessons
                     </Space>
-
-                    <hr />
-
+                    <hr className="m-2" />
                     <div className="footer d-flex justify-content-between align-items-center">
                       <p className="fs-4 fw-bold text-dark">{item.price}$</p>
                       <Link
