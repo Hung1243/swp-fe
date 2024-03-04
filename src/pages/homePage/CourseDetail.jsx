@@ -7,7 +7,7 @@ import {
   TeamOutlined,
   SignalFilled,
 } from "@ant-design/icons";
-import { Row, Space, Tabs } from "antd";
+import { Button, Card, Col, Row, Space, Tabs } from "antd";
 import { TabComponent } from "../../components/tab-component";
 import { LessonTab } from "../../components/tab-component/lesson";
 import { OverviewTab } from "../../components/tab-component/overview";
@@ -33,7 +33,7 @@ const CourseDetail = () => {
   };
   useEffect(() => {
     getCourseDetail();
-  });
+  }, []);
 
   const items = [
     {
@@ -107,12 +107,31 @@ const CourseDetail = () => {
 
         <div className="container course-info">
           <Row gutter={24}>
-            <Tabs
-              className="w-75"
-              onChange={onChange}
-              type="card"
-              items={items}
-            />
+            <Col span={18}>
+              <Tabs
+                // className="w-75"
+                onChange={onChange}
+                type="card"
+                items={items}
+              />
+            </Col>
+
+            <Col span={6}>
+              <Card cover={<img src="https://i.pravatar.cc/250" alt="" />}>
+                <Space
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    padding: "0",
+                  }}
+                >
+                  <h4 style={{ color: "#B75757" }}>100$</h4>
+                  <Button style={{ background: "#B75757" }} type="primary">
+                    Buy Now
+                  </Button>
+                </Space>
+              </Card>
+            </Col>
           </Row>
         </div>
       </section>
