@@ -44,6 +44,9 @@ const columns = [
     title: "Hình ảnh",
     dataIndex: "pictureLink",
     key: "pictureLink",
+    render: (pictureLink) => (
+      <img src={pictureLink} alt="Hình ảnh" style={{ maxWidth: "100px" }} />
+    ),
   },
   {
     title: "Người tạo",
