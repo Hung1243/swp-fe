@@ -66,15 +66,14 @@ const Courses = () => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [form1] = useForm();
-  const [form3] = useForm();
+  // const [form3] = useForm();
   const dispatch = useDispatch();
-  const chapter = useSelector((store) => store.course.chapter);
+  // const chapter = useSelector((store) => store.course.chapter);
   const step = useSelector((store) => store.course.step);
-  const lesson = useSelector((store) => store.course.lesson);
+  // const lesson = useSelector((store) => store.course.lesson);
   const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
-  const [listChapter, setListChapter] = useState();
-  const [listLesson, setListLesson] = useState();
+
   const [listCourse, setListCourse] = useState([]);
 
   const getCourse = async () => {
@@ -100,7 +99,7 @@ const Courses = () => {
       fullName: item.createBy.fullName,
     };
   });
-  // const data = [];
+  
   const onSubmitForm1 = async (values) => {
     console.log("Received values:", values);
     try {
@@ -130,72 +129,72 @@ const Courses = () => {
       console.log(e);
     }
   };
-  const onSubmitForm2 = async (values) => {
-    try {
-      if (step == 1) {
-        const response = await api.post(
-          "/chapters",
-          chapter.map((item) => {
-            return {
-              name: item.name,
-              course_id: courseRedux.id,
-            };
-          })
-        );
-        dispatch(updateStep(2));
-        setListChapter(response.data);
-        dispatch(addChapter(response.data));
-        setCurrent(current + 1);
-      } else {
-        const response = await api.put(
-          `/chapters?id=${course.id}`,
-          chapter.map((item) => {
-            return {
-              name: item.name,
-              course_id: courseRedux.id,
-            };
-          })
-        );
-        setListChapter(response.data);
-        dispatch(addChapter(response.data));
-        setCurrent(current + 1);
-      }
-      setCurrent(current + 1);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const onSubmitForm3 = async (values) => {
-    try {
-      if (step == 2) {
-        const response = await api.post(
-          "/lesson",
-          lesson.map((item) => {
-            return {
-              name: item.name,
-              description: item.description,
-              videoLink: item.videoLink,
-              chapter_id: item.chapter_id,
-            };
-          })
-        );
-        dispatch(updateStep(3));
-        dispatch(addLesson(response.data));
-        dispatch(updateID(response.data.id));
-        setListLesson(response.data);
-      } else {
-        const response = await api.put(`/lesson/${course.id}`, values);
-        dispatch(addLesson(response.data));
-        dispatch(updateID(response.data.id));
-        setListLesson(response.data);
-        setCurrent(current + 1);
-      }
-      console.log(current);
-      // setCurrent(current + 1);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const onSubmitForm2 = async (values) => {
+  //   try {
+  //     if (step == 1) {
+  //       const response = await api.post(
+  //         "/chapters",
+  //         chapter.map((item) => {
+  //           return {
+  //             name: item.name,
+  //             course_id: courseRedux.id,
+  //           };
+  //         })
+  //       );
+  //       dispatch(updateStep(2));
+  //       setListChapter(response.data);
+  //       dispatch(addChapter(response.data));
+  //       setCurrent(current + 1);
+  //     } else {
+  //       const response = await api.put(
+  //         `/chapters?id=${course.id}`,
+  //         chapter.map((item) => {
+  //           return {
+  //             name: item.name,
+  //             course_id: courseRedux.id,
+  //           };
+  //         })
+  //       );
+  //       setListChapter(response.data);
+  //       dispatch(addChapter(response.data));
+  //       setCurrent(current + 1);
+  //     }
+  //     setCurrent(current + 1);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  // const onSubmitForm3 = async (values) => {
+  //   try {
+  //     if (step == 2) {
+  //       const response = await api.post(
+  //         "/lesson",
+  //         lesson.map((item) => {
+  //           return {
+  //             name: item.name,
+  //             description: item.description,
+  //             videoLink: item.videoLink,
+  //             chapter_id: item.chapter_id,
+  //           };
+  //         })
+  //       );
+  //       dispatch(updateStep(3));
+  //       dispatch(addLesson(response.data));
+  //       dispatch(updateID(response.data.id));
+  //       setListLesson(response.data);
+  //     } else {
+  //       const response = await api.put(`/lesson/${course.id}`, values);
+  //       dispatch(addLesson(response.data));
+  //       dispatch(updateID(response.data.id));
+  //       setListLesson(response.data);
+  //       setCurrent(current + 1);
+  //     }
+  //     console.log(current);
+  //     // setCurrent(current + 1);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const next = () => {
     console.log(current);
@@ -272,8 +271,8 @@ const Courses = () => {
           current={current}
           onSubmitForm1={onSubmitForm1}
           form1={form1}
-          onSubmitForm2={onSubmitForm2}
-          onSubmitForm3={onSubmitForm3}
+         
+       
         />
       </Modal>
     </>
