@@ -8,24 +8,24 @@ import {
 import api from "../../../config/axios";
 import { useParams } from "react-router";
 
-export const LessonTab = () => {
+export const LessonTab = ({ data }) => {
   const onChange = (key) => {
     console.log(key);
   };
 
-  const [listLesson, setListLesson] = useState([]);
-  const param = useParams();
-  const getListLesson = async () => {
-    const res = await api.get(`/lesson/courseId?id=${param.id}`);
-    setListLesson(res.data);
-  };
-  useEffect(() => {
-    getListLesson();
-  }, []);
+  // const [listLesson, setListLesson] = useState([]);
+  // const param = useParams();
+  // const getListLesson = async () => {
+  //   const res = await api.get(`/lesson/courseId?id=${param.id}`);
+  //   setListLesson(res.data);
+  // };
+  // useEffect(() => {
+  //   getListLesson();
+  // }, []);
 
   return (
     <Space direction="vertical" className="w-100">
-      {listLesson.map((items) => {
+      {data?.map((items) => {
         return (
           <Collapse
             collapsible="header"
@@ -33,7 +33,7 @@ export const LessonTab = () => {
             items={[
               {
                 key: "1",
-                label: items.chapter.name,
+                label: items.name,
                 children: (
                   <>
                     {" "}
@@ -53,47 +53,7 @@ export const LessonTab = () => {
                               margin: 0,
                             }}
                           >
-                            Bài học 1
-                          </p>
-                        </Col>
-                        <Col
-                          span={4}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 10,
-                          }}
-                        >
-                          {" "}
-                          <Button type="primary">Preview</Button>
-                          <p
-                            style={{
-                              margin: 0,
-                            }}
-                          >
-                            12:30
-                          </p>
-                          <LockOutlined />
-                        </Col>
-                      </Row>
-                    </li>
-                    <li>
-                      <Row style={{ width: "100%" }}>
-                        <Col
-                          span={20}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 10,
-                          }}
-                        >
-                          <PlayCircleOutlined />
-                          <p
-                            style={{
-                              margin: 0,
-                            }}
-                          >
-                            Bài học 1
+                            {items.name}
                           </p>
                         </Col>
                         <Col

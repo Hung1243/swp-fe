@@ -24,7 +24,7 @@ const CourseDetail = () => {
   const param = useParams();
   const getCourseDetail = async () => {
     try {
-      const res = await api.get(`/course/${param.id}`);
+      const res = await api.get(`/course/${param.id}/detail`);
       setCourseDetail(res.data);
       console.log(res.data);
     } catch (err) {
@@ -50,7 +50,7 @@ const CourseDetail = () => {
       key: 2,
       children: (
         <TabComponent>
-          <LessonTab data={courseDetail} />
+          <LessonTab data={courseDetail.chapters} />
         </TabComponent>
       ),
     },
@@ -81,12 +81,14 @@ const CourseDetail = () => {
           <div className="container">
             <div className="align-items-center justify-item-center p-5">
               <div className="content-header d-flex text-white">
-                <button className="btn btn-secondary">Danh muc</button>
+                <button className="btn btn-secondary">
+                  {courseDetail.categoryId}
+                </button>
                 <p className="text-center m-0 p-2">
-                  by <strong>Teacher A</strong>
+                  by <strong>{courseDetail.createBy?.username}</strong>
                 </p>
+                <h1 className="text-white">{courseDetail?.name}</h1>
               </div>
-              <h1 className="text-white">Course Name</h1>
               <div className="content-footer text-white">
                 <Space>
                   <ClockCircleOutlined style={{ color: "#B75757" }} />
@@ -117,7 +119,15 @@ const CourseDetail = () => {
             </Col>
 
             <Col span={6}>
-              <Card cover={<img src="https://i.pravatar.cc/250" alt="" />}>
+              <Card
+                cover={
+                  <img
+                    src={courseDetail.pictureLink}
+                    alt=""
+                    style={{ width: "306px", height: "200px" }}
+                  />
+                }
+              >
                 <Space
                   style={{
                     display: "flex",
