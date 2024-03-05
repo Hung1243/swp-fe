@@ -63,7 +63,7 @@ function App() {
         </Route>
 
         <Route path="test">
-          <Route path=":id" element={<ChapterTable id={1} />}></Route>
+          <Route path=":id" element={<ChapterTable />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
