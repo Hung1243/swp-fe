@@ -1,121 +1,84 @@
-import {
-  CaretRightOutlined,
-  ClockCircleOutlined,
-  CopyFilled,
-  HomeOutlined,
-  SignalFilled,
-  TeamOutlined,
-  UserDeleteOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+// import {
+//   CaretRightOutlined,
+//   ClockCircleOutlined,
+//   CopyFilled,
+//   HomeOutlined,
+//   SignalFilled,
+//   TeamOutlined,
+//   UserDeleteOutlined,
+//   UserOutlined,
+// } from "@ant-design/icons";
 
+import React, { useEffect, useState } from "react";
+import { ClockCircleOutlined } from "@ant-design/icons";
 import {
-  Card,
-  Flex,
-  Pagination,
-  Space,
-  Typography,
-  Button,
-  Row,
-  Col,
-} from "antd";
-import Search from "antd/es/input/Search";
-import React from "react";
+  AudioOutlined,
+  UserDeleteOutlined,
+  SignalFilled,
+  CopyFilled,
+  ArrowRightOutlined,
+  CaretRightOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
+import { Button, Checkbox, Table } from "antd";
+import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
+import api from "../../config/axios";
+const { Search } = Input;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 const onChange = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 
-const data = [
-  {
-    id: "1",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su 1",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "2",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "3",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "4",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "4",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "4",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-  {
-    id: "4",
-    name: "khoa hoc1",
-    price: 10000,
-    fullName: "Giao su",
-    pictureLink: "https://i.pravatar.cc/300",
-  },
-];
 const MyCourse = () => {
+  const [listCourses, setListCourses] = useState([]);
+  const getCourses = async () => {
+    try {
+      const res = await api.get("/course");
+      setListCourses(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getCourses();
+  }, []);
   return (
-    <div className="container">
-      {" "}
-      <div className="myCourse  ">
-        <div className="d-flex justify-content-between">
-          <h3>KHÓA HỌC CỦA TÔI </h3>
-          <Space direction="vertical">
-            <Search
-              placeholder="Search"
-              onSearch={onSearch}
-              style={{
-                width: 200,
-              }}
-            />
-          </Space>
-        </div>
-        {data.map((item) => {
-          return (
-            <div className="member border mt-3  ">
-              <Card
-                hoverable
-                styles={{
-                  body: {
-                    padding: 0,
-                    overflow: "hidden",
-                  },
-                }}
-              >
-                <Row>
-                  <Col span={7}>
-                    <img alt={item.name} src={item.pictureLink} />
-                  </Col>
-                  <Col span={17}>
-                    <div className="member-info">
+    <section id="view-courses">
+      <div className="container mt-5">
+        <div className="row">
+          {" "}
+          <div className="viewCourse col-9 ">
+            <div className="d-flex justify-content-between">
+              <h1>Khóa học của tôi</h1>
+              <Space direction="vertical">
+                <Search
+                  placeholder="Search"
+                  onSearch={onSearch}
+                  style={{
+                    width: 200,
+                  }}
+                />
+              </Space>
+            </div>
+            {listCourses.map((item) => {
+              return (
+                <div className="member border mt-3  ">
+                  <div className="row">
+                    {" "}
+                    <div className="pic col-4">
+                      <img
+                        style={{ width: "300px", height: "200px" }}
+                        src={item.pictureLink}
+                        className="img-fluid"
+                        alt={item.name}
+                      />
+                    </div>
+                    <div className="member-info col-8 pt-1 ">
                       <p>
-                        by <strong>{item.fullName}</strong>
+                        by <strong>{item.createBy.username}</strong>
                       </p>
                       <h3 className="mb-4">{item.name}</h3>
 
@@ -129,33 +92,25 @@ const MyCourse = () => {
                         <CopyFilled style={{ color: "#B75757" }} />
                         20 lessons
                       </Space>
-                      <br />
-                      <br />
-
-                      <hr />
-
+                      <hr className="m-2" />
                       <div className="footer d-flex justify-content-between align-items-center">
-                        <p className="fs-4 text-dark">{item.price}$</p>
+                        <p className="fs-4 fw-bold text-dark">{item.price}$</p>
                         <Link
                           className="text-decoration-none text-dark"
-                          to={item.id}
+                          to={`/enrolled/${item.id}`}
                         >
-                          Di Den Khoa Hoc <CaretRightOutlined />
+                          View more <CaretRightOutlined />
                         </Link>
                       </div>
                     </div>
-                  </Col>
-                </Row>
-              </Card>
-            </div>
-          );
-        })}
-
-        <div className="mt-5 justify-content-end">
-          <Pagination defaultCurrent={1} total={50} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
