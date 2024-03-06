@@ -7,9 +7,10 @@ const cardStyle = {
 };
 const imgStyle = {
   display: "block",
-  width: 273,
+  width: 200,
+  height: 200,
 };
-export const LectureTab = () => {
+export const LectureTab = ({ data }) => {
   return (
     <div>
       <Card
@@ -24,20 +25,23 @@ export const LectureTab = () => {
           },
         }}
       >
-        <Flex justify="space-between">
-          <img alt="avatar" src="https://i.pravatar.cc" style={imgStyle} />
+        <Flex justify="flex-start">
+          <img alt="avatar" src={data.avatar} style={imgStyle} />
           <Flex
             vertical
-            align="flex-end"
-            justify="space-between"
+            align="flex-start"
+            // justify="space-between"
             style={{
               padding: 32,
             }}
           >
-            <Typography.Title level={3}>
+            {/* <Typography.Title level={3}>
               antd is an enterprise-class UI design language and React UI
               library.
-            </Typography.Title>
+            </Typography.Title> */}
+            <h5>Tên: {data.fullName}</h5>
+            <h5>Số điện thoại liên hệ: {data.phone}</h5>
+            <h5>Email: {data.email}</h5>
           </Flex>
         </Flex>
       </Card>

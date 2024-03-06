@@ -24,7 +24,7 @@ const CourseDetail = () => {
   const param = useParams();
   const getCourseDetail = async () => {
     try {
-      const res = await api.get(`/course/${param.id}/detail`);
+      const res = await api.get(`/courseDetail/${param.id}`);
       setCourseDetail(res.data);
       console.log(res.data);
     } catch (err) {
@@ -59,7 +59,7 @@ const CourseDetail = () => {
       key: 3,
       children: (
         <TabComponent>
-          <LectureTab data={courseDetail} />
+          <LectureTab data={courseDetail.createBy} />
         </TabComponent>
       ),
     },
@@ -82,13 +82,14 @@ const CourseDetail = () => {
             <div className="align-items-center justify-item-center p-5">
               <div className="content-header d-flex text-white">
                 <button className="btn btn-secondary">
-                  {courseDetail.categoryId}
+                  {courseDetail.category?.name}
                 </button>
                 <p className="text-center m-0 p-2">
                   by <strong>{courseDetail.createBy?.username}</strong>
                 </p>
-                <h1 className="text-white">{courseDetail?.name}</h1>
               </div>
+              <h1 className="text-white">{courseDetail.name}</h1>
+
               <div className="content-footer text-white">
                 <Space>
                   <ClockCircleOutlined style={{ color: "#B75757" }} />
