@@ -4,14 +4,14 @@ import AddNewCourse from "./AddNewCourse";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addChapter,
-  addInfo,
-  addLesson,
-  removeCourse,
-  updateID,
-  updateStep,
-} from "../../redux/feature/courseSlice";
+// import {
+//   addChapter,
+//   addInfo,
+//   addLesson,
+//   removeCourse,
+//   updateID,
+//   updateStep,
+// } from "../../redux/feature/courseSlice";
 import axios from "axios";
 import { uploadFile } from "../../utils/upload";
 
@@ -45,6 +45,9 @@ const columns = [
     title: "Hình ảnh",
     dataIndex: "pictureLink",
     key: "pictureLink",
+    render: (pictureLink) => (
+      <img src={pictureLink} alt="Hình ảnh" style={{ maxWidth: "100px" }} />
+    ),
   },
   {
     title: "Người tạo",
@@ -99,7 +102,7 @@ const Courses = () => {
       fullName: item.createBy.fullName,
     };
   });
-  
+
   const onSubmitForm1 = async (values) => {
     console.log("Received values:", values);
     try {
@@ -110,16 +113,15 @@ const Courses = () => {
         }
         console.log(values);
         const response = await api.post("/course", values);
-        dispatch(addInfo(response.data));
-        dispatch(updateID(response.data.id));
+        // dispatch(addInfo(response.data));
+        // dispatch(updateID(response.data.id));
         setCourse(response.data);
         setCurrent(current + 1);
-        dispatch(updateStep(1));
+        // dispatch(updateStep(1));
       } else {
-        
         const response = await api.put(`/course/${course.id}`, values);
-        dispatch(addInfo(response.data));
-        dispatch(updateID(response.data.id));
+        // dispatch(addInfo(response.data));
+        // dispatch(updateID(response.data.id));
         setCourse(response.data);
         setCurrent(current + 1);
       }
@@ -129,72 +131,6 @@ const Courses = () => {
       console.log(e);
     }
   };
-  // const onSubmitForm2 = async (values) => {
-  //   try {
-  //     if (step == 1) {
-  //       const response = await api.post(
-  //         "/chapters",
-  //         chapter.map((item) => {
-  //           return {
-  //             name: item.name,
-  //             course_id: courseRedux.id,
-  //           };
-  //         })
-  //       );
-  //       dispatch(updateStep(2));
-  //       setListChapter(response.data);
-  //       dispatch(addChapter(response.data));
-  //       setCurrent(current + 1);
-  //     } else {
-  //       const response = await api.put(
-  //         `/chapters?id=${course.id}`,
-  //         chapter.map((item) => {
-  //           return {
-  //             name: item.name,
-  //             course_id: courseRedux.id,
-  //           };
-  //         })
-  //       );
-  //       setListChapter(response.data);
-  //       dispatch(addChapter(response.data));
-  //       setCurrent(current + 1);
-  //     }
-  //     setCurrent(current + 1);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  // const onSubmitForm3 = async (values) => {
-  //   try {
-  //     if (step == 2) {
-  //       const response = await api.post(
-  //         "/lesson",
-  //         lesson.map((item) => {
-  //           return {
-  //             name: item.name,
-  //             description: item.description,
-  //             videoLink: item.videoLink,
-  //             chapter_id: item.chapter_id,
-  //           };
-  //         })
-  //       );
-  //       dispatch(updateStep(3));
-  //       dispatch(addLesson(response.data));
-  //       dispatch(updateID(response.data.id));
-  //       setListLesson(response.data);
-  //     } else {
-  //       const response = await api.put(`/lesson/${course.id}`, values);
-  //       dispatch(addLesson(response.data));
-  //       dispatch(updateID(response.data.id));
-  //       setListLesson(response.data);
-  //       setCurrent(current + 1);
-  //     }
-  //     console.log(current);
-  //     // setCurrent(current + 1);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   const next = () => {
     console.log(current);
@@ -211,7 +147,7 @@ const Courses = () => {
     <>
       <Button
         onClick={() => {
-          dispatch(removeCourse());
+          // dispatch(removeCourse());
           setOpen(true);
         }}
       >
@@ -231,7 +167,7 @@ const Courses = () => {
         onOk={() => next()}
         onCancel={() => {
           setOpen(false);
-          dispatch(removeCourse());
+          // dispatch(removeCourse());
         }}
         width={1500}
         okText={current < 2 ? "Next" : "Done"}
@@ -258,7 +194,6 @@ const Courses = () => {
                 type="primary"
                 onClick={() => {
                   console.log(123);
-                  onSubmitForm3();
                 }}
               >
                 Done
@@ -271,8 +206,6 @@ const Courses = () => {
           current={current}
           onSubmitForm1={onSubmitForm1}
           form1={form1}
-         
-       
         />
       </Modal>
     </>
