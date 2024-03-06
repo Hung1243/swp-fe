@@ -25,7 +25,13 @@ import { useDispatch, useSelector } from "react-redux";
 // import { addChapter, addLesson } from "../../redux/feature/courseSlice";
 import { PlusOutlined } from "@ant-design/icons";
 import { ChapterTable } from "./ChapterTable";
-const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
+const CourseInfoForm = ({
+  form1,
+  onSubmitForm1,
+  setId,
+  fileList,
+  setFileList,
+}) => {
   const [categories, setCategories] = useState([]);
   const fetchCategory = async (values) => {
     console.log("Received values:", values);
@@ -55,7 +61,6 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -210,19 +215,32 @@ const CourseInfoForm = ({ form1, onSubmitForm1 }) => {
   );
 };
 
-
-const AddNewCourse = ({ current, onSubmitForm1, form1 }) => {
+const AddNewCourse = ({
+  current,
+  onSubmitForm1,
+  form1,
+  setFileList,
+  fileList,
+}) => {
   const { token } = theme.useToken();
   const [form] = useForm();
-
+  const [id, setId] = useState();
   const steps = [
     {
       title: "Tạo khóa học",
-      content: <CourseInfoForm form1={form1} onSubmitForm1={onSubmitForm1} />,
+      content: (
+        <CourseInfoForm
+          setFileList={setFileList}
+          fileList={fileList}
+          setId={setId}
+          form1={form1}
+          onSubmitForm1={onSubmitForm1}
+        />
+      ),
     },
     {
       title: "Thêm chương và bài học",
-      content: <ChapterTable />,
+      content: <ChapterTable id={id} />,
     },
   ];
   const items = steps.map((item) => ({

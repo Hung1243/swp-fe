@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 // } from "../../redux/feature/courseSlice";
 import axios from "axios";
 import { uploadFile } from "../../utils/upload";
-
+import { useNavigate } from "react-router-dom";
 const columns = [
   {
     title: "STT",
@@ -66,6 +66,8 @@ const columns = [
 ];
 
 const Courses = () => {
+  const [fileList, setFileList] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [form1] = useForm();
@@ -76,9 +78,17 @@ const Courses = () => {
   // const lesson = useSelector((store) => store.course.lesson);
   const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
+  const navigate = useNavigate();
 
   const [listCourse, setListCourse] = useState([]);
-
+  const handleDone = () => {
+    const newUrl = window.location.pathname;
+    window.history.pushState({}, null, newUrl);
+    setOpen(false);
+    setCurrent(0);
+    form1.resetFields();
+    setFileList([]);
+  };
   const getCourse = async () => {
     try {
       const res = await api.get("/course");
@@ -110,18 +120,18 @@ const Courses = () => {
         if (values.pictureLink) {
           const url = await uploadFile(values.pictureLink.file.originFileObj);
           values.pictureLink = url;
+          console.log(values.pictureLink);
         }
-        console.log(values);
         const response = await api.post("/course", values);
-        // dispatch(addInfo(response.data));
-        // dispatch(updateID(response.data.id));
+        console.log(response.data.categoryId);
         setCourse(response.data);
         setCurrent(current + 1);
-        // dispatch(updateStep(1));
+        console.log(response.data.id);
+        const newUrl = `?id=${response.data.id}`;
+        window.history.pushState({}, null, newUrl);
       } else {
         const response = await api.put(`/course/${course.id}`, values);
-        // dispatch(addInfo(response.data));
-        // dispatch(updateID(response.data.id));
+
         setCourse(response.data);
         setCurrent(current + 1);
       }
@@ -137,7 +147,6 @@ const Courses = () => {
     if (current == 0) {
       form1.submit();
     } else if (current == 1) {
-      onSubmitForm2();
     }
   };
   const prev = () => {
@@ -147,7 +156,6 @@ const Courses = () => {
     <>
       <Button
         onClick={() => {
-          // dispatch(removeCourse());
           setOpen(true);
         }}
       >
@@ -167,10 +175,9 @@ const Courses = () => {
         onOk={() => next()}
         onCancel={() => {
           setOpen(false);
-          // dispatch(removeCourse());
         }}
-        width={1500}
-        okText={current < 2 ? "Next" : "Done"}
+        width={1000}
+        okText={current < 1 ? "Next" : "Done"}
         cancelText={""}
         footer={
           <>
@@ -184,18 +191,13 @@ const Courses = () => {
                 Previous
               </Button>
             )}
-            {current < 2 && (
+            {current < 1 && (
               <Button type="primary" onClick={() => next()}>
                 Next
               </Button>
             )}
-            {current === 2 && (
-              <Button
-                type="primary"
-                onClick={() => {
-                  console.log(123);
-                }}
-              >
+            {current === 1 && (
+              <Button type="primary" onClick={handleDone}>
                 Done
               </Button>
             )}
@@ -203,6 +205,8 @@ const Courses = () => {
         }
       >
         <AddNewCourse
+          setFileList={setFileList}
+          fileList={fileList}
           current={current}
           onSubmitForm1={onSubmitForm1}
           form1={form1}

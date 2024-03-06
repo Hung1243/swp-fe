@@ -23,7 +23,9 @@ export const ChapterTable = ({ id }) => {
   const { TextArea } = Input;
   const [listChapter, setListChapter] = useState([]);
   const [form] = useForm();
-  const params = useParams();
+  const urlParams = new URLSearchParams(window.location.search);
+  const idURL = urlParams.get("id");
+  console.log(urlParams);
   const columns = [
     {
       title: "Chapter name",
@@ -46,7 +48,7 @@ export const ChapterTable = ({ id }) => {
   ];
 
   const getListChapter = async () => {
-    const res = await api.get(`/chapters/courseId?id=${params.id}`);
+    const res = await api.get(`/chapters/courseId?id=${idURL}`);
     setListChapter(res.data);
     console.log(res.data);
   };
@@ -64,7 +66,7 @@ export const ChapterTable = ({ id }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const onSubmitChapter = async (values) => {
-    values.course_id = Number(params.id);
+    values.course_id = Number(idURL);
     console.log(values);
     const res = await api.post("/chapter", values);
     form.resetFields();
@@ -74,11 +76,7 @@ export const ChapterTable = ({ id }) => {
   };
   return (
     <>
-      <div
-        style={{
-          width: "100vw",
-        }}
-      >
+      <div style={{}}>
         <Button
           type="primary"
           onClick={() => {
@@ -278,7 +276,7 @@ const Lesson = ({ chapter_id }) => {
       >
         Add Lesson
       </Button>
-        <Table columns={columns} dataSource={data} pagination={false} />
+      <Table columns={columns} dataSource={data} pagination={false} />
       <Modal
         title="Thêm chương"
         centered
