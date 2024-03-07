@@ -71,12 +71,9 @@ const Courses = () => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [form1] = useForm();
-  // const [form3] = useForm();
   const dispatch = useDispatch();
-  // const chapter = useSelector((store) => store.course.chapter);
-  const step = useSelector((store) => store.course.step);
-  // const lesson = useSelector((store) => store.course.lesson);
-  const courseRedux = useSelector((store) => store.course);
+  // const step = useSelector((store) => store.course.step);
+  // const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
   const navigate = useNavigate();
 
