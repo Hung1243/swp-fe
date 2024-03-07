@@ -14,6 +14,8 @@ import { OverviewTab } from "../../components/tab-component/overview";
 import { LectureTab } from "../../components/tab-component/lecture";
 import api from "../../config/axios";
 import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/feature/cartSlice";
 
 const onChange = (key) => {
   console.log(key);
@@ -22,6 +24,8 @@ const onChange = (key) => {
 const CourseDetail = () => {
   const [courseDetail, setCourseDetail] = useState([]);
   const param = useParams();
+  const dispatch = useDispatch();
+
   const getCourseDetail = async () => {
     try {
       const res = await api.get(`/courseDetail/${param.id}`);
@@ -136,8 +140,14 @@ const CourseDetail = () => {
                     padding: "0",
                   }}
                 >
-                  <h4 style={{ color: "#B75757" }}>100$</h4>
-                  <Button style={{ background: "#B75757" }} type="primary">
+                  <h4 style={{ color: "#B75757" }}>{courseDetail.price}đ</h4>
+                  <Button
+                    style={{ background: "#B75757" }}
+                    type="primary"
+                    onClick={() => {
+                      dispatch(addToCart(courseDetail));
+                    }}
+                  >
                     Buy Now
                   </Button>
                 </Space>

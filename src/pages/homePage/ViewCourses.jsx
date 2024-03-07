@@ -13,6 +13,7 @@ import { Button, Checkbox, Table } from "antd";
 import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
 import api from "../../config/axios";
+import { useDispatch, useSelector } from "react-redux";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -30,9 +31,10 @@ const onChange = (e) => {
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
   const [listCategories, setListCategories] = useState([]);
+
   const getCourses = async () => {
     try {
-      const res = await api.get("/course");
+      const res = await api.get("/courseDetailAll");
       setListCourses(res.data);
       console.log(res.data);
     } catch (err) {
