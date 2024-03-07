@@ -1,5 +1,7 @@
 import { Button, Col, Collapse, Row, Space } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../config/axios";
+import { useParams } from "react-router";
 const text = `
   
 `;
@@ -22,9 +24,19 @@ const items = [
 ];
 
 const MyCourseDetail = () => {
+  const params = useParams();
   const onChange = (key) => {
     console.log(key);
   };
+  const [myCourseDetail, setMyCourseDetail] = useState([]);
+  const getCourseDetail = async () => {
+    const res = await api.get(`/courseDetail/${params.id}`);
+    setMyCourseDetail(res.data);
+    console.log(res.data);
+  };
+  useEffect(() => {
+    getCourseDetail();
+  }, []);
 
   return (
     <>
@@ -32,7 +44,9 @@ const MyCourseDetail = () => {
         <div className="my-course-content">
           <Row gutter={24}>
             <Col span={18}>
-              <img src="https://i.pravatar.cc/103" alt="" />
+              <video width="1100" height="100%" controls>
+                <source src={myCourseDetail.videoLink} type="video/mp4" />
+              </video>
             </Col>
             <Col span={6}>
               <Collapse
