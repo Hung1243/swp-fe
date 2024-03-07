@@ -99,7 +99,7 @@ const MyCourse = () => {
                           className="text-decoration-none text-dark"
                           to={`/enrolled/${item.id}`}
                         >
-                          View more <CaretRightOutlined />
+                          Learn Now <CaretRightOutlined />
                         </Link>
                       </div>
                     </div>
