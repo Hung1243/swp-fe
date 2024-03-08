@@ -18,6 +18,16 @@
   padding: 2rem;
   text-align: center;
 } */
+.myCourse .member{
+  border-radius: 10px 10px;
+}
+
+.myCourse .member .img-fluid{
+  border-radius: 10px 0px 0px 10px;
+}
+.myCourse .member .member-info .footer a{
+  margin-right: 4%;
+}
 #carousel {
   background-color: antiquewhite;
 }
