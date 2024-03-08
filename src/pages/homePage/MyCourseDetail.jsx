@@ -2,6 +2,8 @@ import { Button, Col, Collapse, Row, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import api from "../../config/axios";
 import { useParams } from "react-router";
+import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 
 const MyCourseDetail = () => {
   const params = useParams();
@@ -22,19 +24,26 @@ const MyCourseDetail = () => {
   // const [lessons, setLessons] = useState([]);
 
   useEffect(() => {
+    console.log(myCourseDetail?.lessons[0].videoLink);
     if (myCourseDetail) {
       setItems(
-        myCourseDetail.chapters.map((items) => {
+        myCourseDetail.chapters.map((item) => {
           return {
-            key: "1",
-            label: items.name,
-            children: myCourseDetail?.lessons.map((items) => {
-              return (
-                <ul>
-                  <li className="list-unstyled ">{items.name}</li>
-                </ul>
-              );
-            }),
+            key: item.id,
+            label: item.name,
+            children: (
+              <ul>
+                {myCourseDetail?.lessons
+                  .filter((lesson) => lesson.chapter_id === item.id)
+                  .map((lesson) => {
+                    return (
+                      <Link to={`?lessonId=${lesson.id}`}>
+                        <li className="list-unstyled ">{lesson.name}</li>
+                      </Link>
+                    );
+                  })}
+              </ul>
+            ),
           };
         })
       );
@@ -47,12 +56,13 @@ const MyCourseDetail = () => {
         <div className="my-course-content">
           <Row gutter={24}>
             <Col span={18}>
-              <video width="1170" height="100%" controls>
-                <source
-                  src={myCourseDetail?.lessons[0].videoLink}
-                  type="video/mp4"
-                />
-              </video>
+              <video
+                width="1170"
+                height="100%"
+                controls
+                src={myCourseDetail?.lessons[0].videoLink}
+              ></video>
+              {/* <ReactPlayer p url={myCourseDetail?.lessons[0].videoLink} /> */}
             </Col>
             <Col span={6}>
               <Collapse
