@@ -1,3 +1,17 @@
+/* CourseDetail */
+/* #course-detail {
+  background-color: black;
+} */
+.viewCourse .member {
+  border-radius: 10px 10px;
+}
+
+.viewCourse .member .img-fluid {
+  border-radius: 10px 0px 0px 10px;
+}
+.viewCourse .member .member-info .footer a {
+  margin-right: 4%;
+}
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
