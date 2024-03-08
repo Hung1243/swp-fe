@@ -48,13 +48,13 @@ const HomePage = () => {
                 <h3>Danh Mục Khóa Học</h3>
                 <p>Những khóa học phổ biến</p>
               </Col>
-              <Col
+              {/* <Col
                 span={5}
                 style={{ display: "flex", justifyContent: "center" }}
                 className="category-right"
               >
                 <Button>Tất cả khóa học</Button>
-              </Col>
+              </Col> */}
             </Row>
           </div>
 
@@ -72,7 +72,7 @@ const HomePage = () => {
                       }}
                       cover={<XOutlined style={{ padding: "10px" }} />}
                     >
-                      <h5>{items.name}</h5>
+                      <h5 className="fs-6 text-center">{items.name}</h5>
                     </Card>
                   </Col>
                 );
@@ -105,7 +105,7 @@ const HomePage = () => {
           <div className="card-course">
             <Row gutter={24}>
               {" "}
-              {listCourse.map((items) => {
+              {listCourse.slice(1, 6).map((items) => {
                 return (
                   <Col span={6}>
                     <Card
@@ -113,7 +113,13 @@ const HomePage = () => {
                       style={{
                         width: 300,
                       }}
-                      cover={<img alt={items.name} src={items.pictureLink} />}
+                      cover={
+                        <img
+                          alt={items.name}
+                          src={items.pictureLink}
+                          style={{ width: "300px", height: "200px" }}
+                        />
+                      }
                       className="py-0"
                     >
                       <p>
@@ -151,7 +157,7 @@ const HomePage = () => {
         <Row gutter={24} justify="space-around" align="middle">
           <Col span={4} style={{ display: "felx", justifyContent: "center" }}>
             <Card
-              className="pt-4"
+              className="pt-1"
               hoverable
               style={{
                 width: 200,
@@ -170,13 +176,14 @@ const HomePage = () => {
           </Col>
           <Col span={4}>
             <Card
-              className="pt-4"
+              className="pt-1"
               hoverable
               style={{
                 width: 200,
                 height: 120,
                 justifyContent: "center",
                 textAlign: "center",
+                alignItems: "center",
               }}
             >
               <h3>
@@ -188,7 +195,7 @@ const HomePage = () => {
           </Col>
           <Col span={4}>
             <Card
-              className="pt-4"
+              className="pt-1"
               hoverable
               style={{
                 width: 200,
@@ -206,7 +213,7 @@ const HomePage = () => {
           </Col>
           <Col span={4}>
             <Card
-              className="pt-4"
+              className="pt-1"
               hoverable
               style={{
                 width: 200,

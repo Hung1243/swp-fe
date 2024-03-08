@@ -1,7 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { DownOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Space } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/feature/accountSlice";
 const Nav = () => {
+  const account = useSelector((store) => store.account);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const items = [
+    {
+      label: <Link to="/profile">My Profile</Link>,
+      key: "0",
+    },
+    {
+      label: (
+        <Button
+          onClick={() => {
+            dispatch(logout());
+            localStorage.clear();
+            navigate("/login");
+          }}
+        >
+          Logout
+        </Button>
+      ),
+      key: "1",
+    },
+  ];
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light ">
@@ -46,49 +72,22 @@ const Nav = () => {
                 </Link>
               </li>
             </ul>
-            {/* <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form> */}
           </div>
           <div>
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+            <Dropdown
+              menu={{
+                items,
+              }}
+              trigger={["click"]}
             >
-              Hi User
-            </a>
-            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
-            </ul>
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <Avatar src={account.avatar} />
+                  Hi {account.fullName}
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>
           </div>
         </div>
       </nav>

@@ -18,7 +18,9 @@ const Login = () => {
       const response = await api.post("/authentication/login", values);
       localStorage.setItem("token", response.data.token);
       console.log(response.data);
-      if (response.data.role == "TEACHER") {
+      if (response.data.role == "STUDENT") {
+        navigate("/");
+      } else if (response.data.role == "TEACHER") {
         navigate("/dashboard/teacher");
       } else {
         navigate("/dashboard/admin");
