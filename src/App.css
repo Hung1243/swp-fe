@@ -4,3 +4,56 @@
   padding: 2rem;
   text-align: center;
 } */
+#carousel {
+  background-color: antiquewhite;
+}
+
+.carousel-left {
+  justify-content: center;
+}
+
+.carousel-right {
+  align-items: center;
+}
+
+/* .category-course {
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  margin: 20px;
+  width: 1250px;
+}
+
+.category-course h5 {
+  text-align: center;
+} */
+
+.ant-card-hoverable:hover,
+.ant-card-meta-title:hover {
+  color: #b75757;
+}
+/* 
+.card-number {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+} */
+
+.feedback {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.card-feedback {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+/*Can le giua cac thanh phan*/
+
+/* .category-container {
+  margin-top: 70px;
+  margin-bottom: 50px;
+  align-items: center;
+} */
