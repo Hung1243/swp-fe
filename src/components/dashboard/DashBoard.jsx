@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {
+  CheckOutlined,
+  DatabaseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -26,7 +28,7 @@ const DashBoard = ({ role }) => {
       return [
         {
           key: "1",
-          icon: <UserOutlined />,
+          icon: <DatabaseOutlined />,
           label: (
             <Link to="courses" className="text-decoration-none">
               Các khóa học

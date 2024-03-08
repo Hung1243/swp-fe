@@ -41,6 +41,8 @@ const Login = () => {
         console.log(response.data);
         if (response.data.role == "TEACHER") {
           navigate("/dashboard/teacher");
+        } else if (response.data.role == "STUDENT") {
+          navigate("/");
         } else {
           navigate("/dashboard/admin");
         }
