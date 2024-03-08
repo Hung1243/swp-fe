@@ -59,7 +59,7 @@ const columns = [
   {
     title: " Edit",
     fixed: "right",
-    render: () => <Button type="primary">Sửa</Button>
+    render: () => <Button type="primary" >Sửa</Button>
     
   },
   {
@@ -69,7 +69,7 @@ const columns = [
     onConfirm={() => handleDelete(record.id)}
     onCancel={() => console.log('Cancel')}
   >
-    <Button type="primary" danger>
+    <Button type="primary"  danger >
       Xóa
     </Button>
   </Popconfirm>
@@ -196,7 +196,7 @@ const UserManagement = () => {
               {" "}
               <Form.Item
                 name="password"
-                label="Maatj khaaur"
+                label="Mật khẩu"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
                 <Input />
@@ -215,7 +215,7 @@ const UserManagement = () => {
             <Col span={12}>
               <Form.Item
                 name="avatar"
-                label="Avatar"
+                label="Ảnh đại diện"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
                  <Upload
