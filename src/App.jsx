@@ -20,6 +20,7 @@ import MyProfile from "./pages/homePage/MyProfile";
 import Grade from "./pages/TeacherPage/Grade";
 import UserManagement from "./pages/adminPage/UserManagement";
 import CourseManagement from "./pages/adminPage/CourseManagement";
+import CheckoutSuccess from "./pages/homePage/CheckOutSuccess";
 import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
             <Route path=":id" element={<MyProfile />}></Route>
           </Route>
         </Route>
+        <Route path="success" element={<CheckoutSuccess />}></Route>
 
         <Route path="test">
           <Route path=":id" element={<ChapterTable />}></Route>
