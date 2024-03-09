@@ -2,6 +2,7 @@ import { Button, Card, Col, Row } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/feature/cartSlice";
+import api from "../../config/axios";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -9,6 +10,15 @@ const Cart = () => {
   console.log(cartItems);
   const handleRemoveFromCart = (item) => {
     dispatch(removeFromCart(item));
+  };
+
+  const handlePayment = async () => {
+    const res = await api.post("/order", {
+      courseId: cartItems[0].id,
+      totalPrice: cartItems.reduce((total, item) => total + item.price, 0),
+    });
+    window.open(res.data);
+    console.log(res.data);
   };
   return (
     <>
@@ -63,7 +73,11 @@ const Cart = () => {
                   <h2>
                     {cartItems.reduce((total, item) => total + item.price, 0)}đ
                   </h2>
-                  <Button type="primary" className="w-100">
+                  <Button
+                    type="primary"
+                    className="w-100"
+                    onClick={handlePayment}
+                  >
                     Thanh Toán
                   </Button>
                 </div>
