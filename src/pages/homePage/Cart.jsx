@@ -1,7 +1,7 @@
 import { Button, Card, Col, Row } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../../redux/feature/cartSlice";
+import { handleDone, removeFromCart } from "../../redux/feature/cartSlice";
 import api from "../../config/axios";
 
 const Cart = () => {

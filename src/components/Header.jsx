@@ -32,9 +32,9 @@ const Nav = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light ">
         <div className="container d-flex justify-content-between">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand fs-3 fw-bold" to="/">
             Skill Forge
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"

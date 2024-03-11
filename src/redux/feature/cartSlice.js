@@ -33,9 +33,12 @@ const cartSlice = createSlice({
         toast.error("Khóa học không tồn tại trong giỏ hàng");
       }
     },
+    handleDone: () => {
+      return initialState;
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, handleDone } = cartSlice.actions;
 
 export default cartSlice.reducer;

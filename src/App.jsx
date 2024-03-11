@@ -22,6 +22,7 @@ import UserManagement from "./pages/adminPage/UserManagement";
 import CourseManagement from "./pages/adminPage/CourseManagement";
 import CheckoutSuccess from "./pages/homePage/CheckOutSuccess";
 import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
+import Quiz from "./components/quiz/Quiz";
 
 function App() {
   return (
@@ -52,7 +53,7 @@ function App() {
             <Route path=":id" element={<CourseDetail />}></Route>
           </Route>
           <Route path="enrolled">
-            <Route path="" element={<MyCourse />}></Route>
+            <Route path="" element={<MyCourse />}></Route>{" "}
             <Route path=":id" element={<MyCourseDetail />}></Route>
           </Route>
           <Route path="cart" element={<Cart />}></Route>
@@ -63,8 +64,11 @@ function App() {
         </Route>
         <Route path="success" element={<CheckoutSuccess />}></Route>
 
-        <Route path="test">
+        {/* <Route path="test">
           <Route path=":id" element={<ChapterTable />}></Route>
+        </Route> */}
+        <Route path="quiz">
+          <Route path=":id" element={<Quiz />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

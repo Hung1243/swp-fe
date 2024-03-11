@@ -30,7 +30,7 @@ const onChange = (e) => {
 
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
-  const [listCategories, setListCategories] = useState([]);
+  // const [listCategories, setListCategories] = useState([]);
 
   const getCourses = async () => {
     try {
@@ -44,18 +44,18 @@ const ViewCourses = () => {
   useEffect(() => {
     getCourses();
   }, []);
-  const getCategories = async () => {
-    try {
-      const res = await api.get("/category");
-      setListCategories(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getCategories();
-  }, []);
+  // const getCategories = async () => {
+  //   try {
+  //     const res = await api.get("/category");
+  //     setListCategories(res.data);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getCategories();
+  // }, []);
   return (
     <section id="view-courses">
       <div className="container mt-5">
@@ -121,7 +121,7 @@ const ViewCourses = () => {
           </div>
           <div className="sort col-3">
             <h3>Danh muc khoa hoc </h3>
-            {listCategories.map((cat) => {
+            {listCourses.map((cat) => {
               return (
                 <>
                   <Checkbox onChange={onChange}>{cat.name}</Checkbox>

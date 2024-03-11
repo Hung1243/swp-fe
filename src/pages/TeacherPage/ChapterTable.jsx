@@ -217,8 +217,8 @@ const Lesson = ({ chapter_id }) => {
     },
     {
       title: "Quiz Link",
-      dataIndex: "quizLink",
-      key: "quizLink",
+      dataIndex: "quiz",
+      key: "quiz",
       render: (text) => <a>{text}</a>,
     },
     {
@@ -243,15 +243,21 @@ const Lesson = ({ chapter_id }) => {
       key: lesson.id,
       name: lesson.name,
       videoLink: lesson.videoLink,
-      quizLink: lesson.quizLink,
+      quiz: lesson.quiz,
     };
   });
 
   const onSubmitLesson = async (values) => {
+    console.log(values);
     values.chapter_id = Number(chapter_id);
     if (values.videoLink) {
       const url = await uploadFile(values.videoLink.file.originFileObj);
       values.videoLink = url;
+    }
+
+    if (values.quiz) {
+      const url = await uploadFile(values.quiz.file.originFileObj);
+      values.quiz = url;
     }
     const res = await api.post("/lesson", values);
     form.resetFields();
@@ -347,7 +353,13 @@ const Lesson = ({ chapter_id }) => {
               },
             ]}
           >
-            <Input type="file" />
+            <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture-card"
+              maxCount={1}
+            >
+              {fileList.length >= 8 ? null : uploadButton}
+            </Upload>
           </Form.Item>
         </Form>
       </Modal>

@@ -160,7 +160,7 @@ const Courses = () => {
       </Button>
       <Table
         pagination={{
-          pageSize: 6,
+          pageSize: 4,
         }}
         columns={columns}
         dataSource={data}

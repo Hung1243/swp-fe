@@ -4,6 +4,7 @@ import api from "../../config/axios";
 import { useParams } from "react-router";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import Quiz from "../../components/quiz/Quiz";
 
 const MyCourseDetail = () => {
   const params = useParams();
@@ -11,6 +12,10 @@ const MyCourseDetail = () => {
     console.log(key);
   };
   const [myCourseDetail, setMyCourseDetail] = useState(null);
+  const [videoURL, setVideoUrl] = useState();
+  const urlParams = new URLSearchParams(window.location.search);
+  const idURL = urlParams.get("lessonId");
+  const quiz = urlParams.get("quiz");
   const getCourseDetail = async () => {
     const res = await api.get(`/courseDetail/${params.id}`);
     setMyCourseDetail(res.data);
@@ -37,9 +42,16 @@ const MyCourseDetail = () => {
                   .filter((lesson) => lesson.chapter_id === item.id)
                   .map((lesson) => {
                     return (
-                      <Link to={`?lessonId=${lesson.id}`}>
-                        <li className="list-unstyled ">{lesson.name}</li>
-                      </Link>
+                      <>
+                        <Link to={`?lessonId=${lesson.id}`}>
+                          <li className="list-unstyled ">{lesson.name}</li>
+                        </Link>
+                        <Link to={`?lessonId=${lesson.id}&quiz=true`}>
+                          <li className="list-unstyled ">
+                            {lesson.name} - quiz
+                          </li>
+                        </Link>
+                      </>
                     );
                   })}
               </ul>
@@ -50,19 +62,34 @@ const MyCourseDetail = () => {
     }
   }, [myCourseDetail]);
 
+  useEffect(() => {
+    console.log(idURL);
+    if (idURL) {
+      setVideoUrl(
+        myCourseDetail?.lessons.filter((item) => item.id === Number(idURL))[0]
+          .videoLink
+      );
+    } else {
+      setVideoUrl(myCourseDetail?.lessons[0].videoLink);
+    }
+  }, [idURL, myCourseDetail]);
+
   return (
     <>
       <section id="my-course-detail">
         <div className="my-course-content">
           <Row gutter={24}>
             <Col span={18}>
-              <video
-                width="1170"
-                height="100%"
-                controls
-                src={myCourseDetail?.lessons[0].videoLink}
-              ></video>
-              {/* <ReactPlayer p url={myCourseDetail?.lessons[0].videoLink} /> */}
+              {quiz ? (
+                <Quiz id={idURL} />
+              ) : (
+                <video
+                  width="1170"
+                  height="100%"
+                  controls
+                  src={videoURL}
+                ></video>
+              )}
             </Col>
             <Col span={6}>
               <Collapse

@@ -7,17 +7,17 @@ import { Link } from "react-router-dom";
 import CountUp from "react-countup";
 
 const HomePage = () => {
-  const [listCategories, setListCategories] = useState([]);
+  // const [listCategories, setListCategories] = useState([]);
   const [listCourse, setListCourse] = useState([]);
-  const getListCategories = async () => {
-    const res = await api.get("/category");
-    setListCategories(res.data);
-  };
-  useEffect(() => {
-    getListCategories();
-  });
+  // const getListCategories = async () => {
+  //   const res = await api.get("/category");
+  //   setListCategories(res.data);
+  // };
+  // useEffect(() => {
+  //   getListCategories();
+  // }, []);
   const getListCourse = async () => {
-    const res = await api.get("/course");
+    const res = await api.get("/courseDetailAll");
     setListCourse(res.data);
   };
   useEffect(() => {
@@ -59,8 +59,8 @@ const HomePage = () => {
           </div>
 
           <div className="category-course">
-            <Row justify="space-around">
-              {listCategories.map((items) => {
+            <Row justify="space-around ">
+              {listCourse.slice(0, 5).map((items) => {
                 return (
                   <Col span={2}>
                     <Card
@@ -105,13 +105,14 @@ const HomePage = () => {
           <div className="card-course">
             <Row gutter={24}>
               {" "}
-              {listCourse.slice(1, 6).map((items) => {
+              {listCourse.slice(0, 8).map((items) => {
                 return (
                   <Col span={6}>
                     <Card
                       hoverable
                       style={{
                         width: 300,
+                        marginBottom: "10px",
                       }}
                       cover={
                         <img
@@ -125,7 +126,7 @@ const HomePage = () => {
                       <p>
                         by <strong>{items.createBy.username}</strong>{" "}
                       </p>
-                      <h3>{items.name}</h3>
+                      <h4>{items.name}</h4>
                       <Space>
                         <p>2 Weeks</p>
                         <p>1000 students</p>
