@@ -1,16 +1,21 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DownOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Avatar, Button, Dropdown, Space } from "antd";
+import { Avatar, Badge, Button, Dropdown, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/feature/accountSlice";
 const Nav = () => {
   const account = useSelector((store) => store.account);
+  const cart = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const items = [
     {
-      label: <Link to="/profile">My Profile</Link>,
+      label: (
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          My Profile
+        </Link>
+      ),
       key: "0",
     },
     {
@@ -47,12 +52,12 @@ const Nav = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div
-            className="collapse navbar-collapse "
+            className="collapse navbar-collapse justify-content-center"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0  ">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link className="nav-link " aria-current="page" to="/">
                   Trang chủ
                 </Link>
               </li>
@@ -66,14 +71,19 @@ const Nav = () => {
                   Khóa học của tôi
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="cart">
-                  <ShoppingCartOutlined />
-                </Link>
-              </li>
             </ul>
           </div>
-          <div>
+          <div className="d-flex">
+            <div className="cart-items px-3">
+              {" "}
+              <Link className="nav-link" to="/cart">
+                <Badge count={cart.cartItems.length}>
+                  <ShoppingCartOutlined
+                    style={{ fontSize: "25px", color: "#000" }}
+                  />
+                </Badge>
+              </Link>
+            </div>
             <Dropdown
               menu={{
                 items,
@@ -81,9 +91,9 @@ const Nav = () => {
               trigger={["click"]}
             >
               <a onClick={(e) => e.preventDefault()}>
-                <Space>
+                <Space style={{ color: "#b75757" }}>
                   <Avatar src={account.avatar} />
-                  Hi {account.fullName}
+                  Hi{account.fullName}
                   <DownOutlined />
                 </Space>
               </a>

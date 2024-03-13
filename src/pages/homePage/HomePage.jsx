@@ -25,18 +25,36 @@ const HomePage = () => {
   }, []);
   return (
     <>
-      <div id="carousel">
+      <div
+        id="carousel"
+        style={{
+          backgroundColor: "#f5d3d3",
+          height: "400px",
+          paddingTop: "50px",
+          paddingBottom: "20px",
+        }}
+      >
         <div className="container d-flex justify-content-around">
-          <div className="carousel-left d-flex align-items-center">
-            <div className="carousel-wrap">
-              <h1>Collect the course now</h1>
-              <h5>It is the man</h5>
-              <Button type="primary">Get Started</Button>
-            </div>
-          </div>
-          <div className="carousel-right">
-            <img src="https://i.pravatar.cc/300" alt="" />
-          </div>
+          <Row gutter={24} justify="space-between">
+            <Col span={12}>
+              {" "}
+              <div className="carousel-left">
+                <h1>Collect the course now</h1>
+                <h5>It is the man</h5>
+                <Button type="primary">Get Started</Button>
+              </div>
+            </Col>
+            <Col span={12}>
+              {" "}
+              <div className="carousel-right">
+                <img
+                  src="../../../../public/images/banner.png"
+                  alt=""
+                  style={{ width: "650px", height: "300px" }}
+                />
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
       <div className="category mt-5">

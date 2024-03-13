@@ -346,12 +346,12 @@ const Lesson = ({ chapter_id }) => {
           <Form.Item
             name="quiz"
             label="Bài tập trắc nghiệm "
-            rules={[
-              {
-                required: true,
-                message: "Không được để trống ",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Không được để trống ",
+            //   },
+            // ]}
           >
             <Upload
               action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
