@@ -7,15 +7,17 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 const Quiz = ({ id }) => {
   const [value, setValue] = useState([]);
   const [answers, setAnswers] = useState([]);
-
   const [quiz, setQuiz] = useState([]);
   const [quizId, setQuizId] = useState();
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState([]);
+  const [isDo, setIsDo] = useState(false);
   const getQuiz = async () => {
     const res = await api.get(`/quiz/lessonId?id=${id}`);
-    setQuiz(res.data.quizQuestion);
-    setQuizId(res.data.id);
+    setQuiz(res.data.quiz.quizQuestion);
+    setQuizId(res.data.quiz.id);
+    setIsDo(res.data.isDo);
+    console.log(res.data);
   };
   useEffect(() => {
     getQuiz();
@@ -33,12 +35,13 @@ const Quiz = ({ id }) => {
   };
 
   const submitAnswer = async () => {
-    console.log(quiz);
+    // console.log(quiz);
     const res = await api.post("/quizResult", {
       quizId: Number(quizId),
       answerIds: answers,
     });
-    console.log(res.data);
+    getQuiz();
+    // console.log(res.data);
     Modal.success({
       title: `Chúc mừng ${res.data.quizResult.doBy.fullName} đã hoàn thành!`,
       content: (
@@ -57,7 +60,8 @@ const Quiz = ({ id }) => {
     <div className="container">
       <Space direction="vertical" style={{ width: "100%" }}>
         {quiz.map((item, index) => {
-          console.log(item);
+          // console.log(item);
+          console.log(quiz);
           return (
             <React.Fragment key={index}>
               <Row gutter={24}>
@@ -70,6 +74,7 @@ const Quiz = ({ id }) => {
                     onChange={(e) => {
                       onChangeOption(index, e.target.value);
                     }}
+                    disabled={isDo}
                     // disabled={disabledOptions.includes(item.id)}
                   >
                     <Space direction="vertical">

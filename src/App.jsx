@@ -21,8 +21,9 @@ import Grade from "./pages/TeacherPage/Grade";
 import UserManagement from "./pages/adminPage/UserManagement";
 import CourseManagement from "./pages/adminPage/CourseManagement";
 import CheckoutSuccess from "./pages/homePage/CheckOutSuccess";
-import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
+// import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
 import Quiz from "./components/quiz/Quiz";
+import CategoryManagement from "./pages/adminPage/CategoryManagement";
 
 function App() {
   return (
@@ -44,7 +45,10 @@ function App() {
           <Route path="admin" element={<DashBoard role={"ADMIN"} />}>
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
-            <Route path="manage-category" element={<CategoryManagement />}></Route>
+            <Route
+              path="manage-category"
+              element={<CategoryManagement />}
+            ></Route>
           </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>

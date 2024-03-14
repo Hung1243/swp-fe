@@ -63,7 +63,7 @@ const ViewCourses = () => {
           {" "}
           <div className="viewCourse col-9 ">
             <div className="d-flex justify-content-between">
-              <h1>All Course</h1>
+              <h1>Các khóa học</h1>
               <Space direction="vertical">
                 <Search
                   placeholder="Search"

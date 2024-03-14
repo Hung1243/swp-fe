@@ -219,7 +219,7 @@ const Lesson = ({ chapter_id }) => {
       title: "Quiz Link",
       dataIndex: "quiz",
       key: "quiz",
-      render: (text) => <a>{text}</a>,
+      // render: (text) => <a>{text}</a>,
     },
     {
       title: "Action",

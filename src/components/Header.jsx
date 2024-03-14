@@ -9,6 +9,7 @@ const Nav = () => {
   const cart = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoggedIn = account.hasOwnProperty("fullName");
   const items = [
     {
       label: (
@@ -84,20 +85,31 @@ const Nav = () => {
                 </Badge>
               </Link>
             </div>
-            <Dropdown
-              menu={{
-                items,
-              }}
-              trigger={["click"]}
-            >
-              <a onClick={(e) => e.preventDefault()}>
-                <Space style={{ color: "#b75757" }}>
-                  <Avatar src={account.avatar} />
-                  Hi{account.fullName}
-                  <DownOutlined />
-                </Space>
-              </a>
-            </Dropdown>
+            {isLoggedIn ? (
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                trigger={["click"]}
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space style={{ color: "#b75757" }}>
+                    <Avatar src={account.avatar} />
+                    Hi, {account.fullName}
+                    <DownOutlined />
+                  </Space>
+                </a>
+              </Dropdown>
+            ) : (
+              <div>
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+                <Link className="nav-link" to="/register">
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>

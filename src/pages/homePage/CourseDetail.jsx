@@ -28,7 +28,7 @@ const CourseDetail = () => {
 
   const getCourseDetail = async () => {
     try {
-      const res = await api.get(`/courseDetail/${param.id}`);
+      const res = await api.get(`/getCourseById/${param.id}`);
       setCourseDetail(res.data);
       console.log(res.data);
     } catch (err) {
@@ -85,11 +85,11 @@ const CourseDetail = () => {
           <div className="container">
             <div className="align-items-center justify-item-center p-5">
               <div className="content-header d-flex text-white">
-                <button className="btn btn-secondary">
+                <button className="btn btn-secondary ">
                   {courseDetail.category?.name}
                 </button>
                 <p className="text-center m-0 p-2">
-                  by <strong>{courseDetail.createBy?.username}</strong>
+                  by <strong>{courseDetail.createBy?.fullName}</strong>
                 </p>
               </div>
               <h1 className="text-white">{courseDetail.name}</h1>
@@ -148,7 +148,7 @@ const CourseDetail = () => {
                       dispatch(addToCart(courseDetail));
                     }}
                   >
-                    Buy Now
+                    Mua ngay
                   </Button>
                 </Space>
               </Card>

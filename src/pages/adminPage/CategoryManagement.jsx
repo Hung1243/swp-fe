@@ -109,29 +109,28 @@ const CategoryManagement = () => {
         onCancel={() => setOpen(false)}
         width={1000}
       >
-
-<Form form={form} labelCol={{ span: 24 }} onFinish={createCategory}>
-        <Form.Item
-          name="name"
-          label="Tên danh mục"
-          rules={[{ required: true, message: "Không được để trống" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="code"
-          label="Code của danh nục"
-          rules={[{ required: true, message: "Không được để trống" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label="Mô tả"
-          rules={[{ required: true, message: "Không được để trống" }]}
-        >
-          <Input />
-        </Form.Item>
+        <Form form={form} labelCol={{ span: 24 }} onFinish={createCategory}>
+          <Form.Item
+            name="name"
+            label="Tên danh mục"
+            rules={[{ required: true, message: "Không được để trống" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="code"
+            label="Code của danh nục"
+            rules={[{ required: true, message: "Không được để trống" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Mô tả"
+            rules={[{ required: true, message: "Không được để trống" }]}
+          >
+            <Input />
+          </Form.Item>
         </Form>
       </Modal>
     </>
