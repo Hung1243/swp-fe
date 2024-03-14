@@ -58,9 +58,7 @@ function App() {
           </Route>
           <Route path="cart" element={<Cart />}></Route>
           <Route path="check-out" element={<Checkout />}></Route>
-          <Route path="my-profile">
-            <Route path=":id" element={<MyProfile />}></Route>
-          </Route>
+          <Route path="my-profile" element={<MyProfile />}></Route>
         </Route>
         <Route path="success" element={<CheckoutSuccess />}></Route>
 

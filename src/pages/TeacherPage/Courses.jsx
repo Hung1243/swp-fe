@@ -28,8 +28,8 @@ const columns = [
   },
   {
     title: "Mã khóa học",
-    dataIndex: "id",
-    key: "id",
+    dataIndex: "code",
+    key: "code",
   },
   {
     title: "Tên khóa học",
@@ -100,9 +100,9 @@ const Courses = () => {
   }, []);
   const data = listCourse.map((item) => {
     return {
-      key: "1",
+      key: item.id,
       category: item.category.name,
-      id: item.id,
+      code: item.code,
       name: item.name,
       description: item.description,
       pictureLink: item.pictureLink,

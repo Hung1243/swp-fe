@@ -12,7 +12,7 @@ const Nav = () => {
   const items = [
     {
       label: (
-        <Link to="/profile" style={{ textDecoration: "none" }}>
+        <Link to="/my-profile" style={{ textDecoration: "none" }}>
           My Profile
         </Link>
       ),

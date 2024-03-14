@@ -17,7 +17,7 @@ const MyCourseDetail = () => {
   const idURL = urlParams.get("lessonId");
   const quiz = urlParams.get("quiz");
   const getCourseDetail = async () => {
-    const res = await api.get(`/courseDetail/${params.id}`);
+    const res = await api.get(`/enroll/${params.id}`);
     setMyCourseDetail(res.data);
     console.log(res.data);
   };
@@ -46,11 +46,13 @@ const MyCourseDetail = () => {
                         <Link to={`?lessonId=${lesson.id}`}>
                           <li className="list-unstyled ">{lesson.name}</li>
                         </Link>
-                        <Link to={`?lessonId=${lesson.id}&quiz=true`}>
-                          <li className="list-unstyled ">
-                            {lesson.name} - quiz
-                          </li>
-                        </Link>
+                        {lesson.quiz !== null && (
+                          <Link to={`?lessonId=${lesson.id}&quiz=true`}>
+                            <li className="list-unstyled ">
+                              {lesson.name} - Quiz
+                            </li>
+                          </Link>
+                        )}
                       </>
                     );
                   })}

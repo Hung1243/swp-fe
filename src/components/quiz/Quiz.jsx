@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Input, Radio, Row, Space } from "antd";
+import { Button, Col, Input, Modal, Radio, Row, Space } from "antd";
 import api from "../../config/axios";
 import { useParams } from "react-router";
-
+import { toast } from "react-toastify";
 const Quiz = ({ id }) => {
   const [value, setValue] = useState([]);
+  const [answers, setAnswers] = useState([]);
 
   const [quiz, setQuiz] = useState([]);
+  const [quizId, setQuizId] = useState();
   const getQuiz = async () => {
     const res = await api.get(`/quiz/lessonId?id=${id}`);
     setQuiz(res.data.quizQuestion);
-    console.log(res.data);
+    setQuizId(res.data.id);
   };
   useEffect(() => {
     getQuiz();
@@ -18,6 +20,29 @@ const Quiz = ({ id }) => {
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
+  };
+
+  const onChangeOption = (index, value) => {
+    answers[index] = value;
+    setAnswers([...answers]);
+  };
+
+  const submitAnswer = async () => {
+    console.log(quiz);
+    const res = await api.post("/quizResult", {
+      quizId: Number(quizId),
+      answerIds: answers,
+    });
+    Modal.success({
+      title: `Chúc mừng ${res.data.doBy.fullName} đã hoàn thành!`,
+      content: (
+        <div>
+          <h5>Bạn đạt được {res.data.score} điểm</h5>
+          <p>Số câu đúng : {res.data.trueAnswerNumber} </p>
+          <p>Số câu sai: {res.data.falseAnswerNumber} </p>
+        </div>
+      ),
+    });
   };
 
   return (
@@ -33,10 +58,14 @@ const Quiz = ({ id }) => {
                   <h3>
                     {item.questionNumber}: {item.questionContent}
                   </h3>
-                  <Radio.Group onChange={onChange}>
+                  <Radio.Group
+                    onChange={(e) => {
+                      onChangeOption(index, e.target.value);
+                    }}
+                  >
                     <Space direction="vertical">
                       {item.quizAnswers?.map((option, i) => (
-                        <Radio name={item.question} key={i} value={i + 1}>
+                        <Radio name={item.question} key={i} value={option.id}>
                           {option.answerContent}
                         </Radio>
                       ))}
@@ -50,7 +79,15 @@ const Quiz = ({ id }) => {
             </React.Fragment>
           );
         })}
-        <Button type="primary">Submit</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log(answers);
+            submitAnswer();
+          }}
+        >
+          Submit
+        </Button>
       </Space>
     </div>
   );

@@ -89,7 +89,7 @@ const ViewCourses = () => {
                     </div>
                     <div className="member-info col-8 pt-1 ">
                       <p>
-                        by <strong>{item.createBy.username}</strong>
+                        by <strong>{item.createBy.fullName} </strong>
                       </p>
                       <h3 className="mb-4">{item.name}</h3>
 
@@ -124,7 +124,7 @@ const ViewCourses = () => {
             {listCourses.map((cat) => {
               return (
                 <>
-                  <Checkbox onChange={onChange}>{cat.name}</Checkbox>
+                  <Checkbox onChange={onChange}>{cat.category.name}</Checkbox>
                   <br />
                 </>
               );
