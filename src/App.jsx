@@ -44,6 +44,7 @@ function App() {
           <Route path="admin" element={<DashBoard role={"ADMIN"} />}>
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
+            <Route path="manage-category" element={<CategoryManagement />}></Route>
           </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>
