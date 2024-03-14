@@ -144,7 +144,7 @@ const HomePage = () => {
                       <p>
                         by <strong>{items.createBy.username}</strong>{" "}
                       </p>
-                      <h4>{items.name}</h4>
+                      <h5 className="fw-bold">{items.name}</h5>
                       <Space>
                         <p>2 Weeks</p>
                         <p>1000 students</p>

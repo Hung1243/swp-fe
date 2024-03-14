@@ -3,12 +3,15 @@ import { Button, Col, Input, Modal, Radio, Row, Space } from "antd";
 import api from "../../config/axios";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 const Quiz = ({ id }) => {
   const [value, setValue] = useState([]);
   const [answers, setAnswers] = useState([]);
 
   const [quiz, setQuiz] = useState([]);
   const [quizId, setQuizId] = useState();
+  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState([]);
   const getQuiz = async () => {
     const res = await api.get(`/quiz/lessonId?id=${id}`);
     setQuiz(res.data.quizQuestion);
@@ -23,8 +26,10 @@ const Quiz = ({ id }) => {
   };
 
   const onChangeOption = (index, value) => {
-    answers[index] = value;
-    setAnswers([...answers]);
+    if (!incorrectAnswers.includes(value)) {
+      answers[index] = value;
+      setAnswers([...answers]);
+    }
   };
 
   const submitAnswer = async () => {
@@ -33,16 +38,19 @@ const Quiz = ({ id }) => {
       quizId: Number(quizId),
       answerIds: answers,
     });
+    console.log(res.data);
     Modal.success({
-      title: `Chúc mừng ${res.data.doBy.fullName} đã hoàn thành!`,
+      title: `Chúc mừng ${res.data.quizResult.doBy.fullName} đã hoàn thành!`,
       content: (
         <div>
-          <h5>Bạn đạt được {res.data.score} điểm</h5>
-          <p>Số câu đúng : {res.data.trueAnswerNumber} </p>
-          <p>Số câu sai: {res.data.falseAnswerNumber} </p>
+          <h5>Bạn đạt được {res.data.quizResult.score} điểm</h5>
+          <p>Số câu đúng : {res.data.quizResult.trueAnswerNumber} </p>
+          <p>Số câu sai: {res.data.quizResult.falseAnswerNumber} </p>
         </div>
       ),
     });
+    setIncorrectAnswers(res.data.falseAnswerIds);
+    setCorrectAnswer(res.data.trueAnswerIds);
   };
 
   return (
@@ -62,11 +70,29 @@ const Quiz = ({ id }) => {
                     onChange={(e) => {
                       onChangeOption(index, e.target.value);
                     }}
+                    // disabled={disabledOptions.includes(item.id)}
                   >
                     <Space direction="vertical">
                       {item.quizAnswers?.map((option, i) => (
-                        <Radio name={item.question} key={i} value={option.id}>
+                        <Radio
+                          name={item.question}
+                          key={i}
+                          value={option.id}
+                          style={{ position: "relative" }}
+                        >
                           {option.answerContent}
+                          {incorrectAnswers.includes(option.id) && (
+                            <CloseOutlined
+                              className="bg-danger p-1 mx-3 text-white "
+                              style={{ borderRadius: "50%" }}
+                            />
+                          )}
+                          {correctAnswer.includes(option.id) && (
+                            <CheckOutlined
+                              className="bg-success p-1 mx-3 text-white "
+                              style={{ borderRadius: "50%" }}
+                            />
+                          )}
                         </Radio>
                       ))}
                     </Space>

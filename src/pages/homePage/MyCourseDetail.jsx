@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import Quiz from "../../components/quiz/Quiz";
+import { PlayCircleOutlined, SolutionOutlined } from "@ant-design/icons";
 
 const MyCourseDetail = () => {
   const params = useParams();
@@ -44,13 +45,25 @@ const MyCourseDetail = () => {
                     return (
                       <>
                         <Link to={`?lessonId=${lesson.id}`}>
-                          <li className="list-unstyled ">{lesson.name}</li>
+                          <Space>
+                            <PlayCircleOutlined />
+                            <li
+                              className="list-unstyled text-dark fw-bold"
+                              style={{ textDecoration: "none" }}
+                            >
+                              {lesson.name}
+                            </li>
+                          </Space>
                         </Link>
+                        <br />
                         {lesson.quiz !== null && (
                           <Link to={`?lessonId=${lesson.id}&quiz=true`}>
-                            <li className="list-unstyled ">
-                              {lesson.name} - Quiz
-                            </li>
+                            <Space>
+                              <SolutionOutlined />
+                              <li className="list-unstyled text-dark fw-bold">
+                                {lesson.name} - Quiz
+                              </li>
+                            </Space>
                           </Link>
                         )}
                       </>
