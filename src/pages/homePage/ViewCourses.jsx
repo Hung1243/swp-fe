@@ -30,7 +30,7 @@ const onChange = (e) => {
 
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
-  // const [listCategories, setListCategories] = useState([]);
+  const [listCategories, setListCategories] = useState([]);
 
   const getCourses = async () => {
     try {
@@ -44,18 +44,18 @@ const ViewCourses = () => {
   useEffect(() => {
     getCourses();
   }, []);
-  // const getCategories = async () => {
-  //   try {
-  //     const res = await api.get("/category");
-  //     setListCategories(res.data);
-  //     console.log(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getCategories();
-  // }, []);
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categoryAll");
+      setListCategories(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <section id="view-courses">
       <div className="container mt-5">
@@ -105,7 +105,7 @@ const ViewCourses = () => {
                       </Space>
                       <hr className="m-2" />
                       <div className="footer d-flex justify-content-between align-items-center">
-                        <p className="fs-4 fw-bold text-dark">{item.price}$</p>
+                        <p className="fs-4 fw-bold text-dark">{item.price}đ</p>
                         <Link
                           className="text-decoration-none text-dark"
                           to={`/course/${item.id}`}
@@ -121,10 +121,10 @@ const ViewCourses = () => {
           </div>
           <div className="sort col-3">
             <h3>Danh muc khoa hoc </h3>
-            {listCourses.map((cat) => {
+            {listCategories.map((cat) => {
               return (
                 <>
-                  <Checkbox onChange={onChange}>{cat.category.name}</Checkbox>
+                  <Checkbox onChange={onChange}>{cat.name}</Checkbox>
                   <br />
                 </>
               );

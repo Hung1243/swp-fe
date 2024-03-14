@@ -59,9 +59,9 @@ const MyCourseDetail = () => {
                         {lesson.quiz !== null && (
                           <Link to={`?lessonId=${lesson.id}&quiz=true`}>
                             <Space>
-                              <SolutionOutlined />
+                              <SolutionOutlined />{" "}
                               <li className="list-unstyled text-dark fw-bold">
-                                {lesson.name} - Quiz
+                                Quiz - {lesson.name}
                               </li>
                             </Space>
                           </Link>

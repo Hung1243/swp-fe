@@ -36,7 +36,7 @@ const CourseInfoForm = ({
   const fetchCategory = async (values) => {
     console.log("Received values:", values);
     try {
-      const response = await api.get("/category");
+      const response = await api.get("/categoryAll");
       setCategories(response.data);
     } catch (e) {}
   };

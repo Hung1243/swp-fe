@@ -49,7 +49,7 @@ const CategoryManagement = () => {
   const [open, setOpen] = useState(false);
   const [listCategory, setListCategory] = useState([]);
   const getCategory = async () => {
-    const res = await api.get("category");
+    const res = await api.get("categoryAll");
     setListCategory(res.data);
   };
   useEffect(() => {

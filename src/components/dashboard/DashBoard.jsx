@@ -35,17 +35,17 @@ const DashBoard = ({ role }) => {
             </Link>
           ),
         },
+        // {
+        //   key: "2",
+        //   icon: <VideoCameraOutlined />,
+        //   label: (
+        //     <Link to="grade" className="text-decoration-none">
+        //       Chấm điểm
+        //     </Link>
+        //   ),
+        // },
         {
           key: "2",
-          icon: <VideoCameraOutlined />,
-          label: (
-            <Link to="grade" className="text-decoration-none">
-              Chấm điểm
-            </Link>
-          ),
-        },
-        {
-          key: "3",
           icon: <UploadOutlined />,
           label: "Xem đánh giá",
         },
@@ -70,7 +70,8 @@ const DashBoard = ({ role }) => {
               Quản lí khóa học
             </Link>
           ),
-        }, {
+        },
+        {
           key: "3",
           icon: <VideoCameraOutlined />,
           label: (

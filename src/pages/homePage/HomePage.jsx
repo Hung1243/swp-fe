@@ -32,19 +32,21 @@ const HomePage = () => {
           height: "400px",
           paddingTop: "50px",
           paddingBottom: "20px",
+          paddingLeft: "150px",
         }}
       >
-        <div className="container d-flex justify-content-around">
-          <Row gutter={24} justify="space-between">
-            <Col span={12}>
-              {" "}
+        <div className="container ">
+          <Row gutter={24} justify="space-evenly">
+            <Col span={10}>
               <div className="carousel-left">
-                <h1>Collect the course now</h1>
-                <h5>It is the man</h5>
+                <h1>
+                  Chinh phục mọi thách thức với khóa học kỹ năng mềm tại đây!
+                </h1>
+                <h5>Bắt đầu hành trình thành công của bạn ngay!</h5>
                 <Button type="primary">Get Started</Button>
               </div>
             </Col>
-            <Col span={12}>
+            <Col span={14}>
               {" "}
               <div className="carousel-right">
                 <img
@@ -152,7 +154,9 @@ const HomePage = () => {
                       <hr />
                       <Row justify={"space-between"}>
                         <Col>
-                          <p className="fs-5 fw-medium">{items.price}$</p>
+                          <p className="fs-5 fw-medium">
+                            {items.price.toLocaleString()}đ
+                          </p>
                         </Col>
                         <Col>
                           <Link
@@ -187,8 +191,7 @@ const HomePage = () => {
             >
               <h3>
                 {" "}
-                <CountUp end={90} duration={1} />
-                K+
+                <CountUp end={900} duration={1} />
               </h3>
               <h6>Active Students</h6>
             </Card>
