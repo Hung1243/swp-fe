@@ -70,6 +70,14 @@ const DashBoard = ({ role }) => {
               Quản lí khóa học
             </Link>
           ),
+        }, {
+          key: "3",
+          icon: <VideoCameraOutlined />,
+          label: (
+            <Link to="manage-category" className="text-decoration-none">
+              Quản lí danh mục
+            </Link>
+          ),
         },
       ];
     }
