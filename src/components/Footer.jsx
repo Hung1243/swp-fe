@@ -73,29 +73,23 @@ const Footer = () => {
                   />
                   <p>
                     <a href="#!" className="text-white">
-                      MDBootstrap
+                      Trang chủ
                     </a>
                   </p>
                   <p>
                     <a href="#!" className="text-white">
-                      MDWordPress
+                      Các khóa học
                     </a>
                   </p>
                   <p>
                     <a href="#!" className="text-white">
-                      BrandFlow
-                    </a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">
-                      Bootstrap Angular
+                      Khóa học của tôi
                     </a>
                   </p>
                 </div>
                 {/* Grid column */}
                 {/* Grid column */}
-                <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                  {/* Links */}
+                {/* <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                   <h6 className="text-uppercase fw-bold">Useful links</h6>
                   <hr
                     className="mb-4 mt-0 d-inline-block mx-auto"
@@ -121,7 +115,7 @@ const Footer = () => {
                       Help
                     </a>
                   </p>
-                </div>
+                </div> */}
                 {/* Grid column */}
                 {/* Grid column */}
                 <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
@@ -132,10 +126,12 @@ const Footer = () => {
                     style={{ width: 60, backgroundColor: "#7c4dff", height: 2 }}
                   />
                   <p>
-                    <i className="fas fa-home mr-3" /> New York, NY 10012, US
+                    <i className="fas fa-home mr-3" />
+                    Thu Duc, Ho Chi Minh City
                   </p>
                   <p>
-                    <i className="fas fa-envelope mr-3" /> info@example.com
+                    <i className="fas fa-envelope mr-3" />{" "}
+                    skillforgeedu@gmail.com
                   </p>
                   <p>
                     <i className="fas fa-phone mr-3" /> + 01 234 567 88

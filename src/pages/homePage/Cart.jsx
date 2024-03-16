@@ -71,11 +71,7 @@ const Cart = () => {
                 <div className="checkout center">
                   <h3 className="text-secondary">Tổng:</h3>
                   <h2>
-                    {cartItems.reduce(
-                      (total, item) => total + item.price.toLocaleString(),
-                      0
-                    )}
-                    đ
+                    {cartItems.reduce((total, item) => total + item.price, 0)}đ
                   </h2>
                   <Button
                     type="primary"

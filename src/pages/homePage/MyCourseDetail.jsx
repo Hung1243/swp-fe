@@ -91,26 +91,27 @@ const MyCourseDetail = () => {
 
   return (
     <>
-      <section id="my-course-detail">
+      <section id="my-course-detail ">
         <div className="my-course-content">
           <Row gutter={24}>
-            <Col span={18}>
+            <Col span={18} style={{ padding: "0" }}>
               {quiz ? (
                 <Quiz id={idURL} />
               ) : (
                 <video
-                  width="1170"
+                  width="100%"
                   height="100%"
                   controls
                   src={videoURL}
                 ></video>
               )}
             </Col>
-            <Col span={6}>
+            <Col span={6} style={{ padding: "0" }}>
               <Collapse
                 items={items}
                 defaultActiveKey={["1"]}
                 onChange={onChange}
+                style={{ padding: "0" }}
               />
             </Col>
           </Row>

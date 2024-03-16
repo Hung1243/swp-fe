@@ -63,7 +63,7 @@ const Login = () => {
   };
   return (
     <section>
-      <div className="container">
+      <div className="container " style={{ marginTop: "150px" }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img

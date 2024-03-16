@@ -101,11 +101,11 @@ const Nav = () => {
                 </a>
               </Dropdown>
             ) : (
-              <div>
+              <div className="d-flex">
                 <Link className="nav-link" to="/login">
-                  Login
+                  Login /
                 </Link>
-                <Link className="nav-link" to="/register">
+                <Link className="nav-link mx-1" to="/register">
                   Register
                 </Link>
               </div>

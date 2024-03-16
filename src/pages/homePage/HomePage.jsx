@@ -43,7 +43,9 @@ const HomePage = () => {
                   Chinh phục mọi thách thức với khóa học kỹ năng mềm tại đây!
                 </h1>
                 <h5>Bắt đầu hành trình thành công của bạn ngay!</h5>
-                <Button type="primary">Get Started</Button>
+                <br />
+                <br />
+                <Button type="default">Bắt đầu ngay</Button>
               </div>
             </Col>
             <Col span={14}>
@@ -146,7 +148,7 @@ const HomePage = () => {
                       <p>
                         by <strong>{items.createBy.username}</strong>{" "}
                       </p>
-                      <h5 className="fw-bold">{items.name}</h5>
+                      <h5 className="fw-bold fs-3">{items.name}</h5>
                       <Space>
                         <p>2 Weeks</p>
                         <p>1000 students</p>

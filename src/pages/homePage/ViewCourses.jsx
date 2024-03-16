@@ -105,7 +105,9 @@ const ViewCourses = () => {
                       </Space>
                       <hr className="m-2" />
                       <div className="footer d-flex justify-content-between align-items-center">
-                        <p className="fs-4 fw-bold text-dark">{item.price}đ</p>
+                        <p className="fs-4 fw-bold text-dark">
+                          {item.price.toLocaleString()}đ
+                        </p>
                         <Link
                           className="text-decoration-none text-dark"
                           to={`/course/${item.id}`}
@@ -120,7 +122,7 @@ const ViewCourses = () => {
             })}
           </div>
           <div className="sort col-3">
-            <h3>Danh muc khoa hoc </h3>
+            <h3>Danh mục khóa học </h3>
             {listCategories.map((cat) => {
               return (
                 <>
