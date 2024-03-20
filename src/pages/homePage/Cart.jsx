@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDone, removeFromCart } from "../../redux/feature/cartSlice";
 import api from "../../config/axios";
+import formatCurrency from "../../utils/Currency";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Cart = () => {
 
   const handlePayment = async () => {
     const res = await api.post("/order", {
-      courseId: cartItems[0].id,
+      courseId: cartItems.map((item) => item.id),
       totalPrice: cartItems.reduce((total, item) => total + item.price, 0),
     });
     window.open(res.data);
@@ -57,7 +58,7 @@ const Cart = () => {
                         </Button>
                       </Col>
                       <Col span={6}>
-                        <p>{item.price.toLocaleString()}đ</p>
+                        <p>{formatCurrency(item.price)}</p>
                       </Col>
                     </Row>
                     <hr />
@@ -71,7 +72,9 @@ const Cart = () => {
                 <div className="checkout center">
                   <h3 className="text-secondary">Tổng:</h3>
                   <h2>
-                    {cartItems.reduce((total, item) => total + item.price, 0)}đ
+                    {formatCurrency(
+                      cartItems.reduce((total, item) => total + item.price, 0)
+                    )}
                   </h2>
                   <Button
                     type="primary"

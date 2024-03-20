@@ -14,6 +14,7 @@ import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
+import formatCurrency from "../../utils/Currency";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -31,7 +32,7 @@ const onChange = (e) => {
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
   const [listCategories, setListCategories] = useState([]);
-
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const getCourses = async () => {
     try {
       const res = await api.get("/courseDetailAll");
@@ -56,6 +57,7 @@ const ViewCourses = () => {
   useEffect(() => {
     getCategories();
   }, []);
+
   return (
     <section id="view-courses">
       <div className="container mt-5">
@@ -106,7 +108,7 @@ const ViewCourses = () => {
                       <hr className="m-2" />
                       <div className="footer d-flex justify-content-between align-items-center">
                         <p className="fs-4 fw-bold text-dark">
-                          {item.price.toLocaleString()}đ
+                          {formatCurrency(item.price)}
                         </p>
                         <Link
                           className="text-decoration-none text-dark"
@@ -123,14 +125,17 @@ const ViewCourses = () => {
           </div>
           <div className="sort col-3">
             <h3>Danh mục khóa học </h3>
-            {listCategories.map((cat) => {
-              return (
-                <>
-                  <Checkbox onChange={onChange}>{cat.name}</Checkbox>
-                  <br />
-                </>
-              );
-            })}
+            {listCategories.map((cat) => (
+              <div key={cat.id}>
+                <Checkbox
+                  value={cat.id}
+                  // onChange={() => handleCategoryChange(cat.id)}
+                >
+                  {cat.name}
+                </Checkbox>
+                <br />
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,7 +1,4 @@
-/* CourseDetail */
-/* #course-detail {
-  background-color: black;
-} */
+
 .viewCourse .member {
   border-radius: 10px 10px;
 }
@@ -12,12 +9,7 @@
 .viewCourse .member .member-info .footer a {
   margin-right: 4%;
 }
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
+
 .myCourse .member {
   border-radius: 10px 10px;
 }
@@ -28,40 +20,12 @@
 .myCourse .member .member-info .footer a {
   margin-right: 4%;
 }
-/* #carousel {
-  background-color: #f5d3d3;
-}
 
-.carousel-left {
-  justify-content: center;
-}
-
-.carousel-right {
-  align-items: center;
-} */
-
-/* .category-course {
-  align-items: center;
-  justify-content: space-evenly;
-  display: flex;
-  margin: 20px;
-  width: 1250px;
-}
-
-.category-course h5 {
-  text-align: center;
-} */
 
 .ant-card-hoverable:hover,
 .ant-card-meta-title:hover {
   color: #b75757;
 }
-/* 
-.card-number {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-} */
 
 .feedback {
   text-align: center;
@@ -74,13 +38,7 @@
   margin-bottom: 10px;
 }
 
-/*Can le giua cac thanh phan*/
 
-/* .category-container {
-  margin-top: 70px;
-  margin-bottom: 50px;
-  align-items: center;
-} */
 /*Navbar*/
 .navbar-nav .nav-item .nav-link {
   font-size: medium;
@@ -96,10 +54,3 @@
   color: #b75757;
 }
 
-/* #root {
-    background: linear-gradient(45deg, #5a1500, #860597);
-  } */
-
-/* #carousel {
-  background: linear-gradient(45deg, #59007b, #350364);
-} */

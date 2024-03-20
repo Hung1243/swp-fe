@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import {
+  BarsOutlined,
   CheckOutlined,
   DatabaseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  ReadOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme, Dropdown, Space, Avatar } from "antd";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -35,15 +38,15 @@ const DashBoard = ({ role }) => {
             </Link>
           ),
         },
-        // {
-        //   key: "2",
-        //   icon: <VideoCameraOutlined />,
-        //   label: (
-        //     <Link to="grade" className="text-decoration-none">
-        //       Chấm điểm
-        //     </Link>
-        //   ),
-        // },
+        {
+          key: "2",
+          icon: <VideoCameraOutlined />,
+          label: (
+            <Link to="my-wallet" className="text-decoration-none">
+              Ví của tôi
+            </Link>
+          ),
+        },
         {
           key: "2",
           icon: <UploadOutlined />,
@@ -64,7 +67,7 @@ const DashBoard = ({ role }) => {
         },
         {
           key: "2",
-          icon: <VideoCameraOutlined />,
+          icon: <ReadOutlined />,
           label: (
             <Link to="manage-course" className="text-decoration-none">
               Quản lí khóa học
@@ -73,10 +76,19 @@ const DashBoard = ({ role }) => {
         },
         {
           key: "3",
-          icon: <VideoCameraOutlined />,
+          icon: <BarsOutlined />,
           label: (
             <Link to="manage-category" className="text-decoration-none">
               Quản lí danh mục
+            </Link>
+          ),
+        },
+        {
+          key: "4",
+          icon: <WalletOutlined />,
+          label: (
+            <Link to="manage-wallet" className="text-decoration-none">
+              Quản lí doanh thu
             </Link>
           ),
         },
@@ -119,7 +131,7 @@ const DashBoard = ({ role }) => {
           items={generateMenuItem()}
         />
       </Sider>
-      <Layout style={{ height: "100%", overflow: "auto" }}>
+      <Layout style={{ height: "100%" }}>
         <Header
           className="d-flex justify-content-between pe-3"
           style={{
@@ -157,7 +169,7 @@ const DashBoard = ({ role }) => {
           style={{
             margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
+            maxHeight: "100%",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

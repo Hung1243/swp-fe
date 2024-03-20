@@ -32,7 +32,13 @@ const columns = [
   {
     title: "Avatar",
     dataIndex: "avatar",
-    render: (avatar) => <img src={avatar} alt="..." style={{width:"100px", height:"100px"}}/>,
+    render: (avatar) => (
+      <img
+        src={avatar}
+        alt="..."
+        style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+      />
+    ),
   },
   {
     title: "Tài khoản",
@@ -59,21 +65,21 @@ const columns = [
   {
     title: " Edit",
     fixed: "right",
-    render: () => <Button type="primary" >Sửa</Button>
-    
+    render: () => <Button type="primary">Sửa</Button>,
   },
   {
     title: "Delete",
-    render: () => <Popconfirm
-    title="Are you sure you want to delete this account?"
-    onConfirm={() => handleDelete(record.id)}
-    onCancel={() => console.log('Cancel')}
-  >
-    <Button type="primary"  danger >
-      Xóa
-    </Button>
-  </Popconfirm>
-    ,
+    render: () => (
+      <Popconfirm
+        title="Are you sure you want to delete this account?"
+        onConfirm={() => handleDelete(record.id)}
+        onCancel={() => console.log("Cancel")}
+      >
+        <Button type="primary" danger>
+          Xóa
+        </Button>
+      </Popconfirm>
+    ),
   },
 ];
 
@@ -83,6 +89,7 @@ const UserManagement = () => {
   const getAccount = async () => {
     const res = await api.get("authentication/getAllAccounts");
     setListAccount(res.data);
+    console.log(res.data);
   };
   useEffect(() => {
     getAccount();
@@ -114,7 +121,7 @@ const UserManagement = () => {
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-    const getBase64 = (file) =>
+  const getBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -165,11 +172,11 @@ const UserManagement = () => {
       <Table
         columns={columns}
         dataSource={data}
-        scroll={{
-          x: 1300,
-        }}
+        // scroll={{
+        //   x: 1300,
+        // }}
         pagination={{
-          pageSize: 6,
+          pageSize: 5,
         }}
         bordered
       />
@@ -218,17 +225,16 @@ const UserManagement = () => {
                 label="Ảnh đại diện"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
-                 <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture-card"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-              maxCount={1}
-        
-            >
-              {fileList.length >= 8 ? null : uploadButton}
-            </Upload>
+                <Upload
+                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                  listType="picture-card"
+                  fileList={fileList}
+                  onPreview={handlePreview}
+                  onChange={handleChange}
+                  maxCount={1}
+                >
+                  {fileList.length >= 8 ? null : uploadButton}
+                </Upload>
               </Form.Item>
             </Col>
             <Col span={12}>

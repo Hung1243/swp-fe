@@ -2,8 +2,6 @@ import { Button, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import api from "../../config/axios";
 
-
-
 const columns = [
   {
     title: "STT",
@@ -49,7 +47,9 @@ const columns = [
     render: () => (
       <Space size="middle">
         <Button type="primary">Sửa</Button>
-        <Button type="primary" danger>Xóa</Button>
+        <Button type="primary" danger>
+          Xóa
+        </Button>
       </Space>
     ),
   },
@@ -80,15 +80,17 @@ const CourseManagement = () => {
       fullName: item.createBy.fullName,
     };
   });
-  return  <>
-  <Table
-    pagination={{
-      pageSize: 6,
-    }}
-    columns={columns}
-    dataSource={data}
-  />
-</>;
+  return (
+    <>
+      <Table
+        pagination={{
+          pageSize: 3,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+    </>
+  );
 };
 
 export default CourseManagement;

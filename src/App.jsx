@@ -24,6 +24,8 @@ import CheckoutSuccess from "./pages/homePage/CheckOutSuccess";
 // import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
 import Quiz from "./components/quiz/Quiz";
 import CategoryManagement from "./pages/adminPage/CategoryManagement";
+import MyWallet from "./pages/TeacherPage/MyWallet";
+import WalletManagement from "./pages/adminPage/WalletManagement";
 
 function App() {
   return (
@@ -35,8 +37,9 @@ function App() {
           <Route path="teacher" element={<PrivateRoute role={"TEACHER"} />}>
             <Route path="" element={<DashBoard role={"TEACHER"} />}>
               <Route path="courses" element={<Courses />}></Route>
-              <Route path="add-new" element={<AddNewCourse />}></Route>
+              {/* <Route path="add-new" element={<AddNewCourse />}></Route> */}
               <Route path="grade" element={<Grade />}></Route>
+              <Route path="my-wallet" element={<MyWallet />}></Route>
             </Route>
           </Route>
           <Route path="admin" element={<PrivateRoute role={"ADMIN"} />}>
@@ -48,7 +51,8 @@ function App() {
             <Route
               path="manage-category"
               element={<CategoryManagement />}
-            ></Route>
+            ></Route>{" "}
+            <Route path="manage-wallet" element={<WalletManagement />}></Route>
           </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>

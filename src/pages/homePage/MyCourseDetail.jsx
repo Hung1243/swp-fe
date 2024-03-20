@@ -103,6 +103,7 @@ const MyCourseDetail = () => {
                   height="100%"
                   controls
                   src={videoURL}
+                  style={{ borderRadius: "10px" }}
                 ></video>
               )}
             </Col>

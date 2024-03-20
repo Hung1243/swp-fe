@@ -29,9 +29,12 @@ const HomePage = () => {
         id="carousel"
         style={{
           backgroundColor: "#f5d3d3",
-          height: "400px",
+          height: "90vh",
           paddingTop: "50px",
-          paddingBottom: "20px",
+          background: " #4158D0",
+          backgroundImage:
+            "linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
+          // paddingBottom: "20px",
           paddingLeft: "150px",
         }}
       >
@@ -51,11 +54,13 @@ const HomePage = () => {
             <Col span={14}>
               {" "}
               <div className="carousel-right">
-                <img
-                  src="../../../../public/images/banner.png"
-                  alt=""
-                  style={{ width: "650px", height: "300px" }}
-                />
+                <div>
+                  <img
+                    src="../../../../public/images/banner.png"
+                    alt=""
+                    style={{ width: "50vw", height: "70vh" }}
+                  />
+                </div>
               </div>
             </Col>
           </Row>

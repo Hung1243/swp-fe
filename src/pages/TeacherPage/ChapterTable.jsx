@@ -282,7 +282,7 @@ const Lesson = ({ chapter_id }) => {
       >
         Add Lesson
       </Button>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table columns={columns} dataSource={data} pagination={false}  />
       <Modal
         title="Thêm chương"
         centered

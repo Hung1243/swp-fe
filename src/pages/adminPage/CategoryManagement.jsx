@@ -92,9 +92,9 @@ const CategoryManagement = () => {
       <Table
         columns={columns}
         dataSource={data}
-        scroll={{
-          x: 1300,
-        }}
+        // scroll={{
+        //   x: 1000,
+        // }}
         pagination={{
           pageSize: 6,
         }}

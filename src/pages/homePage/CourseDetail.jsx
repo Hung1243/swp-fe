@@ -16,6 +16,7 @@ import api from "../../config/axios";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/feature/cartSlice";
+import formatCurrency from "../../utils/Currency";
 
 const onChange = (key) => {
   console.log(key);
@@ -140,7 +141,9 @@ const CourseDetail = () => {
                     padding: "0",
                   }}
                 >
-                  <h4 style={{ color: "#B75757" }}>{courseDetail.price}đ</h4>
+                  <h4 style={{ color: "#B75757" }}>
+                    {formatCurrency(courseDetail.price)}
+                  </h4>
                   <Button
                     style={{ background: "#B75757" }}
                     type="primary"
