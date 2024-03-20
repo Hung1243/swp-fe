@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   CheckOutlined,
   DatabaseOutlined,
+  LineChartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -25,7 +26,8 @@ const DashBoard = ({ role }) => {
   const navigate = useNavigate();
   const generateMenuItem = () => {
     if (role == "TEACHER") {
-      return [
+      return [ 
+   
         {
           key: "1",
           icon: <DatabaseOutlined />,
@@ -54,6 +56,15 @@ const DashBoard = ({ role }) => {
       return [
         {
           key: "1",
+          icon: <LineChartOutlined />,
+          label: (
+            <Link to="manage" className="text-decoration-none">
+              Thống kê
+            </Link>
+          ),
+        },
+        {
+          key: "2",
           icon: <UserOutlined />,
 
           label: (
@@ -63,7 +74,7 @@ const DashBoard = ({ role }) => {
           ),
         },
         {
-          key: "2",
+          key: "3",
           icon: <VideoCameraOutlined />,
           label: (
             <Link to="manage-course" className="text-decoration-none">
@@ -71,7 +82,7 @@ const DashBoard = ({ role }) => {
             </Link>
           ),
         }, {
-          key: "3",
+          key: "4",
           icon: <VideoCameraOutlined />,
           label: (
             <Link to="manage-category" className="text-decoration-none">

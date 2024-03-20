@@ -21,6 +21,7 @@ import Grade from "./pages/TeacherPage/Grade";
 import UserManagement from "./pages/adminPage/UserManagement";
 import CourseManagement from "./pages/adminPage/CourseManagement";
 import CategoryManagement from "./pages/adminPage/CategoryManagement";
+import DashboardManagement from "./pages/adminPage/DashboardManagement";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
             <Route path="manage-category" element={<CategoryManagement />}></Route>
+            <Route path="manage" element={<DashboardManagement />}></Route>
           </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>
