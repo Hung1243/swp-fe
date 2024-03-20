@@ -48,7 +48,7 @@ const DashBoard = ({ role }) => {
           ),
         },
         {
-          key: "2",
+          key: "3",
           icon: <UploadOutlined />,
           label: "Xem đánh giá",
         },

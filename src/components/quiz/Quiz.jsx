@@ -12,25 +12,31 @@ const Quiz = ({ id }) => {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState([]);
   const [isDo, setIsDo] = useState(false);
+
   const getQuiz = async () => {
     const res = await api.get(`/quiz/lessonId?id=${id}`);
     setQuiz(res.data.quiz.quizQuestion);
     setQuizId(res.data.quiz.id);
     setIsDo(res.data.isDo);
+    setValue(res.data.answerUser);
     console.log(res.data);
+    setIncorrectAnswers(res.data.falseAnswerIds);
+    setCorrectAnswer(res.data.trueAnswerIds);
   };
   useEffect(() => {
     getQuiz();
-  }, []);
+  }, [id]);
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
 
   const onChangeOption = (index, value) => {
+    console.log(index, value);
     if (!incorrectAnswers.includes(value)) {
       answers[index] = value;
       setAnswers([...answers]);
+      setValue([...answers]);
     }
   };
 
@@ -61,7 +67,7 @@ const Quiz = ({ id }) => {
       <Space direction="vertical" style={{ width: "100%" }}>
         {quiz.map((item, index) => {
           // console.log(item);
-          console.log(quiz);
+          // console.log(quiz);
           return (
             <React.Fragment key={index}>
               <Row gutter={24}>
@@ -71,11 +77,11 @@ const Quiz = ({ id }) => {
                     {item.questionNumber}: {item.questionContent}
                   </h3>
                   <Radio.Group
-                    onChange={(e) => {
-                      onChangeOption(index, e.target.value);
-                    }}
+                    value={value[index]}
+                    // onChange={(e) => {
+                    //   onChangeOption(index, e.target.value);
+                    // }}
                     disabled={isDo}
-                    // disabled={disabledOptions.includes(item.id)}
                   >
                     <Space direction="vertical">
                       {item.quizAnswers?.map((option, i) => (
@@ -84,6 +90,9 @@ const Quiz = ({ id }) => {
                           key={i}
                           value={option.id}
                           style={{ position: "relative" }}
+                          onClick={(e) => {
+                            onChangeOption(index, option.id);
+                          }}
                         >
                           {option.answerContent}
                           {incorrectAnswers.includes(option.id) && (

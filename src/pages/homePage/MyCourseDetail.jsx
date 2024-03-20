@@ -17,6 +17,10 @@ const MyCourseDetail = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const idURL = urlParams.get("lessonId");
   const quiz = urlParams.get("quiz");
+  const doneVideo = () => {
+    console.log("video done");
+  };
+
   const getCourseDetail = async () => {
     const res = await api.get(`/enroll/${params.id}`);
     setMyCourseDetail(res.data);
@@ -99,6 +103,7 @@ const MyCourseDetail = () => {
                 <Quiz id={idURL} />
               ) : (
                 <video
+                  onEnded={() => doneVideo()}
                   width="100%"
                   height="100%"
                   controls

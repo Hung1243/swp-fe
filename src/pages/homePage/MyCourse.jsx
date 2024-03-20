@@ -24,6 +24,7 @@ import { Button, Checkbox, Slider, Table } from "antd";
 import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
 import api from "../../config/axios";
+import Feedback from "../../components/feedbackModal/Feedback";
 const { Search } = Input;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -97,7 +98,9 @@ const MyCourse = () => {
                         {/* <p className="fs-4 fw-bold text-dark">
                           {item.course.price}$
                         </p> */}
+
                         <Slider defaultValue={30} />
+                        <Feedback id={item.id} />
                         <Link
                           className="text-decoration-none text-dark"
                           to={`/enrolled/${item.id}`}

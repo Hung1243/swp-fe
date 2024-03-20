@@ -1,7 +1,12 @@
 import React from "react";
+import Wallet from "../../components/wallet/Wallet";
 
 const MyWallet = () => {
-  return <div>MyWallet</div>;
+  return (
+    <div>
+      <Wallet />
+    </div>
+  );
 };
 
 export default MyWallet;

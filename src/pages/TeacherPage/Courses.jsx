@@ -88,7 +88,7 @@ const Courses = () => {
   };
   const getCourse = async () => {
     try {
-      const res = await api.get("/course");
+      const res = await api.get("/getCourseByTeacherId");
       console.log(res.data);
       setListCourse(res.data);
     } catch (err) {
