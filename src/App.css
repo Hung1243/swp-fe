@@ -1,6 +1,32 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+.viewCourse .member {
+  border-radius: 10px 10px;
 }
+
+.viewCourse .member .img-fluid {
+  border-radius: 10px 0px 0px 10px;
+}
+.viewCourse .member .member-info .footer a {
+  margin-right: 4%;
+}
+
+.myCourse .member {
+  border-radius: 10px 10px;
+}
+
+.myCourse .member .img-fluid {
+  border-radius: 10px 0px 0px 10px;
+}
+.myCourse .member .member-info .footer a {
+  margin-right: 4%;
+}
+
+
+.ant-card-hoverable:hover,
+.ant-card-meta-title:hover {
+  color: #b75757;
+}
+
+.feedback {
+  text-align: center;
+} */

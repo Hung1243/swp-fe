@@ -9,7 +9,7 @@ const api = axios.create(config);
 api.defaults.baseURL = baseUrl;
 const handleBefore = (config) => {
   const token = localStorage.getItem("token")?.replaceAll('"', "");
-  config.headers["Authorization"] = `Bearer ${token}`;
+  config.headers["Authorization"] = token ? `Bearer ${token}` : null;
   return config;
 };
 const handleError = (error) => {

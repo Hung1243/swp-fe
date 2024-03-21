@@ -1,8 +1,13 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Space } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/feature/accountSlice";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { provider } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const onFinish = async (values) => {
@@ -10,16 +15,54 @@ const Login = () => {
     try {
       const response = await api.post("/authentication/login", values);
       localStorage.setItem("token", response.data.token);
+      console.log(response.data);
+      if (response.data.role == "STUDENT") {
+        navigate("/");
+      } else if (response.data.role == "TEACHER") {
+        navigate("/dashboard/teacher");
+      } else {
+        navigate("/dashboard/admin");
+      }
+      dispatch(login(response.data));
     } catch (e) {
       console.log(e);
       toast.error(e.response.data);
     }
   };
-
+  const handleLoginGoogle = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        console.log(result.user.accessToken);
+        const response = await api.post("/authentication/loginGoogle", {
+          token: result.user.accessToken,
+        });
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data);
+        if (response.data.role == "TEACHER") {
+          navigate("/dashboard/teacher");
+        } else if (response.data.role == "STUDENT") {
+          navigate("/");
+        } else {
+          navigate("/dashboard/admin");
+        }
+        dispatch(login(response.data));
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   return (
-    <section className="container ">
-      <div className="container-fluid h-custom">
-        <div className="row d-flex justify-content-center align-items-center h-100">
+    <section>
+      <div className="container " style={{ marginTop: "150px" }}>
+        <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
