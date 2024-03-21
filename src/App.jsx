@@ -10,7 +10,6 @@ import HomeTemplate from "./homeTemplate/HomeTemplate";
 import HomePage from "./pages/homePage/HomePage";
 import ViewCourses from "./pages/homePage/ViewCourses";
 // import ViewCourseDetail from "./pages/homePage/ViewCourseDetail";
-import Payment from "./pages/homePage/Payment";
 import CourseDetail from "./pages/homePage/CourseDetail";
 import MyCourse from "./pages/homePage/MyCourse";
 import MyCourseDetail from "./pages/homePage/MyCourseDetail";
