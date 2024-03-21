@@ -34,7 +34,7 @@ const Feedback = ({ id }) => {
         Đánh giá
       </Button>
       <Modal
-        title="Để lại đánh giá của bạn ở đây nhé !"
+        title="Để lại đánh giá của bạn ở đây nhé "
         open={isModalOpen}
         onOk={() => form.submit()}
         onCancel={() => setIsModalOpen(false)}
