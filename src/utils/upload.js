@@ -1,5 +1,6 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../config/firebase";
+//upload file
 export const uploadFile = async (file) => {
   try {
     const storageRef = ref(storage, file.name);
