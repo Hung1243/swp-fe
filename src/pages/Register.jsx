@@ -5,7 +5,7 @@ import api from "../config/axios";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { provider } from "../config/firebase";
 import { useForm } from "antd/es/form/Form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
@@ -193,9 +193,9 @@ const Register = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Already have an account?{" "}
-                  <a href="./login" className="link-danger">
+                  <Link to="/login" className="link-danger">
                     Login
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Form>
