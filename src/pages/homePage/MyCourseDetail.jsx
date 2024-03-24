@@ -14,11 +14,22 @@ const MyCourseDetail = () => {
   };
   const [myCourseDetail, setMyCourseDetail] = useState(null);
   const [videoURL, setVideoUrl] = useState();
+  const [items, setItems] = useState([]);
   const urlParams = new URLSearchParams(window.location.search);
   const idURL = urlParams.get("lessonId");
   const quiz = urlParams.get("quiz");
-  const doneVideo = () => {
+  const doneVideo = async () => {
     console.log("video done");
+    if (idURL) {
+      try {
+        const response = await api.post("/progress", {
+          lessonId: Number(idURL),
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error sending lesson ID to API:", error);
+      }
+    }
   };
 
   const getCourseDetail = async () => {
@@ -30,7 +41,6 @@ const MyCourseDetail = () => {
     getCourseDetail();
   }, []);
 
-  const [items, setItems] = useState([]);
   // const [lessons, setLessons] = useState([]);
 
   useEffect(() => {
@@ -93,6 +103,10 @@ const MyCourseDetail = () => {
     }
   }, [idURL, myCourseDetail]);
 
+  // const postDoneApi = async (values) => {
+  //   const res = await api.post("/lessonId", values);
+  // };
+
   return (
     <>
       <section id="my-course-detail ">
@@ -103,7 +117,7 @@ const MyCourseDetail = () => {
                 <Quiz id={idURL} />
               ) : (
                 <video
-                  onEnded={() => doneVideo()}
+                  onEnded={doneVideo}
                   width="100%"
                   height="100%"
                   controls

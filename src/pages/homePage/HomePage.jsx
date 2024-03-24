@@ -56,7 +56,7 @@ const HomePage = () => {
               <div className="carousel-right">
                 <div>
                   <img
-                    src="../../../../public/images/banner.png"
+                    src="https://firebasestorage.googleapis.com/v0/b/liquid-fort-412406.appspot.com/o/banner.png?alt=media&token=effdde10-ea62-4094-b8b8-3d34eb054cb4"
                     alt=""
                     style={{ width: "50vw", height: "70vh" }}
                   />

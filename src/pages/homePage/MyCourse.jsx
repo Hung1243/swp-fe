@@ -20,7 +20,7 @@ import {
   CaretRightOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Slider, Table } from "antd";
+import { Button, Checkbox, Progress, Row, Slider, Table } from "antd";
 import { Input, Space } from "antd";
 import { Link } from "react-router-dom";
 import api from "../../config/axios";
@@ -46,6 +46,7 @@ const MyCourse = () => {
   useEffect(() => {
     getCourses();
   }, []);
+
   return (
     <section id="view-courses">
       <div className="container mt-5">
@@ -65,58 +66,77 @@ const MyCourse = () => {
               </Space>
             </div>
             {listCourses.map((item) => {
-              return (
-                <div className="member border mt-3  ">
-                  <div className="row">
-                    {" "}
-                    <div className="pic col-4">
-                      <img
-                        style={{ width: "300px", height: "200px" }}
-                        src={item.pictureLink}
-                        className="img-fluid"
-                        alt={item.name}
-                      />
-                    </div>
-                    <div className="member-info col-8 pt-1 ">
-                      <p>
-                        by <strong>{item.createBy?.username}</strong>
-                      </p>
-                      <h3 className="mb-4">{item.name}</h3>
-
-                      <Space>
-                        <ClockCircleOutlined style={{ color: "#B75757" }} />
-                        2 weeks
-                        <TeamOutlined style={{ color: "#B75757" }} />
-                        10000 students
-                        <SignalFilled style={{ color: "#B75757" }} />
-                        All levels
-                        <CopyFilled style={{ color: "#B75757" }} />
-                        20 lessons
-                      </Space>
-                      <hr className="m-2" />
-                      <div className="footer d-flex justify-content-between align-items-center">
-                        {/* <p className="fs-4 fw-bold text-dark">
-                          {item.course.price}$
-                        </p> */}
-
-                        <Slider defaultValue={30} />
-                        <Feedback id={item.id} />
-                        <Link
-                          className="text-decoration-none text-dark"
-                          to={`/enrolled/${item.id}`}
-                        >
-                          Learn Now <CaretRightOutlined />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
+              // const progress = await getProgress(item.id);
+              // console.log(progress);
+              return <Course item={item} />;
             })}
           </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const Course = ({ item }) => {
+  const [progress, setProgress] = useState();
+  const getProgress = async () => {
+    const res = await api.get(`/progress/percent/courseId?courseId=${item.id}`);
+    setProgress(res.data.toFixed(1));
+    return res.data;
+  };
+  useEffect(() => {
+    getProgress();
+  }, []);
+  return (
+    <div className="member border mt-3  ">
+      <div className="row">
+        {" "}
+        <div className="pic col-4">
+          <img
+            style={{ width: "300px", height: "200px" }}
+            src={item.pictureLink}
+            className="img-fluid"
+            alt={item.name}
+          />
+        </div>
+        <div className="member-info col-8 pt-1 ">
+          <p>
+            by <strong>{item.createBy?.username}</strong>
+          </p>
+          <h3 className="mb-4">{item.name}</h3>
+
+          <Space>
+            <ClockCircleOutlined style={{ color: "#B75757" }} />
+            2 weeks
+            <TeamOutlined style={{ color: "#B75757" }} />
+            10000 students
+            <SignalFilled style={{ color: "#B75757" }} />
+            All levels
+            <CopyFilled style={{ color: "#B75757" }} />
+            20 lessons
+          </Space>
+          <hr className="m-2" />
+          <div className="footer d-flex justify-content-between align-items-center">
+            <Progress
+              style={{ width: "50%" }}
+              percent={progress}
+              status="active"
+              strokeColor={{
+                from: "#108ee9",
+                to: "#87d068",
+              }}
+            />
+            {/* <Feedback id={item.id} /> */}
+            <Link
+              className="text-decoration-none text-dark"
+              to={`/enrolled/${item.id}`}
+            >
+              Learn Now <CaretRightOutlined />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
