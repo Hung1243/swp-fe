@@ -126,7 +126,7 @@ const Course = ({ item }) => {
                 to: "#87d068",
               }}
             />
-            {/* <Feedback id={item.id} /> */}
+            <Feedback id={item.id} />
             <Link
               className="text-decoration-none text-dark"
               to={`/enrolled/${item.id}`}

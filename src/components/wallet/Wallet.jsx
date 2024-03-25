@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import api from "../../config/axios";
 import formatCurrency from "../../utils/Currency";
 
+import dayjs from "dayjs";
+
 const columns = [
   {
     title: "Mã giao dịch",
@@ -94,8 +96,8 @@ const Wallet = () => {
     return {
       id: `GD${item.id}`,
       nguoiGui: item.from.account.fullName,
-      name: "Tiền khóa học A    ",
-      date: "20/10/2024",
+      name: `Tiền khóa học ${item.course.name}`,
+      date: dayjs(item.date).format("DD-MM-YYYY"),
       nguoiNhan: item.to.account.fullName,
       money: formatCurrency(item.money),
       tags: ["Nhận tiền"],

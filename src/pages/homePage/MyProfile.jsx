@@ -36,7 +36,7 @@ const MyProfile = () => {
   }, []);
   const getCourses = async () => {
     try {
-      const res = await api.get("/enroll/all");
+      const res = await api.get("/enroll");
       setListCourses(res.data);
       console.log(res.data);
     } catch (err) {
@@ -107,16 +107,16 @@ const MyProfile = () => {
                   <div className="pic col-4">
                     <img
                       style={{ width: "300px", height: "200px" }}
-                      src={item.course.pictureLink}
+                      src={item.pictureLink}
                       className="img-fluid"
-                      alt={item.course.name}
+                      alt={item.name}
                     />
                   </div>
                   <div className="member-info col-8 pt-1 ">
                     <p>
-                      by <strong>{item.course.createBy?.username}</strong>
+                      by <strong>{item.createBy?.username}</strong>
                     </p>
-                    <h3 className="mb-4">{item.course.name}</h3>
+                    <h3 className="mb-4">{item.name}</h3>
 
                     <Space>
                       <ClockCircleOutlined style={{ color: "#B75757" }} />
@@ -139,7 +139,7 @@ const MyProfile = () => {
                       </p>
                       <Link
                         className="text-decoration-none text-dark"
-                        to={`/enrolled/${item.course.id}`}
+                        to={`/enrolled/${item.id}`}
                       >
                         Learn Now <CaretRightOutlined />
                       </Link>

@@ -194,7 +194,7 @@ const Courses = () => {
               <Button
                 style={{
                   margin: "0 8px",
-                }}                                                                                                                      ERDDDDDDDD
+                }}
                 onClick={() => prev()}
               >
                 Previous
