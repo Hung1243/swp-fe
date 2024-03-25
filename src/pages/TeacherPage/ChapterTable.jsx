@@ -26,6 +26,7 @@ export const ChapterTable = ({ id }) => {
   const urlParams = new URLSearchParams(window.location.search);
   const idURL = urlParams.get("id");
   console.log(urlParams);
+
   const columns = [
     {
       title: "Chapter name",
@@ -165,6 +166,23 @@ const Lesson = ({ chapter_id }) => {
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
   const handleCancel = () => setPreviewOpen(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [loadings, setLoadings] = useState([]);
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
+  };
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -248,6 +266,7 @@ const Lesson = ({ chapter_id }) => {
   });
 
   const onSubmitLesson = async (values) => {
+    setIsSubmitting(true);
     console.log(values);
     values.chapter_id = Number(chapter_id);
     if (values.videoLink) {
@@ -264,6 +283,7 @@ const Lesson = ({ chapter_id }) => {
     setIsOpen(false);
     toast.success("Thêm thành công");
     getLesson();
+    setIsSubmitting(false);
   };
 
   return (
@@ -282,7 +302,7 @@ const Lesson = ({ chapter_id }) => {
       >
         Add Lesson
       </Button>
-      <Table columns={columns} dataSource={data} pagination={false}  />
+      <Table columns={columns} dataSource={data} pagination={false} />
       <Modal
         title="Thêm chương"
         centered
@@ -290,6 +310,7 @@ const Lesson = ({ chapter_id }) => {
         onOk={() => form.submit()}
         onCancel={() => setIsOpen(false)}
         width={500}
+        confirmLoading={isSubmitting}
       >
         <Form
           form={form}
