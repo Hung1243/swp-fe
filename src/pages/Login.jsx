@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/feature/accountSlice";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { provider } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const onFinish = async (values) => {
@@ -140,9 +140,9 @@ const Login = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Don't have an account?{" "}
-                  <a href="#!" className="link-danger">
+                  <Link to="/register" className="link-danger">
                     Register
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Form>

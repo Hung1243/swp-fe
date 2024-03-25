@@ -15,7 +15,7 @@
 }
 
 .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab {
-  width: calc(100% / 5);
+  width: calc(100% / 4);
   justify-content: center;
 }
 .ant-tabs-nav-list {

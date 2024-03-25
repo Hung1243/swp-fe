@@ -4,80 +4,85 @@ import AddNewCourse from "./AddNewCourse";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   addChapter,
-//   addInfo,
-//   addLesson,
-//   removeCourse,
-//   updateID,
-//   updateStep,
-// } from "../../redux/feature/courseSlice";
 import axios from "axios";
 import { uploadFile } from "../../utils/upload";
 import { useNavigate } from "react-router-dom";
-const columns = [
-  {
-    title: "STT",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Danh mục",
-    dataIndex: "category",
-    key: "category",
-  },
-  {
-    title: "Mã khóa học",
-    dataIndex: "code",
-    key: "code",
-  },
-  {
-    title: "Tên khóa học",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Mô tả",
-    dataIndex: "description",
-    key: "description",
-  },
-  {
-    title: "Hình ảnh",
-    dataIndex: "pictureLink",
-    key: "pictureLink",
-    render: (pictureLink) => (
-      <img src={pictureLink} alt="Hình ảnh" style={{ maxWidth: "100px" }} />
-    ),
-  },
-  {
-    title: "Người tạo",
-    dataIndex: "fullName",
-    key: "fullName",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: () => (
-      <Space size="middle">
-        <Button type="primary">Edit</Button>
-      </Space>
-    ),
-  },
-];
+import ViewFeedback from "../../components/feedbackModal/ViewFeedback";
 
 const Courses = () => {
   const [fileList, setFileList] = useState([]);
-
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const [form1] = useForm();
   const dispatch = useDispatch();
-  // const step = useSelector((store) => store.course.step);
-  // const courseRedux = useSelector((store) => store.course);
   const [course, setCourse] = useState(null);
   const navigate = useNavigate();
-
   const [listCourse, setListCourse] = useState([]);
+  const [viewFeedback, setViewFeedback] = useState(false);
+  const [currentCourse, setCurrentCourse] = useState();
+
+  const columns = [
+    {
+      title: "STT",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Danh mục",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Mã khóa học",
+      dataIndex: "code",
+      key: "code",
+    },
+    {
+      title: "Tên khóa học",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "Hình ảnh",
+      dataIndex: "pictureLink",
+      key: "pictureLink",
+      render: (pictureLink) => (
+        <img src={pictureLink} alt="Hình ảnh" style={{ maxWidth: "100px" }} />
+      ),
+    },
+    {
+      title: "Người tạo",
+      dataIndex: "fullName",
+      key: "fullName",
+    },
+    {
+      title: "Đánh giá",
+      key: "id",
+      dataIndex: "id",
+      render: (value) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => handleViewFeedback(value)}>
+            Xem đánh giá
+          </Button>
+        </Space>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: () => (
+        <Space size="middle">
+          <Button type="primary">Edit</Button>
+        </Space>
+      ),
+    },
+  ];
+
   const handleDone = () => {
     const newUrl = window.location.pathname;
     window.history.pushState({}, null, newUrl);
@@ -107,6 +112,7 @@ const Courses = () => {
       description: item.description,
       pictureLink: item.pictureLink,
       fullName: item.createBy.fullName,
+      id: item.id,
     };
   });
 
@@ -149,6 +155,12 @@ const Courses = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
+  const handleViewFeedback = (id) => {
+    console.log(id);
+    setCurrentCourse(id);
+    setViewFeedback(true);
+  };
+
   return (
     <>
       <Button
@@ -208,6 +220,16 @@ const Courses = () => {
           onSubmitForm1={onSubmitForm1}
           form1={form1}
         />
+      </Modal>
+
+      <Modal
+        centered
+        open={viewFeedback}
+        onOk={() => setViewFeedback(false)}
+        onCancel={() => setViewFeedback(false)}
+        width={700}
+      >
+        <ViewFeedback currentCourse={currentCourse} />
       </Modal>
     </>
   );

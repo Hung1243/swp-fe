@@ -2,6 +2,11 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { provider } from "../config/firebase";
+import { useForm } from "antd/es/form/Form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const onFinish = (values) => {
@@ -137,9 +142,9 @@ const Register = () => {
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Already have an account?{" "}
-                  <a href="#!" className="link-danger">
+                  <Link to="/login" className="link-danger">
                     Login
-                  </a>
+                  </Link>
                 </p>
               </div>
             </Form>

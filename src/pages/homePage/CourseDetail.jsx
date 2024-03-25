@@ -17,6 +17,7 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/feature/cartSlice";
 import formatCurrency from "../../utils/Currency";
+import ViewFeedback from "../../components/feedbackModal/ViewFeedback";
 
 const onChange = (key) => {
   console.log(key);
@@ -68,15 +69,15 @@ const CourseDetail = () => {
         </TabComponent>
       ),
     },
-    {
-      label: `FAQs`,
-      key: 4,
-      children: `Content of Tab Pane 4`,
-    },
+    // {
+    //   label: `FAQs`,
+    //   key: 4,
+    //   children: `Content of Tab Pane 4`,
+    // },
     {
       label: `Đánh giá`,
-      key: 5,
-      children: `Content of Tab Pane 5`,
+      key: 4,
+      children: <ViewFeedback data={courseDetail.id} />,
     },
   ];
   return (
