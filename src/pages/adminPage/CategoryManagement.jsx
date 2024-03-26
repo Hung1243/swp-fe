@@ -2,6 +2,7 @@ import { Button, Flex, Form, Input, Modal, Popconfirm, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import api from "../../config/axios";
 import { useForm } from "antd/es/form/Form";
+import { toast } from "react-toastify";
 
 const columns = [
   {
@@ -49,7 +50,7 @@ const CategoryManagement = () => {
   const [open, setOpen] = useState(false);
   const [listCategory, setListCategory] = useState([]);
   const getCategory = async () => {
-    const res = await api.get("categoryAll");
+    const res = await api.get("/categoryAll");
     setListCategory(res.data);
   };
   useEffect(() => {

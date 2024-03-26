@@ -23,6 +23,7 @@ import CheckoutSuccess from "./pages/homePage/CheckOutSuccess";
 // import { ChapterTable } from "./pages/TeacherPage/ChapterTable";
 import Quiz from "./components/quiz/Quiz";
 import CategoryManagement from "./pages/adminPage/CategoryManagement";
+import DashboardManagement from "./pages/adminPage/DashboardManagement";
 import MyWallet from "./pages/TeacherPage/MyWallet";
 import WalletManagement from "./pages/adminPage/WalletManagement";
 
@@ -52,6 +53,7 @@ function App() {
               element={<CategoryManagement />}
             ></Route>{" "}
             <Route path="manage-wallet" element={<WalletManagement />}></Route>
+            <Route path="manage" element={<DashboardManagement />}></Route>
           </Route>
         </Route>
         <Route path="" element={<HomeTemplate />}>

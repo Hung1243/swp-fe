@@ -3,6 +3,7 @@ import {
   BarsOutlined,
   CheckOutlined,
   DatabaseOutlined,
+  LineChartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ReadOutlined,
@@ -47,16 +48,20 @@ const DashBoard = ({ role }) => {
             </Link>
           ),
         },
-        {
-          key: "3",
-          icon: <UploadOutlined />,
-          label: "Xem đánh giá",
-        },
       ];
     } else {
       return [
         {
           key: "1",
+          icon: <LineChartOutlined />,
+          label: (
+            <Link to="manage" className="text-decoration-none">
+              Thống kê
+            </Link>
+          ),
+        },
+        {
+          key: "2",
           icon: <UserOutlined />,
 
           label: (
@@ -66,8 +71,8 @@ const DashBoard = ({ role }) => {
           ),
         },
         {
-          key: "2",
-          icon: <ReadOutlined />,
+          key: "3",
+          icon: <VideoCameraOutlined />,
           label: (
             <Link to="manage-course" className="text-decoration-none">
               Quản lí khóa học
@@ -75,8 +80,8 @@ const DashBoard = ({ role }) => {
           ),
         },
         {
-          key: "3",
-          icon: <BarsOutlined />,
+          key: "4",
+          icon: <VideoCameraOutlined />,
           label: (
             <Link to="manage-category" className="text-decoration-none">
               Quản lí danh mục
@@ -84,7 +89,7 @@ const DashBoard = ({ role }) => {
           ),
         },
         {
-          key: "4",
+          key: "5",
           icon: <WalletOutlined />,
           label: (
             <Link to="manage-wallet" className="text-decoration-none">
@@ -127,7 +132,7 @@ const DashBoard = ({ role }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[]}
           items={generateMenuItem()}
         />
       </Sider>

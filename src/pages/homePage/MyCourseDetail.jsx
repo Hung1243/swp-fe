@@ -103,9 +103,7 @@ const MyCourseDetail = () => {
     }
   }, [idURL, myCourseDetail]);
 
-  // const postDoneApi = async (values) => {
-  //   const res = await api.post("/lessonId", values);
-  // };
+
 
   return (
     <>

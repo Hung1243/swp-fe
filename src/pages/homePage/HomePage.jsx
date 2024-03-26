@@ -6,21 +6,22 @@ import {
   MailOutlined,
   CalendarOutlined,
   ReadOutlined,
+  ArrowRightOutlined,
 } from "@ant-design/icons";
 import api from "../../config/axios";
 import { Link } from "react-router-dom";
 import CountUp from "react-countup";
 
 const HomePage = () => {
-  // const [listCategories, setListCategories] = useState([]);
+  const [listCategories, setListCategories] = useState([]);
   const [listCourse, setListCourse] = useState([]);
-  // const getListCategories = async () => {
-  //   const res = await api.get("/category");
-  //   setListCategories(res.data);
-  // };
-  // useEffect(() => {
-  //   getListCategories();
-  // }, []);
+  const getListCategories = async () => {
+    const res = await api.get("/categoryAll");
+    setListCategories(res.data);
+  };
+  useEffect(() => {
+    getListCategories();
+  }, []);
   const getListCourse = async () => {
     const res = await api.get("/courseDetailAll");
     setListCourse(res.data);
@@ -28,6 +29,16 @@ const HomePage = () => {
   useEffect(() => {
     getListCourse();
   }, []);
+
+  const chunkList = (list, chunkSize) => {
+    const chunks = [];
+    for (let i = 0; i < list.length; i += chunkSize) {
+      chunks.push(list.slice(i, i + chunkSize));
+    }
+    return chunks;
+  };
+
+  const courseChunks = chunkList(listCategories, 4);
   return (
     <div className="home">
       <div
@@ -48,10 +59,13 @@ const HomePage = () => {
                 className="carousel-left text-white"
                 style={{ marginTop: "150px" }}
               >
-                <h1>
+                <h1 className="fw-bolder">
                   Chinh phục mọi thách thức với khóa học kỹ năng mềm tại đây!
                 </h1>
-                <h5>Bắt đầu hành trình thành công của bạn ngay!</h5>
+                <br />
+                <p className="fw-bold fs-5">
+                  Bắt đầu hành trình thành công của bạn ngay!
+                </p>
                 <br />
                 <br />
                 <Button
@@ -60,7 +74,7 @@ const HomePage = () => {
                   shape="round"
                   size="large"
                 >
-                  Tham gia ngay
+                  Tham gia ngay <ArrowRightOutlined />
                 </Button>
               </div>
             </Col>
@@ -88,40 +102,35 @@ const HomePage = () => {
                 <h3>Danh Mục Khóa Học</h3>
                 <p>Những khóa học phổ biến</p>
               </Col>
-              {/* <Col
-                span={5}
-                style={{ display: "flex", justifyContent: "center" }}
-                className="category-right"
-              >
-                <Button>Tất cả khóa học</Button>
-              </Col> */}
             </Row>
           </div>
 
           <div className="category-course">
-            <Row justify="space-around ">
-              {listCourse.slice(0, 5).map((items) => {
-                return (
-                  <Col span={2}>
-                    <Card
-                      className="pt-4"
-                      hoverable
-                      style={{
-                        width: 150,
-                        height: 150,
-                      }}
-                      cover={
-                        <ReadOutlined
-                          style={{ padding: "8px", fontSize: "50px" }}
-                        />
-                      }
-                    >
-                      <h5 className="fs-6 text-center">{items.name}</h5>
-                    </Card>
-                  </Col>
-                );
-              })}
-            </Row>
+            <Carousel autoplay autoplaySpeed={2500} dotPosition="bottom">
+              {courseChunks.map((chunk, index) => (
+                <div key={index}>
+                  <Row justify="space-around">
+                    {chunk.map((course) => (
+                      <Col key={course.id} span={4}>
+                        <Card
+                          hoverable
+                          cover={
+                            <ReadOutlined
+                              style={{ fontSize: "50px", padding: "20px" }}
+                            />
+                          }
+                        >
+                          <Card.Meta
+                            title={course.name}
+                            style={{ textAlign: "center" }}
+                          />
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              ))}
+            </Carousel>
           </div>
         </div>
       </div>

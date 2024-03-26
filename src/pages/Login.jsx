@@ -21,9 +21,9 @@ const Login = () => {
       if (response.data.role == "STUDENT") {
         navigate("/");
       } else if (response.data.role == "TEACHER") {
-        navigate("/dashboard/teacher");
+        navigate("/dashboard/teacher/my-wallet");
       } else {
-        navigate("/dashboard/admin");
+        navigate("/dashboard/admin/manage");
       }
       dispatch(login(response.data));
     } catch (e) {
@@ -42,11 +42,11 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         console.log(response.data);
         if (response.data.role == "TEACHER") {
-          navigate("/dashboard/teacher");
+          navigate("/dashboard/teacher/my-wallet");
         } else if (response.data.role == "STUDENT") {
           navigate("/");
         } else {
-          navigate("/dashboard/admin");
+          navigate("/dashboard/admin/manage");
         }
         dispatch(login(response.data));
       })
