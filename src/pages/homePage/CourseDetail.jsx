@@ -98,16 +98,16 @@ const CourseDetail = () => {
 
               <div className="content-footer text-white">
                 <Space>
-                  <ClockCircleOutlined style={{ color: "#B75757" }} />
-                  <p className="m-0 p-1">2 Weeks</p>
+                  {/* <ClockCircleOutlined style={{ color: "#B75757" }} />
+                  <p className="m-0 p-1">2 Weeks</p> */}
                   <TeamOutlined style={{ color: "#B75757" }} />
-                  <p className="m-0 p-1">100 Students</p>
+                  <p className="m-0 p-1">100 Người học</p>
                   <SignalFilled style={{ color: "#B75757" }} />
-                  <p className="m-0 p-1">All levels</p>
+                  <p className="m-0 p-1">Tất cả các cấp độ</p>
                   <ReadOutlined style={{ color: "#B75757" }} />
-                  <p className="m-0 p-1">20 Lesson</p>
+                  <p className="m-0 p-1">20 Bài học</p>
                   <CalculatorOutlined style={{ color: "#B75757" }} />
-                  <p className="m-0 p-1">10 Quizzes</p>
+                  <p className="m-0 p-1">10 Bài tập</p>
                 </Space>
               </div>
             </div>

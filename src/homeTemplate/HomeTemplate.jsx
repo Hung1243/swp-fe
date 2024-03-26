@@ -12,7 +12,9 @@ const HomeTemplate = () => {
         className="content"
         style={{ minHeight: "90vh", backgroundColor: "" }}
       >
-        <Outlet />
+        <div className="content">
+          <Outlet />
+        </div>
       </div>
       <footer className="text-center bg-black mt-5">
         <Footer />

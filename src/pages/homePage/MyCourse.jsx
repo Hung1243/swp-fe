@@ -10,7 +10,11 @@
 // } from "@ant-design/icons";
 
 import React, { useEffect, useState } from "react";
-import { ClockCircleOutlined } from "@ant-design/icons";
+import {
+  CalculatorOutlined,
+  ClockCircleOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 import {
   AudioOutlined,
   UserDeleteOutlined,
@@ -106,14 +110,14 @@ const Course = ({ item }) => {
           <h3 className="mb-4">{item.name}</h3>
 
           <Space>
-            <ClockCircleOutlined style={{ color: "#B75757" }} />
-            2 weeks
             <TeamOutlined style={{ color: "#B75757" }} />
-            10000 students
+            <p className="m-0 p-1">100 Người học</p>
             <SignalFilled style={{ color: "#B75757" }} />
-            All levels
-            <CopyFilled style={{ color: "#B75757" }} />
-            20 lessons
+            <p className="m-0 p-1">Tất cả các cấp độ</p>
+            <ReadOutlined style={{ color: "#B75757" }} />
+            <p className="m-0 p-1">20 Bài học</p>
+            <CalculatorOutlined style={{ color: "#B75757" }} />
+            <p className="m-0 p-1">10 Bài tập</p>
           </Space>
           <hr className="m-2" />
           <div className="footer d-flex justify-content-between align-items-center">

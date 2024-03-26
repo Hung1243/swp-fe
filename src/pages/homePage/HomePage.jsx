@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Carousel, Col, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
-import { XOutlined, MailOutlined, CalendarOutlined } from "@ant-design/icons";
+import {
+  XOutlined,
+  MailOutlined,
+  CalendarOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 import api from "../../config/axios";
 import { Link } from "react-router-dom";
 import CountUp from "react-countup";
@@ -24,16 +29,14 @@ const HomePage = () => {
     getListCourse();
   }, []);
   return (
-    <>
+    <div className="home">
       <div
         id="carousel"
         style={{
-          backgroundColor: "#f5d3d3",
+          // backgroundColor: "#f5d3d3",
           height: "90vh",
           paddingTop: "50px",
-          background: " #4158D0",
-          backgroundImage:
-            "linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
+          // background: " #4158D0",
           // paddingBottom: "20px",
           paddingLeft: "150px",
         }}
@@ -41,25 +44,35 @@ const HomePage = () => {
         <div className="container ">
           <Row gutter={24} justify="space-evenly">
             <Col span={10}>
-              <div className="carousel-left">
+              <div
+                className="carousel-left text-white"
+                style={{ marginTop: "150px" }}
+              >
                 <h1>
                   Chinh phục mọi thách thức với khóa học kỹ năng mềm tại đây!
                 </h1>
                 <h5>Bắt đầu hành trình thành công của bạn ngay!</h5>
                 <br />
                 <br />
-                <Button type="default">Bắt đầu ngay</Button>
+                <Button
+                  type="primary"
+                  style={{ background: "#FF9F67" }}
+                  shape="round"
+                  size="large"
+                >
+                  Tham gia ngay
+                </Button>
               </div>
             </Col>
             <Col span={14}>
               {" "}
               <div className="carousel-right">
                 <div>
-                  <img
+                  {/* <img
                     src="https://firebasestorage.googleapis.com/v0/b/liquid-fort-412406.appspot.com/o/banner.png?alt=media&token=effdde10-ea62-4094-b8b8-3d34eb054cb4"
                     alt=""
                     style={{ width: "50vw", height: "70vh" }}
-                  />
+                  /> */}
                 </div>
               </div>
             </Col>
@@ -97,7 +110,11 @@ const HomePage = () => {
                         width: 150,
                         height: 150,
                       }}
-                      cover={<XOutlined style={{ padding: "10px" }} />}
+                      cover={
+                        <ReadOutlined
+                          style={{ padding: "8px", fontSize: "50px" }}
+                        />
+                      }
                     >
                       <h5 className="fs-6 text-center">{items.name}</h5>
                     </Card>
@@ -330,7 +347,7 @@ const HomePage = () => {
           <p>Designer</p>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

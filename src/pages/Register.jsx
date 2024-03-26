@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Segmented, Avatar } from "antd";
+import { Form, Input, Button, Segmented, Avatar, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import api from "../config/axios";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -53,11 +53,11 @@ const Register = () => {
 
   return (
     <section className="container ">
-      <div className="container-fluid h-custom">
+      <div className="container-fluid h-custom ">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              src="/public/images/login.svg"
               className="img-fluid "
               alt="Sample image"
             />
@@ -71,12 +71,7 @@ const Register = () => {
             >
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                 <p className="lead fw-normal mb-0 me-3">Sign up with</p>
-                <Button type="primary" className="btn-floating mx-1">
-                  <i className="fab fa-facebook-f" />
-                </Button>
-                <Button type="primary" className="btn-floating mx-1">
-                  <i className="fab fa-twitter" />
-                </Button>
+
                 <Button
                   type="primary"
                   className="btn-floating mx-1"

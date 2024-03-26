@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Flex, Row, Slider, Space, Typography } from "antd";
 import {
+  CalculatorOutlined,
   CaretRightOutlined,
   ClockCircleOutlined,
   CopyFilled,
+  ReadOutlined,
   SignalFilled,
   TeamOutlined,
 } from "@ant-design/icons";
@@ -18,34 +20,29 @@ const imgStyle = {
 };
 const MyProfile = () => {
   const [profile, setProfile] = useState([]);
-  const [listCourses, setListCourses] = useState([]);
+  // const [listCourses, setListCourses] = useState([]);
 
   const getProfile = async () => {
-    const token = localStorage.getItem("token"); // get token from local storage
-    if (token) {
-      // check if token exists
-      const res = await api.get(
-        `/authentication/getAccountProfile?token=${token}`
-      );
-      setProfile(res.data);
-      console.log(res.data);
-    }
+    // check if token exists
+    const res = await api.get(`/authentication/getAccountProfile`);
+    setProfile(res.data);
+    console.log(res.data);
   };
   useEffect(() => {
     getProfile();
   }, []);
-  const getCourses = async () => {
-    try {
-      const res = await api.get("/enroll");
-      setListCourses(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getCourses();
-  }, []);
+  // const getCourses = async () => {
+  //   try {
+  //     const res = await api.get("/enroll");
+  //     setListCourses(res.data);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getCourses();
+  // }, []);
   return (
     <>
       <section className="information mt-3">
@@ -99,14 +96,21 @@ const MyProfile = () => {
       <section className="my-enroll mt-3">
         <div className="container">
           <h3>Các khóa học đã tham gia</h3>
-          {listCourses.map((item) => {
+          {profile.enrolledCourseDetailResponse?.map((item) => {
             return (
-              <div className="member border mt-3 w-75 ">
+              <div
+                className="member border mt-3 w-75 "
+                style={{ borderRadius: "20px" }}
+              >
                 <div className="row">
                   {" "}
                   <div className="pic col-4">
                     <img
-                      style={{ width: "300px", height: "200px" }}
+                      style={{
+                        width: "300px",
+                        height: "200px",
+                        borderRadius: "20px ",
+                      }}
                       src={item.pictureLink}
                       className="img-fluid"
                       alt={item.name}
@@ -119,29 +123,39 @@ const MyProfile = () => {
                     <h3 className="mb-4">{item.name}</h3>
 
                     <Space>
-                      <ClockCircleOutlined style={{ color: "#B75757" }} />
-                      2 weeks
                       <TeamOutlined style={{ color: "#B75757" }} />
-                      10000 students
+                      <p className="m-0 p-1">100 Người học</p>
                       <SignalFilled style={{ color: "#B75757" }} />
-                      All levels
-                      <CopyFilled style={{ color: "#B75757" }} />
-                      20 lessons
+                      <p className="m-0 p-1">Tất cả các cấp độ</p>
+                      <ReadOutlined style={{ color: "#B75757" }} />
+                      <p className="m-0 p-1">20 Bài học</p>
+                      <CalculatorOutlined style={{ color: "#B75757" }} />
+                      <p className="m-0 p-1">10 Bài tập</p>
                     </Space>
                     <hr className="m-2" />
-                    <div className="footer d-flex justify-content-between align-items-center">
+                    <div className="footer d-flex justify-content-between align-items-center px-3">
                       {/* <p className="fs-4 fw-bold text-dark">
                           {item.course.price}$
                         </p> */}
                       {/* <Slider defaultValue={30} /> */}
-                      <p className="text-danger">
-                        Tình trạng: <strong>Chưa hoàn thành</strong>{" "}
+                      <p>
+                        <strong>
+                          {item.fineshed ? (
+                            <div className="text-success">
+                              Tình trạng: Hoàn thành
+                            </div>
+                          ) : (
+                            <div className="text-danger">
+                              Tình trạng: Chưa hoàn thành
+                            </div>
+                          )}
+                        </strong>{" "}
                       </p>
                       <Link
                         className="text-decoration-none text-dark"
                         to={`/enrolled/${item.id}`}
                       >
-                        Learn Now <CaretRightOutlined />
+                        Xem ngay <CaretRightOutlined />
                       </Link>
                     </div>
                   </div>

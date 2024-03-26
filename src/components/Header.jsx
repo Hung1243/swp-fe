@@ -36,11 +36,19 @@ const Nav = () => {
   ];
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+      <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container d-flex justify-content-between">
-          <Link className="navbar-brand fs-3 fw-bold" to="/">
-            Skill Forge
-          </Link>
+          <Space>
+            <img
+              src="/images/ReadOutlined.svg"
+              alt=""
+              style={{ width: "50px", height: "50px" }}
+            />
+            <Link className="navbar-brand fs-3 fw-bold" to="/">
+              Skill Forge
+            </Link>
+          </Space>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -74,7 +82,7 @@ const Nav = () => {
               </li>
             </ul>
           </div>
-          <div className="d-flex">
+          <Space>
             <div className="cart-items px-3">
               {" "}
               <Link className="nav-link" to="/cart">
@@ -110,7 +118,7 @@ const Nav = () => {
                 </Link>
               </div>
             )}
-          </div>
+          </Space>
         </div>
       </nav>
     </>

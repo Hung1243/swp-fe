@@ -3,7 +3,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: "Josefin Sans", sans-serif !important;
+
+  /* background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%); */
 }
 * {
   padding: 0;
