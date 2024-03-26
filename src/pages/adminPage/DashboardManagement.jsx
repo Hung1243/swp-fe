@@ -30,6 +30,7 @@ const DashboardManagement = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
+  
   const onChange = (date, dateString) => {
     setSelectedMonth(date.getMonth() + 1); // Months are 0-indexed
     setSelectedYear(date.getFullYear());
@@ -52,12 +53,21 @@ const DashboardManagement = () => {
   const startMonth = new Date().getMonth() - 5; // January
   const numMonths = 30;
   const handleSubmit = async () => {
-    if (selectedMonth && selectedYear && selectedValue ) {
-      const response = await api.post(
-      "/admin/" + selectedMonth, selectedYear,selectedValue 
-      );
-    }
-  };
+    if (selectedMonth !== null && selectedYear !== null && selectedValue !== null) {
+    try {
+      const requestData = {
+        month: selectedMonth,
+        year: selectedYear,
+        interval: selectedValue
+      };
+
+      const response = await api.post("http://skillforge.website:8080/chart", requestData);
+
+      // Xử lý phản hồi từ API nếu cần
+    } catch (error) {
+      console.error("Error:", error);}
+
+  };}
   // api so nguoi da mua
   // api so khoa hoc dang co
   // api so khoa học da ba
@@ -105,7 +115,7 @@ const DashboardManagement = () => {
           <DatePicker
             picker="month"
             onChange={onChange}
-            renderExtraFooter={() => "extra footer"}
+            renderExtraFooter={() => ""}
           />
           {selectedMonth && <p>Month: {selectedMonth}</p>}
           {selectedYear && <p>Year: {selectedYear}</p>}
