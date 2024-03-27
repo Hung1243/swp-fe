@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CalculatorOutlined, ClockCircleOutlined, ReadOutlined } from "@ant-design/icons";
+import {
+  CalculatorOutlined,
+  ClockCircleOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 import {
   AudioOutlined,
   UserDeleteOutlined,
@@ -32,32 +36,49 @@ const onChange = (e) => {
 const ViewCourses = () => {
   const [listCourses, setListCourses] = useState([]);
   const [listCategories, setListCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const getCourses = async () => {
+  // const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const getCourses = async (search = "") => {
     try {
-      const res = await api.get("/courseDetailAll");
-      setListCourses(res.data);
-      console.log(res.data);
+      const endpoint = search
+        ? `/getCourseByContainName/${search}`
+        : "/courseDetailAll";
+      const res = await api.get(endpoint);
+      setListCourses(res.data.length ? res.data : []);
     } catch (err) {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getCourses();
   }, []);
+
+  useEffect(() => {
+    if (searchTerm === "") {
+      getCourses();
+    } else {
+      const delayDebounceFn = setTimeout(() => {
+        getCourses(searchTerm);
+      }, 300);
+
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [searchTerm]);
+
   const getCategories = async () => {
     try {
       const res = await api.get("/categoryAll");
       setListCategories(res.data);
-      console.log(res.data);
     } catch (err) {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getCategories();
   }, []);
-
   return (
     <section id="view-courses">
       <div className="container mt-5 ">
@@ -68,11 +89,9 @@ const ViewCourses = () => {
               <h1>Các khóa học</h1>
               <Space direction="vertical">
                 <Search
-                  placeholder="Search"
-                  onSearch={onSearch}
-                  style={{
-                    width: 200,
-                  }}
+                  placeholder="Nhập từ khóa vào đây"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={{ width: 400 }}
                 />
               </Space>
             </div>
@@ -91,7 +110,7 @@ const ViewCourses = () => {
                     </div>
                     <div className="member-info col-8 pt-1 ">
                       <p>
-                        by <strong>{item.createBy.fullName} </strong>
+                        Bởi <strong>{item.createBy.fullName} </strong>
                       </p>
                       <h3 className="mb-4">{item.name}</h3>
 
@@ -114,7 +133,7 @@ const ViewCourses = () => {
                           className="text-decoration-none text-dark"
                           to={`/course/${item.id}`}
                         >
-                          View more <CaretRightOutlined />
+                          Xem chi tiết <CaretRightOutlined />
                         </Link>
                       </div>
                     </div>

@@ -147,8 +147,8 @@ const HomePage = () => {
                 style={{ display: "flex", justifyContent: "center" }}
                 className="category-right"
               >
-                <Button>
-                  <Link className="text-decoration-none" to="/course">
+                <Button style={{ background: "#FF9F67", color: "white" }}>
+                  <Link className="text-decoration-none fw-bold" to="/course">
                     Tất cả khóa học
                   </Link>
                 </Button>
@@ -165,7 +165,9 @@ const HomePage = () => {
                       hoverable
                       style={{
                         width: 300,
+                        height: 450,
                         marginBottom: "10px",
+                        boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
                       }}
                       cover={
                         <img
@@ -177,12 +179,12 @@ const HomePage = () => {
                       className="py-0"
                     >
                       <p>
-                        by <strong>{items.createBy.username}</strong>{" "}
+                        Bởi <strong>{items.createBy.fullName}</strong>{" "}
                       </p>
                       <h5 className="fw-bold fs-3">{items.name}</h5>
                       <Space>
-                        <p>2 Weeks</p>
-                        <p>1000 students</p>
+                        <p>2 Tuần</p>
+                        <p>100 students</p>
                       </Space>
                       <hr />
                       <Row justify={"space-between"}>
@@ -196,7 +198,7 @@ const HomePage = () => {
                             className="text-decoration-none text-dark fs-6 fw-bold"
                             to={`/course/${items.id}`}
                           >
-                            View more
+                            Xem chi tiết
                           </Link>
                         </Col>
                       </Row>
@@ -224,9 +226,9 @@ const HomePage = () => {
             >
               <h3>
                 {" "}
-                <CountUp end={900} duration={1} />
+                <CountUp end={100} duration={1} />
               </h3>
-              <h6>Active Students</h6>
+              <h6>Người tham gia </h6>
             </Card>
           </Col>
           <Col span={4}>
@@ -243,9 +245,9 @@ const HomePage = () => {
             >
               <h3>
                 {" "}
-                <CountUp end={100} duration={1} delay={1} />
+                <CountUp end={20} duration={1} delay={1} />
               </h3>
-              <h6>Total Courses</h6>
+              <h6>Khóa học</h6>
             </Card>
           </Col>
           <Col span={4}>
@@ -261,9 +263,9 @@ const HomePage = () => {
             >
               <h3>
                 {" "}
-                <CountUp end={90} duration={1} />
+                <CountUp end={10} duration={1} />
               </h3>
-              <h6>Instructor</h6>
+              <h6>Giảng viên </h6>
             </Card>
           </Col>
           <Col span={4}>
@@ -279,9 +281,9 @@ const HomePage = () => {
             >
               <h3>
                 {" "}
-                <CountUp end={1000} duration={1} />
+                <CountUp end={200} duration={1} />
               </h3>
-              <h6>Statisfaction Rate</h6>
+              <h6>Đánh giá</h6>
             </Card>
           </Col>
         </Row>
@@ -299,13 +301,13 @@ const HomePage = () => {
           }}
           cover={<MailOutlined style={{ padding: "10px" }} />}
         >
-          <p>
-            Có những điều tôi học được từ khóa học này rất bổ ích cho tôi, tôi
-            phải cảm ơn những người tạo ra khóa học này vì đã giúp tôi cải thiện
-            bản thân mình.
-          </p>
-          <h5>John Doe</h5>
-          <p>Designer</p>
+          <i>
+            "Sau khi hoàn thành khóa học, tôi thực sự cảm thấy tự tin hơn trong
+            giao tiếp và thuyết trình. Cách bài giảng được thiết kế giúp tôi dễ
+            dàng tiếp thu và áp dụng vào thực tế. Rất đáng giá!"
+          </i>
+          <h5>Nguyen Van A</h5>
+          <p>Khóa học kỹ giao tiếp</p>
         </Card>
         <Card
           hoverable
@@ -315,13 +317,14 @@ const HomePage = () => {
           }}
           cover={<MailOutlined style={{ padding: "10px" }} />}
         >
-          <p>
-            Có những điều tôi học được từ khóa học này rất bổ ích cho tôi, tôi
-            phải cảm ơn những người tạo ra khóa học này vì đã giúp tôi cải thiện
-            bản thân mình.
-          </p>
-          <h5>John Doe</h5>
-          <p>Designer</p>
+          <i>
+            "Website cung cấp một loạt các khóa học đa dạng, từ lãnh đạo đến làm
+            việc nhóm, mỗi khóa học đều mang lại cái nhìn sâu sắc và giá trị
+            thiết thực. Tôi đã áp dụng những kỹ năng học được vào công việc hàng
+            ngày và thấy rõ sự khác biệt."
+          </i>
+          <h5>Le Van C</h5>
+          <p>Kỹ năng làm việc nhóm</p>
         </Card>
         <Card
           hoverable
@@ -331,13 +334,13 @@ const HomePage = () => {
           }}
           cover={<MailOutlined style={{ padding: "10px" }} />}
         >
-          <p>
-            Có những điều tôi học được từ khóa học này rất bổ ích cho tôi, tôi
-            phải cảm ơn những người tạo ra khóa học này vì đã giúp tôi cải thiện
-            bản thân mình.
-          </p>
-          <h5>John Doe</h5>
-          <p>Designer</p>
+          <i>
+            "Tôi thật sự ấn tượng với chất lượng video và tài liệu học. Các bài
+            học được trình bày một cách chuyên nghiệp và dễ hiểu, giúp tôi nắm
+            bắt kiến thức một cách nhanh chóng."
+          </i>
+          <h5>Huynh Van B</h5>
+          <p>Kỹ năng đàm phán</p>
         </Card>
         <Card
           hoverable
@@ -347,13 +350,13 @@ const HomePage = () => {
           }}
           cover={<MailOutlined style={{ padding: "10px" }} />}
         >
-          <p>
-            Có những điều tôi học được từ khóa học này rất bổ ích cho tôi, tôi
+          <i>
+            "Có những điều tôi học được từ khóa học này rất bổ ích cho tôi, tôi
             phải cảm ơn những người tạo ra khóa học này vì đã giúp tôi cải thiện
-            bản thân mình.
-          </p>
-          <h5>John Doe</h5>
-          <p>Designer</p>
+            bản thân mình."
+          </i>
+          <h5>Tran Van A</h5>
+          <p>Kỹ năng giao tiếp </p>
         </Card>
       </div>
     </div>

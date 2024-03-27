@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -12,11 +13,11 @@ const Footer = () => {
           {/* Section: Social media */}
           <section
             className="d-flex justify-content-between p-4"
-            style={{ backgroundColor: "#B75757" }}
+            style={{ backgroundColor: "rgb(255, 159, 103)" }}
           >
             {/* Left */}
             <div className="me-5">
-              <span>Get connected with us on social networks:</span>
+              <span>Liên hệ với chúng tôi qua:</span>
             </div>
             {/* Left */}
             {/* Right */}
@@ -57,70 +58,40 @@ const Footer = () => {
                     style={{ width: 60, backgroundColor: "#7c4dff", height: 2 }}
                   />
                   <p>
-                    Here you can use rows and columns to organize your footer
-                    content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit.
+                    "Khám phá và phát triển bản thân với các khóa học kỹ năng
+                    mềm: nền tảng vững chắc cho sự nghiệp rực rỡ - Hãy khơi dậy
+                    tiềm năng bên trong bạn, mở ra cánh cửa cơ hội vàng, và vươn
+                    tới đỉnh cao thành công."
                   </p>
                 </div>
                 {/* Grid column */}
                 {/* Grid column */}
                 <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                   {/* Links */}
-                  <h6 className="text-uppercase fw-bold">Products</h6>
+                  <h6 className="text-uppercase fw-bold">Liên kết</h6>
                   <hr
                     className="mb-4 mt-0 d-inline-block mx-auto"
                     style={{ width: 60, backgroundColor: "#7c4dff", height: 2 }}
                   />
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="/" className="text-white">
                       Trang chủ
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="/course" className="text-white">
                       Các khóa học
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="/enrolled" className="text-white">
                       Khóa học của tôi
-                    </a>
+                    </Link>
                   </p>
                 </div>
-                {/* Grid column */}
-                {/* Grid column */}
-                {/* <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                  <h6 className="text-uppercase fw-bold">Useful links</h6>
-                  <hr
-                    className="mb-4 mt-0 d-inline-block mx-auto"
-                    style={{ width: 60, backgroundColor: "#7c4dff", height: 2 }}
-                  />
-                  <p>
-                    <a href="#!" className="text-white">
-                      Your Account
-                    </a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">
-                      Become an Affiliate
-                    </a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">
-                      Shipping Rates
-                    </a>
-                  </p>
-                  <p>
-                    <a href="#!" className="text-white">
-                      Help
-                    </a>
-                  </p>
-                </div> */}
-                {/* Grid column */}
-                {/* Grid column */}
+
                 <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                  {/* Links */}
-                  <h6 className="text-uppercase fw-bold">Contact</h6>
+                  <h6 className="text-uppercase fw-bold">Liên hệ </h6>
                   <hr
                     className="mb-4 mt-0 d-inline-block mx-auto"
                     style={{ width: 60, backgroundColor: "#7c4dff", height: 2 }}
@@ -140,13 +111,10 @@ const Footer = () => {
                     <i className="fas fa-print mr-3" /> + 01 234 567 89
                   </p>
                 </div>
-                {/* Grid column */}
               </div>
-              {/* Grid row */}
             </div>
           </section>
-          {/* Section: Links  */}
-          {/* Copyright */}
+
           <div
             className="text-center p-3"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
@@ -159,11 +127,8 @@ const Footer = () => {
               skillforge.website
             </a>
           </div>
-          {/* Copyright */}
         </footer>
-        {/* Footer */}
       </div>
-      {/* End of .container */}
     </>
   );
 };

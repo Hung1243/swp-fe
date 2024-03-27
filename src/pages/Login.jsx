@@ -67,7 +67,7 @@ const Login = () => {
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
-              src="/public/images/login.svg"
+              src="https://firebasestorage.googleapis.com/v0/b/liquid-fort-412406.appspot.com/o/dontDelete%2Flogin.svg?alt=media&token=b56f6951-d457-467c-b500-f588fe0ea029"
               className="img-fluid "
               alt="Sample image"
             />
@@ -80,12 +80,7 @@ const Login = () => {
             >
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                 <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                <Button type="primary" className="btn-floating mx-1">
-                  <i className="fab fa-facebook-f" />
-                </Button>
-                <Button type="primary" className="btn-floating mx-1">
-                  <i className="fab fa-twitter" />
-                </Button>
+
                 <Button
                   type="primary"
                   className="btn-floating mx-1"

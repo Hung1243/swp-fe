@@ -57,7 +57,7 @@ const Register = () => {
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
-              src="/public/images/login.svg"
+              src="https://firebasestorage.googleapis.com/v0/b/liquid-fort-412406.appspot.com/o/dontDelete%2Flogin.svg?alt=media&token=b56f6951-d457-467c-b500-f588fe0ea029"
               className="img-fluid "
               alt="Sample image"
             />
